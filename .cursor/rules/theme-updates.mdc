@@ -88,6 +88,7 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Host former Netlify extras from theme `code/` (`style.css`, `script.js`, page-specific JS/CSS) — do **not** restore `https://trafigura-code.netlify.app/...` URLs
 - Optional helper: `trafigura_code_uri( $path )` in `functions.php`
 - **Never** set `.main-wrapper { opacity: 0 }` waiting for GSAP — that blanks the filmstrip and destroys mobile FCP. `code/script.js` must not fade the whole main wrapper in on load.
+- Homepage H1 must **not** use `animation="loading"` (GSAP starts those at opacity 0 and delays LCP until scripts load).
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**

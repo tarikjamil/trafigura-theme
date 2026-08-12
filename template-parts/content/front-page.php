@@ -295,7 +295,7 @@ body {
             <a href="<?php echo _u('a-e3e8c3c','link'); ?>" class="btn--new is--third w-inline-block" data-link="a-e3e8c3c">
               <div data-textarea="ta414a4c59"><?php echo _u('ta414a4c59', 'textarea'); ?></div>
             </a>
-            <h1 animation="loading" class="heading-60 is--orange" data-textarea="ta4f95b6b6"><?php echo _u('ta4f95b6b6', 'textarea'); ?></h1>
+            <h1 class="heading-60 is--orange" data-textarea="ta4f95b6b6"><?php echo _u('ta4f95b6b6', 'textarea'); ?></h1>
           </div>
         </section>
         <section class="section is--home-spotlight">
