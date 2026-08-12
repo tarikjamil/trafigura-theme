@@ -199,10 +199,95 @@ body {
         <section class="section is--home-hero">
           <div class="hero-image-wrapper">
             <div class="hero-overlay"></div>
-            <div data-autoplay="true" data-loop="true" data-wf-ignore="true" class="img--absolute w-background-video w-background-video-atom"><video id="b47c75cd-141e-d092-e886-b0745c5844b3-video" autoplay="" loop="" style="background-image: url('https://uploads-ssl.webflow.com/65f6c3ae3ad798ab04d846c3/660d6cf2c0a07003df58eb20_Trafigura Launch Video v6 41s-poster-00001.jpg'); " muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-                <source src="<?php echo _u('i-5fdbe129','iframe'); ?>" data-wf-ignore="true" data-iframe="i-5fdbe129">
-                <source src="<?php echo _u('i64642473','iframe'); ?>" data-wf-ignore="true" data-iframe="i64642473">
-              </video></div>
+            <?php
+            $hero_poster = get_template_directory_uri() . '/assets/images/home-hero-poster.jpg';
+            $hero_mp4    = _u( 'i-5fdbe129', 'iframe' );
+            $hero_webm   = _u( 'i64642473', 'iframe' );
+            ?>
+            <img
+              class="img--absolute hero-poster"
+              src="<?php echo esc_url( $hero_poster ); ?>"
+              alt=""
+              width="1280"
+              height="720"
+              fetchpriority="high"
+              decoding="async"
+            >
+            <div
+              class="img--absolute w-background-video w-background-video-atom hero-video-wrap"
+              data-autoplay="false"
+              data-loop="true"
+              data-wf-ignore="true"
+              hidden
+            >
+              <video
+                id="home-hero-video"
+                class="hero-video"
+                loop
+                muted
+                playsinline
+                preload="none"
+                poster="<?php echo esc_url( $hero_poster ); ?>"
+                data-wf-ignore="true"
+                data-object-fit="cover"
+                data-mp4="<?php echo esc_url( $hero_mp4 ); ?>"
+                data-webm="<?php echo esc_url( $hero_webm ); ?>"
+              ></video>
+            </div>
+            <script>
+            (function () {
+              var video = document.getElementById('home-hero-video');
+              if (!video) return;
+              var wrap = video.closest('.hero-video-wrap');
+              var desktop = window.matchMedia('(min-width: 992px)');
+              var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+              var loaded = false;
+
+              function loadHeroVideo() {
+                if (loaded || !desktop.matches || reduceMotion.matches) return;
+                loaded = true;
+                var webm = video.getAttribute('data-webm');
+                var mp4 = video.getAttribute('data-mp4');
+                if (webm) {
+                  var s1 = document.createElement('source');
+                  s1.src = webm;
+                  s1.type = 'video/webm';
+                  video.appendChild(s1);
+                }
+                if (mp4) {
+                  var s2 = document.createElement('source');
+                  s2.src = mp4;
+                  s2.type = 'video/mp4';
+                  video.appendChild(s2);
+                }
+                if (wrap) wrap.hidden = false;
+                video.load();
+                var playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                  playPromise.catch(function () {});
+                }
+              }
+
+              function schedule() {
+                if ('requestIdleCallback' in window) {
+                  requestIdleCallback(loadHeroVideo, { timeout: 2500 });
+                } else {
+                  window.addEventListener('load', function () {
+                    setTimeout(loadHeroVideo, 600);
+                  });
+                }
+              }
+
+              if (desktop.matches) {
+                schedule();
+              }
+              if (typeof desktop.addEventListener === 'function') {
+                desktop.addEventListener('change', function (e) {
+                  if (e.matches) loadHeroVideo();
+                });
+              }
+            })();
+            </script>
           </div>
           <div class="invest-wrapper">
             <a href="<?php echo _u('a-e3e8c3c','link'); ?>" class="btn--new is--third w-inline-block" data-link="a-e3e8c3c">

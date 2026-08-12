@@ -1,69 +1,75 @@
 # Trafigura Foundation — SEO Big Wins Checklist
 
 Audit date: 10 Aug 2026  
+Last updated: **12 Aug 2026** (post Yoast + IA + internal-linking pass)  
 Site: https://trafigurafoundation.org/  
 Source: Yoast sitemap index (`page`, `area-of-work`, `news`, `partner-stories`) — **114 URLs**
 
 Use this checklist in WordPress + Yoast. Tick items as you ship them.  
-Full meta copy lives in `yoast-meta-all-pages.csv`.
+Full meta copy: `yoast-meta-all-pages.csv`  
+News → partner link tracker: `news-to-partner-links.csv`
+
+**Public hubs (index):** `/content-hub/` (news) · `/partners-stories/` (partners) · `/areas-of-work/` (areas)  
+**Hidden CPT archives:** `/news/` · `/partner-stories/` · `/area-of-work/` → noindex and/or 301 to hubs
 
 ---
 
 ## P0 — Fix this week (highest ROI)
 
 ### 1. Kill indexable junk & utility pages
-- [ ] `/do-not-delete/` → Yoast **noindex, nofollow** + exclude from sitemap
-- [ ] `/do-not-delete-4/` → same
-- [ ] `/news/elementor-35238/` → delete **or** noindex + remove from sitemap
-- [ ] Re-check sitemap_index after purge/cache clear (W3 Total Cache)
+- [x] `/do-not-delete/` → Yoast **noindex, nofollow** + exclude from sitemap
+- [x] `/do-not-delete-4/` → deleted (404) / noindex
+- [x] `/news/elementor-35238/` → 301 to `/news/new-grant-to-the-nature-conservancy/` (proper slug + indexed)
+- [x] Re-check sitemap_index after purge/cache clear (W3 Total Cache) — junk gone
 
 **Why:** These URLs are publicly indexable with titles like “do not delete” / Elementor leftovers. They waste crawl budget and look unprofessional in Search/AI results.
 
 ### 2. Replace placeholder & duplicated meta (site-wide pattern)
-- [ ] Homepage meta is literally about *“Crafting effective meta descriptions…”* — replace immediately (CSV row for `/`)
-- [ ] `/partners-stories/` meta is also a placeholder about optimizing meta descriptions
-- [ ] `/partner-stories/` archive reuses homepage title + placeholder meta + homepage H1
-- [ ] `/news/` archive reuses homepage H1 + generic org blurb
-- [ ] Bulk-update **news + partner stories** that share the same org-wide description: *“Established in 2007, The Trafigura Foundation invest…”*
+- [x] Homepage meta replaced (CSV row for `/`)
+- [x] `/partners-stories/` meta updated
+- [x] `/partner-stories/` CPT archive → 301 to `/partners-stories/` (no longer competing)
+- [x] `/news/` CPT archive → noindex + 301 to `/content-hub/`
+- [x] Bulk-update **news + partner stories** unique metas (live audit 12 Aug: **114/114 OK**)
 
 **Why:** Google + AI answer engines treat unique title/description as the first relevance signal. Dozens of pages currently look identical.
 
 ### 3. Resolve duplicate / competing URLs
-- [ ] `/areas-of-work/` (page) = public hub; `/area-of-work/` CPT archive → **noindex or 301**
-- [ ] `/partners-stories/` (page) = public partners archive; `/partner-stories/` CPT archive → **noindex or 301**
-- [ ] `/content-hub/` (page) = public news archive; `/news/` CPT archive → **noindex** (not a public page)
-- [ ] Review numbered partner duplicates and set **canonical** to the primary page:
-  - `planet-indonesia` vs `planet-indonesia-2`
+- [x] `/areas-of-work/` (page) = public hub; `/area-of-work/` CPT archive → **301** to `/areas-of-work/`
+- [x] `/partners-stories/` (page) = public partners archive; `/partner-stories/` CPT archive → **301** to `/partners-stories/`
+- [x] `/content-hub/` (page) = public news archive; `/news/` CPT archive → **noindex** + **301** to `/content-hub/`
+- [ ] Review numbered partner duplicates *(deferred — user skip for now)*:
+  - `planet-indonesia` vs `planet-indonesia-2` (canonical already → nicer slug)
   - `plan-vivo` vs `plan-vivo-foundation-2`
-  - `root-capital` / `root-capital-3` / `root-capital-4` (keep regional variants if intentional, else consolidate)
-  - `the-international-rescue-committee-irc` vs `…-irc-2`
-  - `the-nature-conservancy-2` vs other TNC variants
+  - `root-capital` / `root-capital-3` / `root-capital-4` (regional variants — keep)
+  - `the-international-rescue-committee-irc` vs `…-irc-2` (different programmes — keep)
+  - `the-nature-conservancy-2` vs other TNC variants (different programmes — keep)
 
 **Why:** Split equity + confusing snippets; AI systems often cite the cleaner canonical entity page.
 
 ### 4. Ship Yoast fields for all core pages (CSV filter `priority=P0` + `content_type` Page/Area)
 For each URL in CSV: Focus keyphrase → SEO title → Meta description
-- [ ] `/`
-- [ ] `/who-we-are/`
-- [ ] `/our-approach/`
-- [ ] `/areas-of-work/`
-- [ ] `/area-of-work/sustainable-livelihoods/`
-- [ ] `/area-of-work/thriving-nature/`
-- [ ] `/area-of-work/prepared-communities/`
-- [ ] `/content-hub/`
-- [ ] `/partners-stories/`
-- [ ] `/partner-stories/`
-- [ ] `/news/`
-- [ ] `/staff-engagement/` (meta currently reads like HR engagement, not philanthropy matching)
+- [x] `/`
+- [x] `/who-we-are/`
+- [x] `/our-approach/`
+- [x] `/areas-of-work/`
+- [x] `/area-of-work/sustainable-livelihoods/`
+- [x] `/area-of-work/thriving-nature/`
+- [x] `/area-of-work/prepared-communities/`
+- [x] `/content-hub/`
+- [x] `/partners-stories/`
+- [x] `/partner-stories/` *(archive hidden via 301)*
+- [x] `/news/` *(archive noindex + 301 to content-hub)*
+- [x] `/staff-engagement/`
 
 ### 5. Template / H1 fixes (theme or Elementor)
-- [ ] Fix CPT archives so H1 matches page purpose (News / Partner Stories), not homepage hero
-- [ ] Normalize H1 casing on key pages (`who we are`, `content hub`, `contact us`)
+- [x] CPT archives no longer public hubs (redirected / noindex) — archive H1 issue moot for SEO
+- [x] Content Hub H1 → `Content Hub` (theme: `page-content-hub.php`)
+- [ ] Normalize remaining H1 casing if needed (`who we are`, `contact us`)
 - [ ] Ensure one clear H1 per page; keep brand voice consistent
 
 ### 6. robots.txt & crawl hygiene
-- [ ] Current `robots.txt` is only `User-agent: *` + `Crawl-delay: 10` — **add Sitemap:** lines for Yoast sitemaps
-- [ ] Confirm junk URLs are excluded after noindex
+- [x] Added `Sitemap: https://trafigurafoundation.org/sitemap_index.xml` (Yoast block) + kept `Crawl-delay: 10`
+- [x] Confirm junk URLs are excluded after noindex
 - [ ] Reconsider crawl-delay if Search Console shows crawl issues (often unnecessary on modern hosting)
 
 ---
@@ -71,19 +77,21 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 ## P1 — Next sprint (strong wins)
 
 ### 7. Complete Yoast for all News + Partner Stories
-- [ ] Apply remaining CSV rows (`priority=P1`)
-- [ ] In Yoast: set focus keyphrase, check keyphrase in intro + H1 where natural
-- [ ] Add unique OG title/description (don’t leave social sharing on placeholders)
+- [x] Apply remaining CSV rows (`priority=P1`) — covered in 12 Aug live audit
+- [ ] In Yoast: spot-check focus keyphrase in intro + H1 where natural (optional polish)
+- [ ] Add unique OG title/description where social previews still look generic (optional)
 
 ### 8. Slug & spelling clean-up (with 301s)
-- [ ] `/tales-of-resistence/` → rename to `/tales-of-resilience/` + 301 (typo hurts SEO/AEO)
-- [ ] `/news/field-visit-in-columbia-…` → Colombia spelling + 301
+- [x] `/tales-of-resistence/` → `/tales-of-resilience/` + 301
+- [x] `/news/field-visit-in-columbia-…` → Colombia spelling + 301
 - [ ] Review `/news/trafigura-foundation-2025-annual-report-2/` slug (`-2` looks accidental)
 
 ### 9. Internal linking
 - [x] From homepage + Areas of Work, link to the 3 pillars with exact-match anchors
 - [x] From each partner story: link to related Area of Work (+ related partner cards already exist)
-- [ ] From news “new partnership” posts: link to the live partner story page *(manual CMS / content edit)*
+- [ ] From news → partner story pages *(in progress — see `news-to-partner-links.csv`)*
+  - ~13 already linked (incl. Tanzania / Blue Alliance + most single-partner announcements)
+  - Remaining: filter CSV `status=needs_link` (start with `priority=P0`)
 - [x] Add a clear path: Content Hub → Partners; homepage → Content Hub / Partners
 
 ### 10. Structured data (beyond basic Yoast WebPage)
@@ -93,13 +101,19 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [ ] PDF publications: consider `DigitalDocument` or dedicated publication pages with metadata
 
 ### 11. Performance & Core Web Vitals (W3TC + theme)
-- [ ] Audit LCP on homepage / partner stories (hero images, fonts)
+- [x] Homepage hero: poster-first LCP image; **no autoplay video on mobile**; desktop loads video after idle
+- [x] Preload local hero poster (`assets/images/home-hero-poster.jpg`)
+- [x] Defer GTM on homepage until idle/load
+- [ ] Convert Euclid fonts to WOFF2 / subset unused weights (still `.ttf` with `font-display: swap`)
+- [ ] Audit LCP on partner stories / other templates
 - [ ] Lazy-load below-fold media; compress large report thumbnails
 - [ ] Reduce unused Elementor/JS on archive pages if heavy
+- [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile)
 
 ### 12. Search Console hygiene
-- [ ] Submit updated sitemaps
-- [ ] Inspect “do not delete” / Elementor URLs → Request removal if indexed
+- [x] Sitemap already in GSC; `robots.txt` now declares sitemap
+- [x] Requested indexing for hubs (`/content-hub/`, `/partners-stories/`, `/areas-of-work/`)
+- [ ] Inspect “do not delete” / old Elementor URL → Removals **only if still indexed**
 - [ ] Monitor duplicate title/description reports after Yoast bulk update
 
 ---
@@ -111,28 +125,31 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [ ] Add FAQ blocks on pillar pages (also feeds AEO — see `AEO-recommendations.md`)
 - [ ] Build topic clusters: Climate adaptation · Blue economy · Anticipatory action · Informal settlements · Nature-based solutions
 - [ ] Ensure every annual report / strategy PDF has an HTML landing page with summary + download (indexable text > PDF-only)
+- [ ] Optional: publish `llms.txt` (see `AEO-recommendations.md`)
 
 ---
 
 ## Quick verification (after each batch)
 
-- [ ] View-source: `<title>`, `meta name="description"`, canonical, robots
+- [x] Live meta audit vs CSV — **114/114 OK** (12 Aug 2026)
+- [x] Sitemap no longer lists noindexed junk
+- [x] Internal linking spot-check (home / areas / content-hub / partners / news CTA)
 - [ ] Rich Results / schema validator on 1 home + 1 news + 1 partner
-- [ ] Sitemap no longer lists noindexed junk
 - [ ] Spot-check Google: `site:trafigurafoundation.org "do not delete"` → should go to zero
 
 ---
 
-## Evidence snapshot from audit
+## Evidence snapshot (original audit → current)
 
-| Issue | Examples |
-|---|---|
-| Placeholder meta | `/`, `/partners-stories/`, `/partner-stories/` |
-| Generic org meta reused | Most news + many partner stories |
-| Indexable junk | `/do-not-delete/`, `/do-not-delete-4/`, `/news/elementor-35238/` |
-| Archive H1 wrong | `/news/`, `/partner-stories/` use homepage H1 |
-| Competing URLs | `areas-of-work` vs `area-of-work`; `partners-stories` vs `partner-stories` |
-| Typos in slugs | `resistence`, `columbia` |
-| Weak robots.txt | No sitemap declaration |
+| Issue | Original | Status (12 Aug) |
+|---|---|---|
+| Placeholder meta | `/`, `/partners-stories/` | Fixed |
+| Generic org meta reused | Most news + many partners | Fixed (unique Yoast metas) |
+| Indexable junk | `do-not-delete`, Elementor slug | Fixed (noindex / 404 / 301) |
+| Archive H1 wrong | `/news/`, `/partner-stories/` | Mitigated (archives redirected / noindex) |
+| Competing URLs | areas / partners / news pairs | Fixed (hubs + 301s) |
+| Typos in slugs | `resistence`, `columbia` | Fixed (+ 301s) |
+| Weak robots.txt | No sitemap declaration | Fixed |
+| News → partner inline links | Missing | In progress (`news-to-partner-links.csv`) |
 
 CSV columns to use in Yoast: `focus_keyphrase`, `seo_title`, `meta_description`, `recommended_robots`.
