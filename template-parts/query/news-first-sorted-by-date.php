@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 $args = [
   "post_type" => "news",
   "posts_per_page" => 1,
-  "order" => "ASC",
+  "order" => "DESC",
   "orderby" => "meta_value",
   "meta_key" => "date",
   "paged" => $paged

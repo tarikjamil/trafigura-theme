@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 $args = [
   "post_type" => "partner-stories",
-  "order" => "ASC",
+  "order" => "DESC",
   "orderby" => "date",
   "post__not_in" => [
     get_the_ID()

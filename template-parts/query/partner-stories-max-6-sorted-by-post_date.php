@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 $args = [
   "post_type" => "partner-stories",
   "posts_per_page" => 6,
-  "order" => "ASC",
+  "order" => "DESC",
   "orderby" => "date",
   "paged" => $paged
 ];
