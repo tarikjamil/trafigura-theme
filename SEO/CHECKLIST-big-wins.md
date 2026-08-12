@@ -108,7 +108,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Convert Euclid fonts to WOFF2; keep weights **400/500/600** only (~65 KiB less than 5 weights)
 - [x] Bebas Neue self-hosted (local woff2 in bundle; no Google Fonts); Netlify extras from theme `code/`
 - [x] GSAP / Swiper / SplitType self-hosted under `assets/js/vendor/` (no cdnjs / jsDelivr / unpkg)
-- [x] Homepage: local GSAP sync in `footer/front-page` (no Swiper — home uses Splide); dequeue honeypot / Udesly editor JS for public visitors (keep jquery-migrate)
+- [x] Homepage: local GSAP/Swiper sync in `footer/front-page`; dequeue honeypot / Udesly editor JS for public visitors (keep jquery-migrate)
 - [x] Rem root (`rem-root.php`) in `<head>` before CSS to prevent rem snap CLS/LCP; Euclid regular/semibold use `font-display: optional`
 - [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
 - [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
