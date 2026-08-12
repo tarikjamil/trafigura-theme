@@ -61,7 +61,7 @@ $args = apply_filters('udesly/posts/partner-stories-sorted-by-post_date-v0', $ar
                       <div class="partner--region"><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
                       <div class="partner--continent"></div>
                       <div class="partner--state"><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?></div>
-                      <div class="partner--area"><?php echo udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" ) ?></div>
+                      <div class="partner--area"><?php echo trafigura_link_areas_of_work_text( udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" ) ); ?></div>
                     </div>
                   </div><?php endwhile; ?>
                 </div>

@@ -214,7 +214,7 @@ body {
         <section class="section is--home-spotlight">
           <div class="container--1400">
             <div animation="fade">
-              <h2 class="heading-28" data-textarea="tana70c84c"><?php echo _u('tana70c84c', 'textarea'); ?></h2>
+              <h2 class="heading-28" data-textarea="tana70c84c"><a href="<?php echo esc_url( home_url( '/content-hub/' ) ); ?>" style="color:inherit;text-decoration:none"><?php echo _u('tana70c84c', 'textarea'); ?></a></h2>
             </div>
           </div>
           <div class="home-news">
@@ -264,15 +264,15 @@ body {
                 <div class="hide-tablet" data-textarea="ta1f6c8a5"><?php echo _u('ta1f6c8a5', 'textarea'); ?></div>
               </div>
               <div animation="fadefromright" class="supply-item is--3">
-                <h3 class="heading-46 is--caps is--small" data-textarea="ta3baa6daa"><?php echo _u('ta3baa6daa', 'textarea'); ?></h3>
+                <h3 class="heading-46 is--caps is--small" data-textarea="ta3baa6daa"><a href="<?php echo esc_url( trafigura_area_of_work_url( 'prepared-communities' ) ); ?>" style="color:inherit;text-decoration:none"><?php echo _u('ta3baa6daa', 'textarea'); ?></a></h3>
                 <p class="hide-tablet" data-text="ta231359"><?php echo _u('ta231359','text'); ?></p>
               </div>
               <div animation="fadefromleft" class="supply-item is--2">
-                <h3 class="heading-46 is--caps is--small" data-textarea="ta60dff57e"><?php echo _u('ta60dff57e', 'textarea'); ?></h3>
+                <h3 class="heading-46 is--caps is--small" data-textarea="ta60dff57e"><a href="<?php echo esc_url( trafigura_area_of_work_url( 'thriving-nature' ) ); ?>" style="color:inherit;text-decoration:none"><?php echo _u('ta60dff57e', 'textarea'); ?></a></h3>
                 <p class="hide-tablet" data-text="t8898a8c"><?php echo _u('t8898a8c','text'); ?></p>
               </div>
               <div animation="fade" class="supply-item is--1">
-                <h3 class="heading-46 is--caps is--small" data-textarea="taad4aaf1"><?php echo _u('taad4aaf1', 'textarea'); ?></h3>
+                <h3 class="heading-46 is--caps is--small" data-textarea="taad4aaf1"><a href="<?php echo esc_url( trafigura_area_of_work_url( 'sustainable-livelihoods' ) ); ?>" style="color:inherit;text-decoration:none"><?php echo _u('taad4aaf1', 'textarea'); ?></a></h3>
                 <p class="hide-tablet" data-text="t4632d585"><?php echo _u('t4632d585','text'); ?></p>
               </div>
             </div>
@@ -289,7 +289,7 @@ body {
           <div class="container--1440 is--relative is--slider">
             <div class="container--stories">
               <div class="container--520 is--16gap">
-                <h2 animation="fade" class="heading-28 is--grey" data-text="t6c7059be"><?php echo _u('t6c7059be','text'); ?></h2>
+                <h2 animation="fade" class="heading-28 is--grey" data-text="t6c7059be"><a href="<?php echo esc_url( home_url( '/partners-stories/' ) ); ?>" style="color:inherit;text-decoration:none"><?php echo _u('t6c7059be','text'); ?></a></h2>
                 <div animation="fade" class="title-rod"></div>
               </div>
               <div class="stories-title">

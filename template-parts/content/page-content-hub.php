@@ -238,6 +238,11 @@ background-color:#212121;
           <div class="container--1440 is--center is--96margin-bottom hide">
             <h2 class="heading-46 is--blue" data-textarea="tan63d1c080"><?php echo _u('tan63d1c080', 'textarea'); ?></h2>
           </div>
+          <div class="container--1440" style="margin-bottom:2rem">
+            <a href="<?php echo esc_url( home_url( '/partners-stories/' ) ); ?>" class="btn--new is--third w-inline-block">
+              <div>Explore our partners</div>
+            </a>
+          </div>
           <div class="container--1440">
             <?php get_template_part('template-parts/query/news-max-2-sorted-by-date') ?>
           </div>

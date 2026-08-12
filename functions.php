@@ -18,6 +18,54 @@
         return 0;
     }
 
+    /**
+     * Permalink for an area-of-work CPT by slug, or empty string if missing.
+     */
+    function trafigura_area_of_work_url( $slug ) {
+        $id = udesly_theme_utils_get_post_id_by_slug( $slug, 'area-of-work' );
+        return $id ? get_permalink( $id ) : '';
+    }
+
+    /**
+     * Turn PlainText area labels (comma/semicolon separated) into pillar links.
+     */
+    function trafigura_link_areas_of_work_text( $text ) {
+        if ( ! $text ) {
+            return '';
+        }
+
+        $map = [
+            'sustainable livelihoods' => 'sustainable-livelihoods',
+            'thriving nature'         => 'thriving-nature',
+            'prepared communities'    => 'prepared-communities',
+        ];
+
+        $parts = preg_split( '/\s*[,;]\s*/', wp_strip_all_tags( $text ) );
+        $out   = [];
+
+        foreach ( $parts as $part ) {
+            $label = trim( $part );
+            if ( $label === '' ) {
+                continue;
+            }
+
+            $key = strtolower( preg_replace( '/\s+/', ' ', $label ) );
+            $key = str_replace( 'livelihhods', 'livelihoods', $key );
+
+            if ( isset( $map[ $key ] ) ) {
+                $url = trafigura_area_of_work_url( $map[ $key ] );
+                if ( $url ) {
+                    $out[] = '<a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a>';
+                    continue;
+                }
+            }
+
+            $out[] = esc_html( $label );
+        }
+
+        return implode( ', ', $out );
+    }
+
         
     function udesly_trafigura_setup() {
         

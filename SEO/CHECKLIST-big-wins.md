@@ -81,10 +81,10 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [ ] Review `/news/trafigura-foundation-2025-annual-report-2/` slug (`-2` looks accidental)
 
 ### 9. Internal linking
-- [ ] From homepage + Areas of Work, link to the 3 pillars with exact-match anchors
-- [ ] From each partner story: link to related Area of Work + 1–2 related news pieces
-- [ ] From news “new partnership” posts: link to the live partner story page
-- [ ] Add a clear path: Content Hub → News / Partner Stories / Publications
+- [x] From homepage + Areas of Work, link to the 3 pillars with exact-match anchors
+- [x] From each partner story: link to related Area of Work (+ related partner cards already exist)
+- [ ] From news “new partnership” posts: link to the live partner story page *(manual CMS / content edit)*
+- [x] Add a clear path: Content Hub → Partners; homepage → Content Hub / Partners
 
 ### 10. Structured data (beyond basic Yoast WebPage)
 - [ ] `Organization` / `NGO` or `FundingScheme` accuracy (name, logo, sameAs LinkedIn, address Geneva)

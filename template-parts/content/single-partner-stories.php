@@ -226,6 +226,14 @@ body {
                 <div class="tag--item">
                   <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
                 </div>
+                <?php
+                $partner_areas = udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" );
+                if ( $partner_areas ) :
+                ?>
+                <div class="tag--item">
+                  <div class=""><?php echo trafigura_link_areas_of_work_text( $partner_areas ); ?></div>
+                </div>
+                <?php endif; ?>
                 <div class="ongoing">
                   <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?></div>
                 </div>

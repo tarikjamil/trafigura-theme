@@ -351,6 +351,11 @@ background-color:#212121;
           </div>
         </section><?php endif  ?>
         <section class="section is--other-news">
+          <div class="container--1440" style="margin-bottom:2rem">
+            <a href="<?php echo esc_url( home_url( '/partners-stories/' ) ); ?>" class="btn--new is--third w-inline-block">
+              <div>Explore our partners</div>
+            </a>
+          </div>
           <div class="container--1440">
             <div class="others-news-title">
               <h2 class="heading-66" data-text="tn2d22bd84"><?php echo _u('tn2d22bd84','text'); ?></h2>
