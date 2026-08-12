@@ -3,5 +3,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/CustomEase.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786542500"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/staff-engagement.js?v=1786542500"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786543000"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/staff-engagement.js?v=1786543000"></script>

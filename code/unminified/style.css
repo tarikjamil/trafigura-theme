@@ -1,5 +1,5 @@
 .main-wrapper {
-  opacity: 0;
+  /* visible immediately for FCP — do not hide until JS */
 }
 
 .navbar--dropdown-trigger.open .nav--arrow {

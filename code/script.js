@@ -1,7 +1,7 @@
 function pageLoad() {
   let e = gsap.timeline();
-  e.to(".main-wrapper", { opacity: 1, ease: "smooth", duration: 0.6 }),
-    e.from(
+  // Do not hide .main-wrapper until JS — that delayed FCP/LCP (blank filmstrip).
+  e.from(
       "[animation=loading]",
       {
         y: "20rem",
