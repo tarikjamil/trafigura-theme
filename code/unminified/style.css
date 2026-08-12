@@ -1,0 +1,117 @@
+.main-wrapper {
+  opacity: 0;
+}
+
+.navbar--dropdown-trigger.open .nav--arrow {
+  transform: rotate(0deg);
+}
+
+.container--1440.is--relative {
+  max-width: 1480rem;
+  overflow-x: clip;
+}
+
+.navbar--dropdown--list {
+  height: 0px;
+  overflow: hidden !important;
+}
+
+.w-richtext a {
+  color: #7563ad;
+  font-weight: 600;
+}
+
+.filter--options {
+  display: none;
+}
+
+.elementor-element .swiper-wrapper {
+  transform: translate3d(0px, 0, 0) !important;
+}
+
+@media screen and (min-width: 1752px) {
+  .navbar--menu {
+    display: flex !important;
+    transform: translate3d(0rem, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg) !important;
+  }
+  .navbar {
+    width: 272rem !important;
+  }
+}
+
+@keyframes is--scrolling {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--scroll-width)));
+  }
+}
+
+.swiper-slide {
+  width: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.swiper {
+  width: 100% !important;
+  margin-left: 0 !important;
+  overflow: visible !important;
+}
+
+.elementor-element .swiper-slide {
+  max-width: 100% !important;
+  width: 100%;
+}
+
+.swiper-button-prev.is--shadow,
+.swiper-button-next.is--shadow {
+  border-style: solid;
+  border-width: 1rem;
+  border-top-color: inherit !important;
+  border-right-color: inherit !important;
+  border-bottom-color: inherit !important;
+  border-left-color: inherit !important;
+  color: inherit !important;
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 78rem !important;
+  height: 78rem !important;
+  display: flex !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  content: none !important;
+}
+
+.swiper-button-prev.is--shadow:hover,
+.swiper-button-next.is--shadow:hover {
+  color: white !important;
+}
+
+.text-date {
+  width: auto;
+}
+
+.swiper-3d .swiper-slide-shadow {
+  background: transparent !important;
+}
+
+.swiper-cards .swiper-slide {
+  overflow: visible !important;
+}
+
+.team-popup-img {
+  border-radius: 100rem;
+  width: 52rem;
+  height: 52rem;
+  margin-bottom: 20rem;
+  overflow: revert !important;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+}

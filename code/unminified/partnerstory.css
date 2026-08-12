@@ -1,0 +1,63 @@
+.filter--options input {
+  opacity: 0;
+  position: absolute;
+}
+
+.filter--options label {
+  font-size: 18rem;
+  font-weight: 400;
+  color: #7563ad;
+  padding-left: 50rem;
+  padding-right: 30rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  margin-bottom: 0rem;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #70707020;
+}
+
+.filter--options [data-is-continent="true"] + label {
+  font-size: 18rem;
+  font-weight: 600;
+  color: #7563ad;
+  padding-left: 30rem;
+  padding-right: 30rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+[name="stateFilter"] {
+  border-color: #b2b2b2;
+  border-radius: 8rem;
+  border-width: 1px;
+  border-style: solid;
+  width: 28rem;
+  height: 28rem;
+}
+
+.filter-radio_wrapper input {
+  display: none;
+}
+
+.tag-category-1,
+.ongoing {
+  z-index: 1 !important;
+}
+
+.filter-radio_wrapper input[type="radio"] + label {
+  height: 28rem;
+  padding-left: 48rem;
+  background-image: url("https://uploads-ssl.webflow.com/65f6c3ae3ad798ab04d846c3/6607ed9b9e7b3a03f8afc2a9_Rectangle%204991.png");
+  background-position: 0% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: #b2b2b2;
+  font-weight: 600;
+  padding-top: 0.1em;
+}
+
+.filter-radio_wrapper input[type="radio"]:checked + label {
+  background-image: url("https://uploads-ssl.webflow.com/65f6c3ae3ad798ab04d846c3/6607ee849e7b3a03f8b0a09f_Group%204443.png");
+  color: #7563ad;
+}

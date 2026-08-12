@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?e.target.play():e.target.pause()})},{threshold:.5});document.querySelectorAll("video").forEach(function(t){e.observe(t)})});
