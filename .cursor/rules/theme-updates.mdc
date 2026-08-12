@@ -69,8 +69,8 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Bebas Neue is self-hosted: `assets/fonts/bebas-neue-regular.woff2` (+ latin-ext + TTF fallback) via `@font-face` in `trafigura-staging.css`.
 - `bebas-font.php` must **not** load `fonts.googleapis.com` / `fonts.gstatic.com` — keep only the Webflow `w-mod-js` / touch class bootstrap.
 - Keep `elementor/frontend/print_google_fonts` → false (no Elementor Roboto from Google).
-- Enqueue **one** CSS file: `assets/css/trafigura-bundle.css` (= normalize + components + staging). Rebuild the bundle after editing any of those sources:
-  `cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css`
+- Enqueue **one** CSS file: `assets/css/trafigura-bundle.css` (= normalize + components + staging, minified for ship). Rebuild after editing sources:
+  `cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css` then minify (or leave unminified if debugging).
 
 ### 3c. Listing images (card src + OceanImageBank)
 
@@ -87,7 +87,8 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - `elementor/frontend/print_google_fonts` → false
 - jQuery is marked footer-group via `trafigura_jquery_in_footer()`, then **`footer.php` calls `wp_print_scripts( 'jquery' )` immediately before** theme/GSAP/Swiper/Netlify scripts — do not put those scripts before jQuery again
 - Host former Netlify extras from theme `code/` (`style.css`, `script.js`, page-specific JS/CSS) — do **not** restore `https://trafigura-code.netlify.app/...` URLs
-- Optional helper: `trafigura_code_uri( $path )` in `functions.php`
+- Self-host GSAP / ScrollTrigger / CustomEase / Swiper / SplitType under `assets/js/vendor/` — do **not** restore cdnjs / jsDelivr / unpkg URLs
+- Optional helper: `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )` in `functions.php`
 - **Never** set `.main-wrapper { opacity: 0 }` waiting for GSAP — that blanks the filmstrip and destroys mobile FCP. `code/script.js` must not fade the whole main wrapper in on load.
 - Homepage H1 must **not** use `animation="loading"` (GSAP starts those at opacity 0 and delays LCP until scripts load).
 ### 4. Internal linking helpers + templates

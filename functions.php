@@ -159,6 +159,13 @@
     }
 
     /**
+     * URI for self-hosted vendor libs (GSAP, Swiper) under assets/js/vendor/.
+     */
+    function trafigura_vendor_uri( $path ) {
+        return get_template_directory_uri() . '/assets/js/vendor/' . ltrim( (string) $path, '/' );
+    }
+
+    /**
      * Drop unused render-blocking CSS that plugins inject on every page.
      * Runs late so Elementor cannot re-enqueue after us.
      */
