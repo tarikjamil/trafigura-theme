@@ -160,6 +160,7 @@
 
     /**
      * Drop unused render-blocking CSS that plugins inject on every page.
+     * Runs late so Elementor cannot re-enqueue after us.
      */
     function trafigura_dequeue_unused_assets() {
         // Gutenberg block library unused on Udesly/Webflow templates.
@@ -167,12 +168,64 @@
         wp_dequeue_style( 'wp-block-library-theme' );
         wp_dequeue_style( 'wc-blocks-style' );
         wp_dequeue_style( 'classic-theme-styles' );
+        wp_dequeue_style( 'global-styles' );
 
         // Elementor ships Roboto by default; this site uses Euclid + Bebas Neue.
         wp_dequeue_style( 'elementor-gf-local-roboto' );
         wp_dequeue_style( 'elementor-gf-local-robotoslab' );
+        wp_deregister_style( 'elementor-gf-local-roboto' );
+        wp_deregister_style( 'elementor-gf-local-robotoslab' );
+
+        // Homepage / Udesly templates do not render Elementor widgets — kit CSS is dead weight.
+        if ( ! trafigura_page_needs_elementor_css() ) {
+            foreach ( [
+                'elementor-frontend',
+                'elementor-frontend-css',
+                'elementor-icons',
+                'elementor-animations',
+                'e-animations',
+                'e-swiper',
+                'swiper',
+                'base-desktop',
+                'base-mobile',
+            ] as $handle ) {
+                wp_dequeue_style( $handle );
+            }
+
+            // Kit + per-post Elementor CSS (e.g. post-28904 kit).
+            global $wp_styles;
+            if ( $wp_styles instanceof WP_Styles ) {
+                foreach ( $wp_styles->registered as $handle => $obj ) {
+                    if ( strpos( $handle, 'elementor-post-' ) === 0 ) {
+                        wp_dequeue_style( $handle );
+                    }
+                }
+            }
+        }
     }
-    add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 100 );
+    add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 9999 );
+    add_action( 'elementor/frontend/after_enqueue_styles', 'trafigura_dequeue_unused_assets', 9999 );
+    add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
+
+    /**
+     * True when the current singular page has real Elementor content.
+     * Kit-only / empty _elementor_data pages return false.
+     */
+    function trafigura_page_needs_elementor_css() {
+        if ( ! is_singular() ) {
+            return false;
+        }
+        $data = get_post_meta( get_the_ID(), '_elementor_data', true );
+        if ( ! $data || $data === '[]' || $data === 'null' ) {
+            return false;
+        }
+        // Non-empty JSON array with at least one element.
+        if ( is_string( $data ) ) {
+            $decoded = json_decode( $data, true );
+            return is_array( $decoded ) && count( $decoded ) > 0;
+        }
+        return is_array( $data ) && count( $data ) > 0;
+    }
 
     /**
      * Keep jQuery out of <head> (not render-blocking).

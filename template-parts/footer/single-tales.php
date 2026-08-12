@@ -3,5 +3,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/CustomEase.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786541600"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/tale.js?v=1786541600"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786542000"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/tale.js?v=1786542000"></script>

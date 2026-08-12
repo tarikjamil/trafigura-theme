@@ -104,13 +104,13 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Homepage hero: poster-first LCP image; **no autoplay video on mobile**; desktop loads video after idle
 - [x] Preload local hero poster (`assets/images/home-hero-poster.jpg`)
 - [x] Hero poster excluded from W3TC lazy-load (`no-lazy` / `data-no-lazy` / `loading="eager"`)
-- [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php`
-- [x] Convert Euclid fonts to WOFF2 (`assets/fonts/euclid-circular-b-*.woff2` + CSS `@font-face`)
+- [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php` (interaction/idle; gtag comes from GTM — keep GTM)
+- [x] Convert Euclid fonts to WOFF2; keep weights **400/500/600** only (~65 KiB less than 5 weights)
 - [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras served from theme `code/` (same-origin)
-- [x] Dequeue unused block-library / Elementor Roboto; jQuery printed in footer **just before** GSAP/Swiper/theme scripts
+- [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
+- [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
 - [ ] Audit LCP on partner stories / other templates
-- [ ] Optionally dequeue Elementor frontend CSS on pure Udesly templates (test carefully — kit still on body)
 - [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile); purge W3TC
 ### 12. Search Console hygiene
 - [x] Sitemap already in GSC; `robots.txt` now declares sitemap

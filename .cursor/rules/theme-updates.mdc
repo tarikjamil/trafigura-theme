@@ -59,13 +59,15 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 **GTM (all templates):**
 
 - Shared partial: `template-parts/head/partials/gtm-deferred.php`
-- Every `template-parts/head/*.php` must `get_template_part('template-parts/head/partials/gtm-deferred')` — do **not** restore the blocking GTM snippet.
+- Keep GTM (analytics); **gtag/GA loads from the GTM container** — do not add a separate gtag snippet.
+- Load on first interaction **or** idle (timeout ~6s) — do **not** restore the blocking GTM snippet.
 
 ### 3b. Fonts (Euclid → WOFF2 + Bebas non-blocking)
 
 - Prefer `assets/fonts/euclid-circular-b-*.woff2` in `assets/css/trafigura-staging.css` `@font-face` (TTF as fallback only).
+- Keep only weights **400 / 500 / 600** (map former 300→400 and 700→600; do not re-add light/bold faces).
 - Keep `font-display: swap`.
-- After CSS sync from Udesly, re-apply WOFF2 `src` lines (export often resets to TTF-only).
+- After CSS sync from Udesly, re-apply WOFF2 `src` lines and weight trim (export often resets to TTF-only + all weights).
 - Bebas Neue via `template-parts/head/partials/bebas-font.php` (preload + `media="print" onload`) — do **not** restore blocking `webfont.js`.
 - Bump `trafigura-staging` enqueue version in head templates when fonts/CSS change.
 
@@ -80,7 +82,8 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 
 ### 3d. Render-blocking cleanup (keep in `functions.php` + `footer.php`)
 
-- `trafigura_dequeue_unused_assets()` — dequeues block-library, Elementor Roboto fonts
+- `trafigura_dequeue_unused_assets()` — dequeues block-library, Elementor Roboto fonts, and Elementor frontend/kit CSS when the page has no Elementor content (`trafigura_page_needs_elementor_css()`)
+- `elementor/frontend/print_google_fonts` → false
 - jQuery is marked footer-group via `trafigura_jquery_in_footer()`, then **`footer.php` calls `wp_print_scripts( 'jquery' )` immediately before** theme/GSAP/Swiper/Netlify scripts — do not put those scripts before jQuery again
 - Host former Netlify extras from theme `code/` (`style.css`, `script.js`, page-specific JS/CSS) — do **not** restore `https://trafigura-code.netlify.app/...` URLs
 - Optional helper: `trafigura_code_uri( $path )` in `functions.php`
