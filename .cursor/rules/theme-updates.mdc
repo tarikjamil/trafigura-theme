@@ -1,0 +1,33 @@
+---
+description: Theme update workflow and CMS query sort order for Trafigura Foundation
+alwaysApply: true
+---
+
+# Theme updates
+
+## Source versions
+
+- New theme drops go in `themes/` (e.g. `themes/trafigura-vX/`).
+- When asked to update from a version there, merge/adapt into the live theme root (not leave the site running from `themes/`).
+- Preserve local customizations (e.g. SEO folder, this rules folder, intentional query/order fixes) unless the user says otherwise.
+
+## News & partner stories order (required)
+
+Whenever the theme is updated or query templates are regenerated/replaced, **news** and **partner-stories** listings must sort **newest → oldest**.
+
+In `template-parts/query/`:
+
+- All `news-*.php` queries: `"order" => "DESC"`
+- All `partner-stories-*.php` queries: `"order" => "DESC"`
+
+Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
+
+```php
+// ❌ BAD — oldest first
+"order" => "ASC",
+
+// ✅ GOOD — newest first
+"order" => "DESC",
+```
+
+After any theme sync from `themes/`, re-check these files and fix ASC → DESC if the import reset them.

@@ -29,8 +29,9 @@ Full meta copy lives in `yoast-meta-all-pages.csv`.
 **Why:** Google + AI answer engines treat unique title/description as the first relevance signal. Dozens of pages currently look identical.
 
 ### 3. Resolve duplicate / competing URLs
-- [ ] `/areas-of-work/` (page) vs `/area-of-work/` (CPT archive) — pick **one** public hub; noindex or 301 the other
-- [ ] `/partners-stories/` (page) vs `/partner-stories/` (CPT archive) — clarify IA (listing vs archive); avoid two competing “partners” entry points without differentiation
+- [ ] `/areas-of-work/` (page) = public hub; `/area-of-work/` CPT archive → **noindex or 301**
+- [ ] `/partners-stories/` (page) = public partners archive; `/partner-stories/` CPT archive → **noindex or 301**
+- [ ] `/content-hub/` (page) = public news archive; `/news/` CPT archive → **noindex** (not a public page)
 - [ ] Review numbered partner duplicates and set **canonical** to the primary page:
   - `planet-indonesia` vs `planet-indonesia-2`
   - `plan-vivo` vs `plan-vivo-foundation-2`
