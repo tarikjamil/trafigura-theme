@@ -30,7 +30,7 @@ $args = apply_filters('udesly/posts/partner-stories-max-6-sorted-by-post_date', 
         $query = new WP_Query($args);
 ?>
 <div class="swiper is--slider-resources w-dyn-list" udy-collection="partner-stories">
-                <?php if ( $query->have_posts() ) : ?><div role="list" class="swiper-wrapper w-dyn-items">
+                <?php if ( $query->have_posts() ) : ?><div class="swiper-wrapper w-dyn-items">
                   <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item">
                     <a href="<?php the_permalink() ?>" class="partner-item w-inline-block">
                       <?php $card_img = trafigura_card_image(); ?>

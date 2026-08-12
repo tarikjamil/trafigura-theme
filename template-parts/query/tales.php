@@ -27,7 +27,7 @@ $args = apply_filters('udesly/posts/tales', $args);
         $query = new WP_Query($args);
 ?>
 <div class="swiper is--tales-slider w-dyn-list" udy-collection="tales">
-              <?php if ( $query->have_posts() ) : ?><div role="list" class="swiper-wrapper w-dyn-items">
+              <?php if ( $query->have_posts() ) : ?><div class="swiper-wrapper w-dyn-items">
                 <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item">
                   <div class="tale--card-parent">
                     <div class="tale--card-top"><img src="<?php echo udesly_get_custom_post_field( $post->ID, "thumbnail", "ImageRef" )->src ?>" loading="lazy" alt="<?php echo udesly_get_custom_post_field( $post->ID, "thumbnail", "ImageRef" )->alt ?>" class="tale--card-img" data-img="i317f733b" srcset="<?php echo udesly_get_custom_post_field( $post->ID, "thumbnail", "ImageRef" )->srcset ?>">

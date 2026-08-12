@@ -109,9 +109,10 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras served from theme `code/` (same-origin)
 - [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
 - [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
-- [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
-- [ ] Audit LCP on partner stories / other templates
-- [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile); purge W3TC
+- [x] Listing cards: `trafigura_card_image()` + OceanImageBank ~400w default (~23 KiB)
+- [x] Defer non-critical CSS (`code/style.css`, honeypot, udesly common); inline `.main-wrapper{opacity:0}`
+- [x] A11y/SEO: descriptive areas CTA; footer brand `aria-label`; Swiper wrappers without conflicting `role="list"`
+- [ ] Re-run PageSpeed after deploy; purge W3TC
 ### 12. Search Console hygiene
 - [x] Sitemap already in GSC; `robots.txt` now declares sitemap
 - [x] Requested indexing for hubs (`/content-hub/`, `/partners-stories/`, `/areas-of-work/`)

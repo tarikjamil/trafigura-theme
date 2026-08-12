@@ -302,7 +302,7 @@ body {
       <footer data-wf--footer--variant="base" class="footer">
         <div class="container--footer">
           <div class="flexv is--gap40">
-            <a href="<?php echo _u('a2f','link'); ?>" class="footer-brand w-inline-block" data-link="a2f"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 101.5 34.924">
+            <a href="<?php echo _u('a2f','link'); ?>" aria-label="Trafigura Foundation home" class="footer-brand w-inline-block" data-link="a2f"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 101.5 34.924">
                 <g id="Trafigura_Foundation_Logo_Solid_Orange_RGB" data-name="Trafigura Foundation Logo Solid Orange RGB" transform="translate(-277 -169.7)">
                   <path id="Tracé_42218" data-name="Tracé 42218" d="M841.3,228.1a.179.179,0,0,0-.2.2v9.62a.179.179,0,0,0,.2.2h1.838a.179.179,0,0,0,.2-.2V228.3a.179.179,0,0,0-.2-.2Z" transform="translate(-524.507 -54.272)" fill="currentColor"></path>
                   <path id="Tracé_42219" data-name="Tracé 42219" d="M1241.084,238.016h1.845a.179.179,0,0,0,.2-.2V233.16c0-2.227,1.032-2.82,2.623-2.82h1.3a.179.179,0,0,0,.2-.2V228.2a.179.179,0,0,0-.2-.2h-1a3.248,3.248,0,0,0-2.849,1.258c-.1.141-.212.113-.255-.042l-.269-1.046a.19.19,0,0,0-.212-.17h-1.371a.179.179,0,0,0-.2.2v9.62A.171.171,0,0,0,1241.084,238.016Z" transform="translate(-896.26 -54.179)" fill="currentColor"></path>
