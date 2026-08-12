@@ -10,7 +10,7 @@
 <link rel="preload" as="image" href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-hero-poster.jpg' ); ?>" fetchpriority="high">
 <?php get_template_part('template-parts/head/partials/gtm-deferred'); ?>
 
-<link href="<?php echo get_template_directory_uri(); ?>/assets/css/trafigura-code.css?v=1786541500" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri(); ?>/code/style.css?v=1786541600" rel="stylesheet">
 <style>
   .hero-poster {
     z-index: 0;

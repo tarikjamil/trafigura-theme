@@ -9,4 +9,4 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<link href="<?php echo get_template_directory_uri(); ?>/assets/css/trafigura-code.css?v=1786541500" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri(); ?>/code/style.css?v=1786541600" rel="stylesheet">

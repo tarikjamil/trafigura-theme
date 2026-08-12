@@ -3,8 +3,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/CustomEase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://trafigura-code.netlify.app/related-partner.js"></script>
-<script src="https://trafigura-code.netlify.app/script.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/related-partner.js?v=1786541600"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786541600"></script>
 <script>
 document.getElementById('twitter-share-link').addEventListener('click', function() {
 const pageUrl = encodeURIComponent(window.location.href);

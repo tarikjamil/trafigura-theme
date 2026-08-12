@@ -106,7 +106,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Hero poster excluded from W3TC lazy-load (`no-lazy` / `data-no-lazy` / `loading="eager"`)
 - [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php`
 - [x] Convert Euclid fonts to WOFF2 (`assets/fonts/euclid-circular-b-*.woff2` + CSS `@font-face`)
-- [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras hosted locally (`trafigura-code.css`)
+- [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras served from theme `code/` (same-origin)
 - [x] Dequeue unused block-library / Elementor Roboto; jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
 - [ ] Audit LCP on partner stories / other templates
