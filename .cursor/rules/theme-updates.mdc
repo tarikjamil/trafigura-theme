@@ -62,14 +62,13 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Keep GTM (analytics); **gtag/GA loads from the GTM container** — do not add a separate gtag snippet.
 - Load on first interaction **or** idle (timeout ~6s) — do **not** restore the blocking GTM snippet.
 
-### 3b. Fonts (Euclid → WOFF2 + Bebas non-blocking)
+### 3b. Fonts (Euclid → WOFF2 + Bebas deferred)
 
-- Prefer `assets/fonts/euclid-circular-b-*.woff2` in `assets/css/trafigura-staging.css` `@font-face` (TTF as fallback only).
-- Keep only weights **400 / 500 / 600** (map former 300→400 and 700→600; do not re-add light/bold faces).
-- Keep `font-display: swap`.
-- After CSS sync from Udesly, re-apply WOFF2 `src` lines and weight trim (export often resets to TTF-only + all weights).
-- Bebas Neue via `template-parts/head/partials/bebas-font.php` (preload + `media="print" onload`) — do **not** restore blocking `webfont.js`.
-- Bump `trafigura-staging` enqueue version in head templates when fonts/CSS change.
+- Prefer `assets/fonts/euclid-circular-b-*.woff2` in CSS `@font-face` (weights **400 / 500 / 600** only).
+- Homepage preloads Euclid medium woff2.
+- Bebas Neue via `bebas-font.php` **after idle/load** (JS inject) — do **not** put a blocking Google Fonts `<link rel="stylesheet">` in `<head>` (W3TC duplicates it).
+- Enqueue **one** CSS file: `assets/css/trafigura-bundle.css` (= normalize + components + staging). Rebuild the bundle after editing any of those sources:
+  `cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css`
 
 ### 3c. Listing images (card src + OceanImageBank)
 

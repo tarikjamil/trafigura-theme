@@ -205,20 +205,17 @@ body {
             $hero_mp4         = _u( 'i-5fdbe129', 'iframe' );
             $hero_webm        = _u( 'i64642473', 'iframe' );
             ?>
-            <picture>
-              <source srcset="<?php echo esc_url( $hero_poster_webp ); ?>" type="image/webp">
-              <img
-                class="img--absolute hero-poster no-lazy"
-                src="<?php echo esc_url( $hero_poster ); ?>"
-                alt=""
-                width="960"
-                height="423"
-                fetchpriority="high"
-                loading="eager"
-                decoding="async"
-                data-no-lazy="1"
-              >
-            </picture>
+            <img
+              class="img--absolute hero-poster no-lazy"
+              src="<?php echo esc_url( $hero_poster_webp ); ?>"
+              alt=""
+              width="960"
+              height="423"
+              fetchpriority="high"
+              loading="eager"
+              decoding="async"
+              data-no-lazy="1"
+            >
             <div
               class="img--absolute w-background-video w-background-video-atom hero-video-wrap"
               data-autoplay="false"
