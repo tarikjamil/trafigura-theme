@@ -16,7 +16,7 @@ get_header('', $args);
 udesly_get_content_template( 'front-page' );
 
 $args = [
-  'footer' => 'footer/page-areas-of-work',
+  'footer' => 'footer/front-page',
 ];  
 
 if (function_exists('udesly_output_frontend_editor_data')) {

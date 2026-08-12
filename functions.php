@@ -232,6 +232,54 @@
     add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
 
     /**
+     * Drop non-critical scripts that show up on the mobile critical path.
+     * Udesly frontend-editor chunks are not needed for public visitors.
+     */
+    function trafigura_dequeue_unused_scripts() {
+        if ( is_admin() ) {
+            return;
+        }
+
+        // Rarely needed on this theme; saves a blocking chain after jQuery.
+        wp_dequeue_script( 'jquery-migrate' );
+        wp_deregister_script( 'jquery-migrate' );
+
+        // WP Armour / honeypot — not needed for first paint.
+        wp_dequeue_script( 'wpa' );
+        wp_dequeue_script( 'wpa_js' );
+        wp_dequeue_script( 'wpalite' );
+
+        // Public visitors do not need the Udesly frontend-editor runtime
+        // (udesly-frontend-scripts → models → chunk-* critical-path chain).
+        if ( is_user_logged_in() || is_preview() || is_customize_preview() ) {
+            return;
+        }
+
+        global $wp_scripts;
+        if ( ! ( $wp_scripts instanceof WP_Scripts ) ) {
+            return;
+        }
+
+        foreach ( $wp_scripts->registered as $handle => $obj ) {
+            $src = isset( $obj->src ) ? (string) $obj->src : '';
+            $hay = $handle . ' ' . $src;
+            if (
+                strpos( $hay, 'udesly-frontend-scripts' ) !== false
+                || strpos( $src, 'udesly-wp-app' ) !== false && (
+                    strpos( $src, 'chunk-' ) !== false
+                    || strpos( $src, 'models-' ) !== false
+                    || strpos( $src, 'frontend-scripts' ) !== false
+                )
+            ) {
+                wp_dequeue_script( $handle );
+                wp_deregister_script( $handle );
+            }
+        }
+    }
+    add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_scripts', 9999 );
+    add_action( 'wp_print_scripts', 'trafigura_dequeue_unused_scripts', 1 );
+
+    /**
      * True when the current singular page has real Elementor content.
      * Kit-only / empty _elementor_data pages return false.
      */
