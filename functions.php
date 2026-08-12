@@ -152,7 +152,7 @@
     }
 
     /**
-     * Drop unused render-blocking CSS/JS that plugins inject on every page.
+     * Drop unused render-blocking CSS that plugins inject on every page.
      */
     function trafigura_dequeue_unused_assets() {
         // Gutenberg block library unused on Udesly/Webflow templates.
@@ -164,23 +164,22 @@
         // Elementor ships Roboto by default; this site uses Euclid + Bebas Neue.
         wp_dequeue_style( 'elementor-gf-local-roboto' );
         wp_dequeue_style( 'elementor-gf-local-robotoslab' );
-
-        // Migrate is rarely needed and is render-blocking with jQuery in <head>.
-        wp_dequeue_script( 'jquery-migrate' );
     }
     add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 100 );
 
     /**
-     * Print jQuery in the footer so it is not render-blocking.
-     * Theme footers and Udesly scripts still run after wp_footer().
+     * Keep jQuery out of <head> (not render-blocking).
+     * footer.php prints it with wp_print_scripts('jquery') immediately
+     * before GSAP/Swiper/theme scripts so animations still work.
      */
     function trafigura_jquery_in_footer( $scripts ) {
-        if ( is_admin() || ! isset( $scripts->registered['jquery'] ) ) {
+        if ( is_admin() ) {
             return;
         }
-        $scripts->add_data( 'jquery', 'group', 1 );
-        if ( isset( $scripts->registered['jquery-core'] ) ) {
-            $scripts->add_data( 'jquery-core', 'group', 1 );
+        foreach ( [ 'jquery', 'jquery-core', 'jquery-migrate' ] as $handle ) {
+            if ( isset( $scripts->registered[ $handle ] ) ) {
+                $scripts->add_data( $handle, 'group', 1 );
+            }
         }
     }
     add_action( 'wp_default_scripts', 'trafigura_jquery_in_footer' );

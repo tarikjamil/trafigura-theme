@@ -107,7 +107,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php`
 - [x] Convert Euclid fonts to WOFF2 (`assets/fonts/euclid-circular-b-*.woff2` + CSS `@font-face`)
 - [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras hosted locally (`trafigura-code.css`)
-- [x] Dequeue unused block-library / Elementor Roboto / jquery-migrate; jQuery in footer
+- [x] Dequeue unused block-library / Elementor Roboto; jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
 - [ ] Audit LCP on partner stories / other templates
 - [ ] Optionally dequeue Elementor frontend CSS on pure Udesly templates (test carefully — kit still on body)
