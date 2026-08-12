@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "post_name": "areas-of-work",
+      "post_title": "Areas of Work",
+      "post_type": "page"
+    },
+    {
+      "post_name": "do-not-delete",
+      "post_title": "do not delete",
+      "post_type": "page"
+    },
+    {
+      "post_name": "index",
+      "post_title": "Home",
+      "post_type": "page"
+    },
+    {
+      "post_name": "partners-stories",
+      "post_title": "Partners Stories",
+      "post_type": "page"
+    },
+    {
+      "post_name": "contact",
+      "post_title": "Contact",
+      "post_type": "page"
+    },
+    {
+      "post_name": "content-hub",
+      "post_title": "Content Hub",
+      "post_type": "page"
+    },
+    {
+      "post_name": "who-we-are",
+      "post_title": "Who We Are",
+      "post_type": "page"
+    },
+    {
+      "post_name": "our-approach",
+      "post_title": "Our Approach",
+      "post_type": "page"
+    },
+    {
+      "post_name": "staff-engagement",
+      "post_title": "Staff Engagement",
+      "post_type": "page"
+    },
+    {
+      "post_name": "tales-of-resistence",
+      "post_title": "Tales of Resistence",
+      "post_type": "page"
+    }
+  ],
+  "terms": [],
+  "users": []
+}
