@@ -212,7 +212,7 @@ body {
                 src="<?php echo esc_url( $hero_poster ); ?>"
                 alt=""
                 width="960"
-                height="540"
+                height="423"
                 fetchpriority="high"
                 loading="eager"
                 decoding="async"
@@ -266,7 +266,10 @@ body {
                   s2.type = 'video/mp4';
                   video.appendChild(s2);
                 }
-                if (wrap) wrap.hidden = false;
+                // Keep wrap in flow as absolute overlay; only reveal after metadata to limit CLS.
+                video.addEventListener('loadeddata', function () {
+                  if (wrap) wrap.hidden = false;
+                }, { once: true });
                 video.load();
                 var playPromise = video.play();
                 if (playPromise && typeof playPromise.catch === 'function') {
@@ -275,13 +278,10 @@ body {
               }
 
               function schedule() {
-                if ('requestIdleCallback' in window) {
-                  requestIdleCallback(loadHeroVideo, { timeout: 2500 });
-                } else {
-                  window.addEventListener('load', function () {
-                    setTimeout(loadHeroVideo, 600);
-                  });
-                }
+                // After full load so LCP/FCP are not competing with the hero MP4.
+                window.addEventListener('load', function () {
+                  setTimeout(loadHeroVideo, 3000);
+                });
               }
 
               if (desktop.matches) {
