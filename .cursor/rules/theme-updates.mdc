@@ -45,7 +45,7 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 
 **`template-parts/content/front-page.php` — home hero:**
 
-- Show local poster `<img class="hero-poster">` with `fetchpriority="high"` for LCP.
+- Show local poster `<img class="hero-poster no-lazy">` with `fetchpriority="high"`, `loading="eager"`, `data-no-lazy="1"` for LCP (W3TC must not lazy-load it).
 - Do **not** put `<source src="...">` in the HTML (avoids downloading ~6.7MB Webflow video on mobile).
 - Video element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
 - Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `requestIdleCallback` / load.
@@ -61,11 +61,12 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Shared partial: `template-parts/head/partials/gtm-deferred.php`
 - Every `template-parts/head/*.php` must `get_template_part('template-parts/head/partials/gtm-deferred')` — do **not** restore the blocking GTM snippet.
 
-### 3b. Fonts (Euclid → WOFF2)
+### 3b. Fonts (Euclid → WOFF2 + Bebas non-blocking)
 
 - Prefer `assets/fonts/euclid-circular-b-*.woff2` in `assets/css/trafigura-staging.css` `@font-face` (TTF as fallback only).
 - Keep `font-display: swap`.
 - After CSS sync from Udesly, re-apply WOFF2 `src` lines (export often resets to TTF-only).
+- Bebas Neue via `template-parts/head/partials/bebas-font.php` (preload + `media="print" onload`) — do **not** restore blocking `webfont.js`.
 - Bump `trafigura-staging` enqueue version in head templates when fonts/CSS change.
 
 ### 3c. Listing images (card src + OceanImageBank)
@@ -76,6 +77,12 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - `trafigura_optimized_image_override( $thumb_id )` — serves theme-compressed copies from `assets/images/optimized/` for known heavy uploads (e.g. `OceanImageBank_AriphRasheed_07`)
 
 **Re-wire after sync:** any `news-*.php` / `partner-stories-*.php` card `<img>` that still uses raw `udesly_get_image()->src` should use `trafigura_card_image()` instead.
+
+### 3d. Render-blocking cleanup (keep in `functions.php`)
+
+- `trafigura_dequeue_unused_assets()` — dequeues block-library, Elementor Roboto fonts, jquery-migrate
+- `trafigura_jquery_in_footer()` — moves jQuery out of `<head>`
+- Host Netlify extras locally: `assets/css/trafigura-code.css` (+ `partnerstory.css` where needed) — do **not** restore `https://trafigura-code.netlify.app/style.css` as a cross-origin render-blocking link
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**

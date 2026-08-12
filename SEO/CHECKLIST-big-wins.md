@@ -103,11 +103,14 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 ### 11. Performance & Core Web Vitals (W3TC + theme)
 - [x] Homepage hero: poster-first LCP image; **no autoplay video on mobile**; desktop loads video after idle
 - [x] Preload local hero poster (`assets/images/home-hero-poster.jpg`)
+- [x] Hero poster excluded from W3TC lazy-load (`no-lazy` / `data-no-lazy` / `loading="eager"`)
 - [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php`
 - [x] Convert Euclid fonts to WOFF2 (`assets/fonts/euclid-circular-b-*.woff2` + CSS `@font-face`)
+- [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras hosted locally (`trafigura-code.css`)
+- [x] Dequeue unused block-library / Elementor Roboto / jquery-migrate; jQuery in footer
 - [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
 - [ ] Audit LCP on partner stories / other templates
-- [ ] Reduce unused Elementor/JS on archive pages if heavy
+- [ ] Optionally dequeue Elementor frontend CSS on pure Udesly templates (test carefully — kit still on body)
 - [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile); purge W3TC
 ### 12. Search Console hygiene
 - [x] Sitemap already in GSC; `robots.txt` now declares sitemap

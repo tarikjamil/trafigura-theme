@@ -205,13 +205,15 @@ body {
             $hero_webm   = _u( 'i64642473', 'iframe' );
             ?>
             <img
-              class="img--absolute hero-poster"
+              class="img--absolute hero-poster no-lazy"
               src="<?php echo esc_url( $hero_poster ); ?>"
               alt=""
               width="1280"
               height="720"
               fetchpriority="high"
+              loading="eager"
               decoding="async"
+              data-no-lazy="1"
             >
             <div
               class="img--absolute w-background-video w-background-video-atom hero-video-wrap"

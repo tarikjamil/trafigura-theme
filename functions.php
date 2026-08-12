@@ -151,6 +151,40 @@
         ];
     }
 
+    /**
+     * Drop unused render-blocking CSS/JS that plugins inject on every page.
+     */
+    function trafigura_dequeue_unused_assets() {
+        // Gutenberg block library unused on Udesly/Webflow templates.
+        wp_dequeue_style( 'wp-block-library' );
+        wp_dequeue_style( 'wp-block-library-theme' );
+        wp_dequeue_style( 'wc-blocks-style' );
+        wp_dequeue_style( 'classic-theme-styles' );
+
+        // Elementor ships Roboto by default; this site uses Euclid + Bebas Neue.
+        wp_dequeue_style( 'elementor-gf-local-roboto' );
+        wp_dequeue_style( 'elementor-gf-local-robotoslab' );
+
+        // Migrate is rarely needed and is render-blocking with jQuery in <head>.
+        wp_dequeue_script( 'jquery-migrate' );
+    }
+    add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 100 );
+
+    /**
+     * Print jQuery in the footer so it is not render-blocking.
+     * Theme footers and Udesly scripts still run after wp_footer().
+     */
+    function trafigura_jquery_in_footer( $scripts ) {
+        if ( is_admin() || ! isset( $scripts->registered['jquery'] ) ) {
+            return;
+        }
+        $scripts->add_data( 'jquery', 'group', 1 );
+        if ( isset( $scripts->registered['jquery-core'] ) ) {
+            $scripts->add_data( 'jquery-core', 'group', 1 );
+        }
+    }
+    add_action( 'wp_default_scripts', 'trafigura_jquery_in_footer' );
+
         
     function udesly_trafigura_setup() {
         
