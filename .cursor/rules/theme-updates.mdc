@@ -1,5 +1,5 @@
 ---
-description: Theme update workflow and CMS query sort order for Trafigura Foundation
+description: Theme update workflow, CMS sort order, and local customizations to re-apply
 alwaysApply: true
 ---
 
@@ -9,11 +9,13 @@ alwaysApply: true
 
 - New theme drops go in `themes/` (e.g. `themes/trafigura-vX/`).
 - When asked to update from a version there, merge/adapt into the live theme root (not leave the site running from `themes/`).
-- Preserve local customizations (e.g. SEO folder, this rules folder, intentional query/order fixes) unless the user says otherwise.
+- Preserve local customizations (listed below + SEO folder + this rules folder) unless the user says otherwise.
 
-## News & partner stories order (required)
+## After every theme sync — re-apply checklist
 
-Whenever the theme is updated or query templates are regenerated/replaced, **news** and **partner-stories** listings must sort **newest → oldest**.
+Run through these; Udesly/Webflow exports often wipe them.
+
+### 1. News & partner stories order (required)
 
 In `template-parts/query/`:
 
@@ -30,4 +32,63 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 "order" => "DESC",
 ```
 
-After any theme sync from `themes/`, re-check these files and fix ASC → DESC if the import reset them.
+### 2. Content Hub H1 casing
+
+- File: `template-parts/content/page-content-hub.php`
+- H1 must be **`Content Hub`** (not lowercase `content hub` from Udesly `_u()`).
+- Prefer hardcoded text over `_u('tn17498f32','text')` so DB/editor overrides cannot regress it.
+- Also keep `_data/frontend-editor/page-content-hub.json` key `tn17498f32` = `Content Hub`.
+
+### 3. Homepage performance (hero video + GTM)
+
+**Poster asset (must exist):** `assets/images/home-hero-poster.jpg`
+
+**`template-parts/content/front-page.php` — home hero:**
+
+- Show local poster `<img class="hero-poster">` with `fetchpriority="high"` for LCP.
+- Do **not** put `<source src="...">` in the HTML (avoids downloading ~6.7MB Webflow video on mobile).
+- Video element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
+- Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `requestIdleCallback` / load.
+- Mobile / reduced-motion: poster only.
+
+**`template-parts/head/front-page.php`:**
+
+- `<link rel="preload" as="image" href=".../home-hero-poster.jpg" fetchpriority="high">`
+- Defer GTM until idle/load (do not restore blocking GTM snippet on homepage).
+- Keep small CSS for `.hero-poster` / `.hero-video-wrap` stacking; hide video wrap on `max-width: 991px`.
+
+### 4. Internal linking helpers + templates
+
+**`functions.php` — keep these helpers:**
+
+- `trafigura_area_of_work_url( $slug )`
+- `trafigura_link_areas_of_work_text( $text )` — turns PlainText area labels into pillar links
+
+**Re-wire after sync:**
+
+| File | What to restore |
+|---|---|
+| `template-parts/content/front-page.php` | Pillar `supply-item` H3s → area-of-work permalinks; “CONTENT HUB” H2 → `/content-hub/`; partners heading → `/partners-stories/` |
+| `template-parts/content/page-areas-of-work.php` | Same pillar `supply-item` links |
+| `template-parts/content/page-content-hub.php` | “Explore our partners” CTA → `/partners-stories/` |
+| `template-parts/content/single-news.php` | “Explore our partners” CTA before Other Spotlights |
+| `template-parts/content/single-partner-stories.php` | Area-of-work tag(s) via `trafigura_link_areas_of_work_text()` |
+| `template-parts/query/partner-stories-sorted-by-post_date.php` | `partner--area` uses `trafigura_link_areas_of_work_text()` |
+| `template-parts/query/partner-stories-sorted-by-post_date-v0.php` | Same (used on area-of-work singles) |
+
+Pillar slugs: `prepared-communities`, `thriving-nature`, `sustainable-livelihoods`.
+
+### 5. SEO / IA context (not always in theme files)
+
+Public hubs (index): `/content-hub/` · `/partners-stories/` · `/areas-of-work/`  
+Hidden CPT archives: `/news/` · `/partner-stories/` · `/area-of-work/` → noindex and/or 301 to hubs  
+
+Trackers live in `SEO/` (`yoast-meta-all-pages.csv`, `news-to-partner-links.csv`, `CHECKLIST-big-wins.md`) — do not delete on theme replace.
+
+## Quick verify after sync
+
+1. Grep query templates for `"order" => "ASC"` on news/partner-stories → fix to DESC  
+2. View-source homepage: poster preload present; no hero `<source src=` until desktop JS  
+3. Content Hub H1 = `Content Hub`  
+4. Home pillars + Content Hub/Partners headings are links  
+5. `home-hero-poster.jpg` exists under `assets/images/`
