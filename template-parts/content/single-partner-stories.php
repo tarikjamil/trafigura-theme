@@ -230,7 +230,7 @@ body {
                 $partner_areas = udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" );
                 if ( $partner_areas ) :
                 ?>
-                <div class="tag--item">
+                <div class="tag--item is--areas-of-work" hidden>
                   <div class=""><?php echo trafigura_link_areas_of_work_text( $partner_areas ); ?></div>
                 </div>
                 <?php endif; ?>

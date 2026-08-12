@@ -3418,6 +3418,10 @@ img {
   display: flex;
 }
 
+.tag--item.is--areas-of-work[hidden] {
+  display: none !important;
+}
+
 .tag--item.is--purple {
   z-index: 3;
   background-color: var(--color--purple);
