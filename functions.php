@@ -234,15 +234,13 @@
     /**
      * Drop non-critical scripts that show up on the mobile critical path.
      * Udesly frontend-editor chunks are not needed for public visitors.
+     * Keep jquery-migrate — Webflow staging can rely on it; removing it
+     * correlated with LCP / a11y regressions in lab runs.
      */
     function trafigura_dequeue_unused_scripts() {
         if ( is_admin() ) {
             return;
         }
-
-        // Rarely needed on this theme; saves a blocking chain after jQuery.
-        wp_dequeue_script( 'jquery-migrate' );
-        wp_deregister_script( 'jquery-migrate' );
 
         // WP Armour / honeypot — not needed for first paint.
         wp_dequeue_script( 'wpa' );
@@ -265,11 +263,11 @@
             $hay = $handle . ' ' . $src;
             if (
                 strpos( $hay, 'udesly-frontend-scripts' ) !== false
-                || strpos( $src, 'udesly-wp-app' ) !== false && (
+                || ( strpos( $src, 'udesly-wp-app' ) !== false && (
                     strpos( $src, 'chunk-' ) !== false
                     || strpos( $src, 'models-' ) !== false
                     || strpos( $src, 'frontend-scripts' ) !== false
-                )
+                ) )
             ) {
                 wp_dequeue_script( $handle );
                 wp_deregister_script( $handle );

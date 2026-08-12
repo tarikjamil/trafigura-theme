@@ -108,7 +108,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Convert Euclid fonts to WOFF2; keep weights **400/500/600** only (~65 KiB less than 5 weights)
 - [x] Bebas Neue self-hosted (local woff2 in bundle; no Google Fonts); Netlify extras from theme `code/`
 - [x] GSAP / Swiper / SplitType self-hosted under `assets/js/vendor/` (no cdnjs / jsDelivr / unpkg)
-- [x] Homepage: defer GSAP/Swiper/`script.js` until after load+idle; dequeue jquery-migrate / honeypot / Udesly editor JS for public visitors
+- [x] Homepage: local GSAP/Swiper sync in `footer/front-page`; dequeue honeypot / Udesly editor JS for public visitors (keep jquery-migrate)
 - [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
 - [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + OceanImageBank ~400w default (~23 KiB)

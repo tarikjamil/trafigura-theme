@@ -50,7 +50,7 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Video element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
 - Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `requestIdleCallback` / load.
 - Mobile / reduced-motion: poster only.
-- Homepage footer: `footer/front-page` — GSAP / Swiper / `code/script.js` load **after** `window.load` + idle (do not restore sync CDN/local tags that compete with LCP).
+- Homepage footer: `footer/front-page` — same sync GSAP/Swiper/`code/script.js` as other pages (do **not** defer until after load — that delayed LCP / blank filmstrip).
 
 **`template-parts/head/front-page.php`:**
 
@@ -90,7 +90,7 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Host former Netlify extras from theme `code/` (`style.css`, `script.js`, page-specific JS/CSS) — do **not** restore `https://trafigura-code.netlify.app/...` URLs
 - Self-host GSAP / ScrollTrigger / CustomEase / Swiper / SplitType under `assets/js/vendor/` — do **not** restore cdnjs / jsDelivr / unpkg URLs
 - Optional helper: `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )` in `functions.php`
-- `trafigura_dequeue_unused_scripts()` — dequeue jquery-migrate, honeypot JS, and Udesly frontend-editor chunks for public visitors
+- `trafigura_dequeue_unused_scripts()` — dequeue honeypot JS and Udesly frontend-editor chunks for public visitors (keep jquery-migrate)
 - **Never** set `.main-wrapper { opacity: 0 }` waiting for GSAP — that blanks the filmstrip and destroys mobile FCP. `code/script.js` must not fade the whole main wrapper in on load.
 - Homepage H1 must **not** use `animation="loading"` (GSAP starts those at opacity 0 and delays LCP until scripts load).
 ### 4. Internal linking helpers + templates
