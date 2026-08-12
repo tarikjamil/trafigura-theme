@@ -109,7 +109,8 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Bebas Neue self-hosted (local woff2 in bundle; no Google Fonts); Netlify extras from theme `code/`
 - [x] GSAP / Swiper / SplitType self-hosted under `assets/js/vendor/` (no cdnjs / jsDelivr / unpkg)
 - [x] Homepage: local GSAP/Swiper sync in `footer/front-page`; dequeue honeypot / Udesly editor JS for public visitors (keep jquery-migrate)
-- [x] Rem root (`rem-root.php`) in `<head>` before CSS to prevent rem snap CLS/LCP; Euclid regular/semibold use `font-display: optional`
+- [x] Rem root (`rem-root.php`) in `<head>` before CSS; `scrollbar-gutter: stable` for desktop CLS
+- [x] Homepage hero in-flow `aspect-ratio` + video fade via `.is-ready` (no `hidden` toggle) to cut CLS
 - [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
 - [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + OceanImageBank ~400w default (~23 KiB)
