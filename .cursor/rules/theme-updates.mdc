@@ -62,11 +62,13 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - Keep GTM (analytics); **gtag/GA loads from the GTM container** — do not add a separate gtag snippet.
 - Load on first interaction **or** idle (timeout ~6s) — do **not** restore the blocking GTM snippet.
 
-### 3b. Fonts (Euclid → WOFF2 + Bebas deferred)
+### 3b. Fonts (all self-hosted — no Google Fonts)
 
 - Prefer `assets/fonts/euclid-circular-b-*.woff2` in CSS `@font-face` (weights **400 / 500 / 600** only).
 - Homepage preloads Euclid medium woff2.
-- Bebas Neue via `bebas-font.php` **after idle/load** (JS inject) — do **not** put a blocking Google Fonts `<link rel="stylesheet">` in `<head>` (W3TC duplicates it).
+- Bebas Neue is self-hosted: `assets/fonts/bebas-neue-regular.woff2` (+ latin-ext + TTF fallback) via `@font-face` in `trafigura-staging.css`.
+- `bebas-font.php` must **not** load `fonts.googleapis.com` / `fonts.gstatic.com` — keep only the Webflow `w-mod-js` / touch class bootstrap.
+- Keep `elementor/frontend/print_google_fonts` → false (no Elementor Roboto from Google).
 - Enqueue **one** CSS file: `assets/css/trafigura-bundle.css` (= normalize + components + staging). Rebuild the bundle after editing any of those sources:
   `cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css`
 
@@ -126,5 +128,5 @@ Trackers live in `SEO/` (`yoast-meta-all-pages.csv`, `news-to-partner-links.csv`
 4. Home pillars + Content Hub/Partners headings are links  
 5. `home-hero-poster.jpg` exists under `assets/images/`
 6. Head templates include deferred GTM partial (not blocking snippet)
-7. Euclid `@font-face` prefers `.woff2`
+7. Euclid + Bebas `@font-face` prefer local `.woff2`; no `fonts.googleapis.com` / `fonts.gstatic.com`
 8. News/partner card imgs use `trafigura_card_image()`; `assets/images/optimized/` present

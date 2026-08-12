@@ -106,7 +106,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Hero poster excluded from W3TC lazy-load (`no-lazy` / `data-no-lazy` / `loading="eager"`)
 - [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php` (interaction/idle; gtag comes from GTM — keep GTM)
 - [x] Convert Euclid fonts to WOFF2; keep weights **400/500/600** only (~65 KiB less than 5 weights)
-- [x] Bebas Neue non-blocking (no `webfont.js`); Netlify extras served from theme `code/` (same-origin)
+- [x] Bebas Neue self-hosted (local woff2 in bundle; no Google Fonts); Netlify extras from theme `code/`
 - [x] Dequeue unused block-library / Elementor Roboto + Elementor frontend/kit CSS when page has no Elementor content
 - [x] jQuery printed in footer **just before** GSAP/Swiper/theme scripts
 - [x] Listing cards: `trafigura_card_image()` + OceanImageBank ~400w default (~23 KiB)
