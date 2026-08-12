@@ -57,6 +57,10 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 - `<link rel="preload" as="image" href=".../home-hero-poster.jpg" fetchpriority="high">`
 - Keep small CSS for `.hero-poster` / `.hero-video-wrap` stacking; hide video wrap on `max-width: 991px`.
 
+**Rem root (all pages — CLS/LCP):**
+
+- `header.php` must load `template-parts/head/partials/rem-root.php` **before** other head CSS (Webflow `html { font-size: calc(100vw/…) }`). Leaving rem scaling only in body embeds causes a late layout snap.
+
 **GTM (all templates):**
 
 - Shared partial: `template-parts/head/partials/gtm-deferred.php`

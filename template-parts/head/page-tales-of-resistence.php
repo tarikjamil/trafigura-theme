@@ -1,9 +1,9 @@
 <meta charset="utf-8">
 <meta content="Tales of Resistence" name="twitter:title">
 <meta content="width=device-width, initial-scale=1" name="viewport">
-<?php wp_enqueue_style('trafigura-bundle', get_template_directory_uri() . '/assets/css/trafigura-bundle.css', [], '1786547000'); ?>
+<?php wp_enqueue_style('trafigura-bundle', get_template_directory_uri() . '/assets/css/trafigura-bundle.css', [], '1786549000'); ?>
 <?php get_template_part('template-parts/head/partials/bebas-font'); ?>
-<link href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png?v=1786547000" rel="shortcut icon" type="image/x-icon">
-<link href="<?php echo get_template_directory_uri(); ?>/assets/images/webclip.png?v=1786547000" rel="apple-touch-icon"><?php get_template_part('template-parts/head/partials/gtm-deferred'); ?>
+<link href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png?v=1786549000" rel="shortcut icon" type="image/x-icon">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/images/webclip.png?v=1786549000" rel="apple-touch-icon"><?php get_template_part('template-parts/head/partials/gtm-deferred'); ?>
 
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/swiper10-bundle.min.css">

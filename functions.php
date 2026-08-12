@@ -246,6 +246,16 @@
         wp_dequeue_script( 'wpa' );
         wp_dequeue_script( 'wpa_js' );
         wp_dequeue_script( 'wpalite' );
+        global $wp_scripts;
+        if ( $wp_scripts instanceof WP_Scripts ) {
+            foreach ( $wp_scripts->registered as $handle => $obj ) {
+                $src = isset( $obj->src ) ? (string) $obj->src : '';
+                if ( strpos( $src, '/wpa.js' ) !== false || strpos( $src, 'honeypot' ) !== false ) {
+                    wp_dequeue_script( $handle );
+                    wp_deregister_script( $handle );
+                }
+            }
+        }
 
         // Public visitors do not need the Udesly frontend-editor runtime
         // (udesly-frontend-scripts → models → chunk-* critical-path chain).

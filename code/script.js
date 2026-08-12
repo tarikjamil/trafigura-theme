@@ -218,7 +218,8 @@ gsap.registerPlugin(ScrollTrigger, CustomEase),
     <a href="/partners-stories" class="swiper-button-next is--shadow w-inline-block"><svg class="icon-arrow" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.589 13.87"><path id="Trac\xe9_42314" data-name="Trac\xe9 42314" d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(0 0)" fill="currentColor"></path></svg></a>
     </div>
 `);
-const swiper = new Swiper(".is--slider-resources", {
+if (typeof Swiper !== "undefined") {
+  new Swiper(".is--slider-resources", {
     direction: "horizontal",
     slidesPerView: 1,
     slidesPerGroup: 1,
@@ -226,8 +227,8 @@ const swiper = new Swiper(".is--slider-resources", {
     loop: !1,
     centeredSlides: !1,
     breakpoints: { 992: { slidesPerView: 1, spaceBetween: "20rem" } },
-  }),
-  swiper2 = new Swiper(".is--circles-slider", {
+  });
+  new Swiper(".is--circles-slider", {
     direction: "horizontal",
     slidesPerView: 3,
     slidesPerGroup: 1,
@@ -235,8 +236,8 @@ const swiper = new Swiper(".is--slider-resources", {
     loop: !1,
     centeredSlides: !1,
     breakpoints: { 992: { slidesPerView: 1, spaceBetween: "20rem" } },
-  }),
-  swiper3 = new Swiper(".is--gallery-slider", {
+  });
+  new Swiper(".is--gallery-slider", {
     direction: "horizontal",
     slidesPerView: 1,
     slidesPerGroup: 1,
@@ -252,3 +253,4 @@ const swiper = new Swiper(".is--slider-resources", {
       prevEl: ".swiper-button-prev",
     },
   });
+}

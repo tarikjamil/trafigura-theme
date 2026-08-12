@@ -11,7 +11,8 @@
   src: url('../fonts/euclid-circular-b-semibold.woff2') format('woff2'), url('../fonts/euclid-circular-b-semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  /* optional: do not block LCP on non-hero weights */
+  font-display: optional;
 }
 
 @font-face {
@@ -19,7 +20,8 @@
   src: url('../fonts/euclid-circular-b-regular.woff2') format('woff2'), url('../fonts/euclid-circular-b-regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  /* optional: do not block LCP on non-hero weights */
+  font-display: optional;
 }
 
 @font-face {
@@ -6287,14 +6289,14 @@ img {
   src: url('../fonts/euclid-circular-b-semibold.woff2') format('woff2'), url('../fonts/euclid-circular-b-semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 @font-face {
   font-family: 'Euclid Circular B';
   src: url('../fonts/euclid-circular-b-regular.woff2') format('woff2'), url('../fonts/euclid-circular-b-regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 @font-face {
   font-family: 'Bebas Neue';
