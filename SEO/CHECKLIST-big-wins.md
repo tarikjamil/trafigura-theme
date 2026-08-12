@@ -103,13 +103,12 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 ### 11. Performance & Core Web Vitals (W3TC + theme)
 - [x] Homepage hero: poster-first LCP image; **no autoplay video on mobile**; desktop loads video after idle
 - [x] Preload local hero poster (`assets/images/home-hero-poster.jpg`)
-- [x] Defer GTM on homepage until idle/load
-- [ ] Convert Euclid fonts to WOFF2 / subset unused weights (still `.ttf` with `font-display: swap`)
+- [x] Defer GTM on **all** templates via `template-parts/head/partials/gtm-deferred.php`
+- [x] Convert Euclid fonts to WOFF2 (`assets/fonts/euclid-circular-b-*.woff2` + CSS `@font-face`)
+- [x] Listing cards: `trafigura_card_image()` + compressed OceanImageBank overrides in `assets/images/optimized/`
 - [ ] Audit LCP on partner stories / other templates
-- [ ] Lazy-load below-fold media; compress large report thumbnails
 - [ ] Reduce unused Elementor/JS on archive pages if heavy
-- [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile)
-
+- [ ] Re-run PageSpeed after deploy (target: LCP &lt; 4s mobile); purge W3TC
 ### 12. Search Console hygiene
 - [x] Sitemap already in GSC; `robots.txt` now declares sitemap
 - [x] Requested indexing for hubs (`/content-hub/`, `/partners-stories/`, `/areas-of-work/`)

@@ -51,7 +51,8 @@ $args = apply_filters('udesly/posts/news-first-where-featured-eq-true-where-news
                   <?php if ( $query->have_posts() ) : ?><div role="list" class="w-dyn-items">
                     <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="w-dyn-item">
                       <div class="flexv is--gap24">
-                        <div class="document-h-image-wrapper"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>"></div>
+                        <?php $card_img = trafigura_card_image( '(max-width: 767px) 92vw, 420px' ); ?>
+                        <div class="document-h-image-wrapper"><img src="<?php echo esc_url( $card_img->src ); ?>" loading="lazy" alt="<?php echo esc_attr( $card_img->alt ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo esc_attr( $card_img->srcset ); ?>" sizes="<?php echo esc_attr( $card_img->sizes ); ?>"></div>
                         <h3 class="heading-46"><?php the_title() ?></h3>
                         <div class="flexv is--4gap">
                           <div class="flexh is--gap8">

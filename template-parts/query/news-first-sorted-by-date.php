@@ -34,7 +34,8 @@ $args = apply_filters('udesly/posts/news-first-sorted-by-date', $args);
                 <?php if ( $query->have_posts() ) : ?><div role="list" class="news-highlight w-dyn-items">
                   <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="w-dyn-item">
                     <a href="<?php the_permalink() ?>" class="news-highlight-item w-inline-block">
-                      <div id="w-node-f6dfbafa-4c74-d23a-798a-b0b2a9731a57-f4e4fc78" class="highlight-image-wrapper"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>"></div>
+                      <?php $card_img = trafigura_card_image( '(max-width: 767px) 92vw, (max-width: 991px) 50vw, 560px' ); ?>
+                      <div id="w-node-f6dfbafa-4c74-d23a-798a-b0b2a9731a57-f4e4fc78" class="highlight-image-wrapper"><img src="<?php echo esc_url( $card_img->src ); ?>" loading="lazy" alt="<?php echo esc_attr( $card_img->alt ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo esc_attr( $card_img->srcset ); ?>" sizes="<?php echo esc_attr( $card_img->sizes ); ?>"></div>
                       <div class="news-highlight-right">
                         <?php if (udesly_get_custom_post_field( $post->ID, "news-type", "Option" )) : ?><div class="tag-category is--purple is--left">
                           <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "news-type", "Option" ) ?></div>

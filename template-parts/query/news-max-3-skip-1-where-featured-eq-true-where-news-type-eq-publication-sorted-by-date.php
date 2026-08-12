@@ -52,7 +52,8 @@ $args = apply_filters('udesly/posts/news-max-3-skip-1-where-featured-eq-true-whe
                   <?php if ( $query->have_posts() ) : ?><div role="list" class="pub-right-grid w-dyn-items">
                     <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="w-dyn-item">
                       <div animation="fadefromright" class="pub-item">
-                        <div class="pub-image-wrapper"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>"></div>
+                        <?php $card_img = trafigura_card_image( '(max-width: 767px) 45vw, 280px' ); ?>
+                        <div class="pub-image-wrapper"><img src="<?php echo esc_url( $card_img->src ); ?>" loading="lazy" alt="<?php echo esc_attr( $card_img->alt ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo esc_attr( $card_img->srcset ); ?>" sizes="<?php echo esc_attr( $card_img->sizes ); ?>"></div>
                         <div class="pub-info">
                           <div class="flexv">
                             <div class="heading-16"><?php the_title() ?></div>

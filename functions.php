@@ -66,6 +66,91 @@
         return implode( ', ', $out );
     }
 
+    /**
+     * Theme-local compressed overrides for known heavy media-library files.
+     * Keys match a substring of the attachment basename.
+     */
+    function trafigura_optimized_image_override( $thumb_id ) {
+        if ( ! $thumb_id ) {
+            return null;
+        }
+
+        $file = get_attached_file( $thumb_id );
+        if ( ! $file ) {
+            return null;
+        }
+
+        $base = basename( $file );
+        $map  = [
+            'OceanImageBank_AriphRasheed_07' => [
+                'src'    => 'OceanImageBank_AriphRasheed_07-card.webp',
+                'srcset' => [
+                    'OceanImageBank_AriphRasheed_07-768.webp 768w',
+                    'OceanImageBank_AriphRasheed_07-card.webp 800w',
+                    'OceanImageBank_AriphRasheed_07-1200.webp 1200w',
+                ],
+            ],
+        ];
+
+        foreach ( $map as $needle => $files ) {
+            if ( stripos( $base, $needle ) === false ) {
+                continue;
+            }
+            $uri = get_template_directory_uri() . '/assets/images/optimized/';
+            return (object) [
+                'src'    => $uri . $files['src'],
+                'srcset' => implode( ', ', array_map( static function ( $entry ) use ( $uri ) {
+                    [ $name, $w ] = explode( ' ', $entry, 2 );
+                    return $uri . $name . ' ' . $w;
+                }, $files['srcset'] ) ),
+            ];
+        }
+
+        return null;
+    }
+
+    /**
+     * Card/listing image attrs: prefer medium_large src + sizes so mobile
+     * does not fetch full-resolution featured images. Uses theme optimized
+     * assets when a known override exists (e.g. OceanImageBank).
+     *
+     * @return object{src:string,srcset:string,alt:string,sizes:string}
+     */
+    function trafigura_card_image( $sizes = '(max-width: 767px) 92vw, (max-width: 991px) 45vw, 420px' ) {
+        $img = function_exists( 'udesly_get_image' ) ? udesly_get_image() : null;
+        $src = $img->src ?? '';
+        $srcset = $img->srcset ?? '';
+        $alt = $img->alt ?? '';
+
+        $thumb_id = get_post_thumbnail_id();
+        if ( $thumb_id ) {
+            $override = trafigura_optimized_image_override( $thumb_id );
+            if ( $override ) {
+                $src    = $override->src;
+                $srcset = $override->srcset;
+            } else {
+                $medium = wp_get_attachment_image_src( $thumb_id, 'medium_large' );
+                if ( ! empty( $medium[0] ) ) {
+                    $src = $medium[0];
+                }
+                $generated_srcset = wp_get_attachment_image_srcset( $thumb_id, 'medium_large' );
+                if ( $generated_srcset ) {
+                    $srcset = $generated_srcset;
+                }
+            }
+            if ( $alt === '' ) {
+                $alt = (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
+            }
+        }
+
+        return (object) [
+            'src'    => $src,
+            'srcset' => $srcset,
+            'alt'    => $alt,
+            'sizes'  => $sizes,
+        ];
+    }
+
         
     function udesly_trafigura_setup() {
         

@@ -54,15 +54,35 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 **`template-parts/head/front-page.php`:**
 
 - `<link rel="preload" as="image" href=".../home-hero-poster.jpg" fetchpriority="high">`
-- Defer GTM until idle/load (do not restore blocking GTM snippet on homepage).
 - Keep small CSS for `.hero-poster` / `.hero-video-wrap` stacking; hide video wrap on `max-width: 991px`.
 
+**GTM (all templates):**
+
+- Shared partial: `template-parts/head/partials/gtm-deferred.php`
+- Every `template-parts/head/*.php` must `get_template_part('template-parts/head/partials/gtm-deferred')` — do **not** restore the blocking GTM snippet.
+
+### 3b. Fonts (Euclid → WOFF2)
+
+- Prefer `assets/fonts/euclid-circular-b-*.woff2` in `assets/css/trafigura-staging.css` `@font-face` (TTF as fallback only).
+- Keep `font-display: swap`.
+- After CSS sync from Udesly, re-apply WOFF2 `src` lines (export often resets to TTF-only).
+- Bump `trafigura-staging` enqueue version in head templates when fonts/CSS change.
+
+### 3c. Listing images (card src + OceanImageBank)
+
+**`functions.php` helpers:**
+
+- `trafigura_card_image( $sizes )` — prefers `medium_large` + `sizes`; used by news/partner listing query templates
+- `trafigura_optimized_image_override( $thumb_id )` — serves theme-compressed copies from `assets/images/optimized/` for known heavy uploads (e.g. `OceanImageBank_AriphRasheed_07`)
+
+**Re-wire after sync:** any `news-*.php` / `partner-stories-*.php` card `<img>` that still uses raw `udesly_get_image()->src` should use `trafigura_card_image()` instead.
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
 
 - `trafigura_area_of_work_url( $slug )`
 - `trafigura_link_areas_of_work_text( $text )` — turns PlainText area labels into pillar links
+- `trafigura_card_image( $sizes )` / `trafigura_optimized_image_override( $thumb_id )` — listing image sizing + OceanImageBank overrides
 
 **Re-wire after sync:**
 
@@ -92,3 +112,6 @@ Trackers live in `SEO/` (`yoast-meta-all-pages.csv`, `news-to-partner-links.csv`
 3. Content Hub H1 = `Content Hub`  
 4. Home pillars + Content Hub/Partners headings are links  
 5. `home-hero-poster.jpg` exists under `assets/images/`
+6. Head templates include deferred GTM partial (not blocking snippet)
+7. Euclid `@font-face` prefers `.woff2`
+8. News/partner card imgs use `trafigura_card_image()`; `assets/images/optimized/` present
