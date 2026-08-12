@@ -202,35 +202,27 @@
                 }
             }
         }
+        // Honeypot / Udesly chrome CSS are not needed for first paint (W3TC
+        // was also duplicating our "defer" tags into blocking stylesheets).
+        wp_dequeue_style( 'wpa_css' );
+        wp_dequeue_style( 'wpa' );
+        wp_dequeue_style( 'udesly-common' );
+        wp_dequeue_style( 'udesly_common' );
+        wp_dequeue_style( 'udesly-frontend' );
+
+        global $wp_styles;
+        if ( $wp_styles instanceof WP_Styles ) {
+            foreach ( $wp_styles->registered as $handle => $obj ) {
+                $src = isset( $obj->src ) ? (string) $obj->src : '';
+                if ( strpos( $src, '/honeypot/' ) !== false || ( strpos( $src, 'udesly-wp-app' ) !== false && strpos( $src, 'common.css' ) !== false ) ) {
+                    wp_dequeue_style( $handle );
+                }
+            }
+        }
     }
     add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 9999 );
     add_action( 'elementor/frontend/after_enqueue_styles', 'trafigura_dequeue_unused_assets', 9999 );
     add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
-
-    /**
-     * Defer non-critical plugin CSS so it is not render-blocking.
-     */
-    function trafigura_defer_noncritical_css( $html, $handle, $href, $media ) {
-        $defer = [
-            'wpa_css',
-            'wpa',
-            'udesly-common',
-            'udesly_common',
-            'udesly-frontend',
-        ];
-        // Match by handle or URL path.
-        $href_l = (string) $href;
-        if (
-            in_array( $handle, $defer, true )
-            || strpos( $href_l, '/honeypot/' ) !== false
-            || strpos( $href_l, '/udesly-wp-app/' ) !== false && strpos( $href_l, 'common.css' ) !== false
-        ) {
-            return '<link rel="preload" href="' . esc_url( $href ) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">'
-                . '<noscript><link rel="stylesheet" href="' . esc_url( $href ) . '"></noscript>';
-        }
-        return $html;
-    }
-    add_filter( 'style_loader_tag', 'trafigura_defer_noncritical_css', 10, 4 );
 
     /**
      * True when the current singular page has real Elementor content.

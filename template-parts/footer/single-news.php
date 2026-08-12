@@ -3,7 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/CustomEase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786543000"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786544000"></script>
 <script>
 document.getElementById('facebook-share-link').addEventListener('click', function() {
 const pageUrl = encodeURIComponent(window.location.href);

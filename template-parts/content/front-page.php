@@ -200,21 +200,25 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-overlay"></div>
             <?php
-            $hero_poster = get_template_directory_uri() . '/assets/images/home-hero-poster.jpg';
-            $hero_mp4    = _u( 'i-5fdbe129', 'iframe' );
-            $hero_webm   = _u( 'i64642473', 'iframe' );
+            $hero_poster_webp = get_template_directory_uri() . '/assets/images/home-hero-poster-960.webp';
+            $hero_poster      = get_template_directory_uri() . '/assets/images/home-hero-poster.jpg';
+            $hero_mp4         = _u( 'i-5fdbe129', 'iframe' );
+            $hero_webm        = _u( 'i64642473', 'iframe' );
             ?>
-            <img
-              class="img--absolute hero-poster no-lazy"
-              src="<?php echo esc_url( $hero_poster ); ?>"
-              alt=""
-              width="1280"
-              height="720"
-              fetchpriority="high"
-              loading="eager"
-              decoding="async"
-              data-no-lazy="1"
-            >
+            <picture>
+              <source srcset="<?php echo esc_url( $hero_poster_webp ); ?>" type="image/webp">
+              <img
+                class="img--absolute hero-poster no-lazy"
+                src="<?php echo esc_url( $hero_poster ); ?>"
+                alt=""
+                width="960"
+                height="540"
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
+                data-no-lazy="1"
+              >
+            </picture>
             <div
               class="img--absolute w-background-video w-background-video-atom hero-video-wrap"
               data-autoplay="false"
