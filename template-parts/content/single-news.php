@@ -340,9 +340,9 @@ background-color:#212121;
                 <?php $setItem = udesly_get_fake_set_item(); ?><template><div role="listitem" class="swiper-slide is--nomax w-dyn-item udesly-hidden" data-repeater-prop="item">
                     <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo $setItem['image']->alt ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
                   </div></template></div>
-                <div class="w-dyn-empty <?php if (count($setItems) > 0) { echo " udesly-hidden"; } ?>">
+                <?php if ( count( $setItems ) === 0 ) : ?><div class="w-dyn-empty">
                   <div>No items found.</div>
-                </div>
+                </div><?php endif; ?>
               </div>
             </div>
           </div>

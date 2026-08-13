@@ -41,25 +41,42 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 
 ### 3. Homepage performance (hero video + GTM)
 
-**Poster asset (must exist):** `assets/images/home-hero-poster.jpg`
+**Poster assets (must exist):**
+
+- `assets/images/home-hero-poster.jpg` (video `poster` / fallback)
+- `assets/images/home-hero-poster-960.webp` (LCP `<img src>` — ~26 KiB)
+- Optional: `home-hero-poster-960.jpg`, `home-hero-poster-1280.webp`
 
 **`template-parts/content/front-page.php` — home hero:**
 
-- Show local poster `<img class="hero-poster no-lazy">` with `fetchpriority="high"`, `loading="eager"`, `data-no-lazy="1"` for LCP (W3TC must not lazy-load it).
+- Show local poster `<img class="hero-poster no-lazy">` with `src` = `home-hero-poster-960.webp`, `fetchpriority="high"`, `loading="eager"`, `data-no-lazy="1"`, width/height set (W3TC must not lazy-load it).
 - Do **not** put `<source src="...">` in the HTML (avoids downloading ~6.7MB Webflow video on mobile).
-- Video element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
-- Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `requestIdleCallback` / load.
+- Video wrap starts with `hidden`; element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
+- Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `window.load` + ~3s delay; reveal with `wrap.hidden = false` after `loadeddata`.
 - Mobile / reduced-motion: poster only.
-- Homepage footer: `footer/front-page` — same sync GSAP/Swiper/`code/script.js` as other pages (do **not** defer until after load — that delayed LCP / blank filmstrip).
+- Homepage uses footer partial `footer/front-page` (wired in `front-page.php`).
+- Homepage H1 must **not** use `animation="loading"` (GSAP starts those at opacity 0 and delays LCP).
+- Do **not** defer GSAP/Swiper/`script.js` until after load — that caused blank filmstrip / LCP regression.
 
 **`template-parts/head/front-page.php`:**
 
-- `<link rel="preload" as="image" href=".../home-hero-poster.jpg" fetchpriority="high">`
-- Keep small CSS for `.hero-poster` / `.hero-video-wrap` stacking; hide video wrap on `max-width: 991px`.
+- Preload **WebP** poster only (not both WebP + JPEG):  
+  `<link rel="preload" as="image" href=".../home-hero-poster-960.webp" type="image/webp" fetchpriority="high">`
+- Preload Euclid medium woff2 (`crossorigin`).
+- Small CSS for `.hero-poster` / `.hero-video-wrap` / `[hidden]`; hide video wrap on `max-width: 991px`.
 
 **Rem root (all pages — CLS/LCP):**
 
-- `header.php` must load `template-parts/head/partials/rem-root.php` **before** other head CSS (Webflow `html { font-size: calc(100vw/…) }`). Leaving rem scaling only in body embeds causes a late layout snap.
+- `header.php` must load `template-parts/head/partials/rem-root.php` **before** other head CSS.
+- Contains Webflow `html { font-size: calc(100vw/…) }` breakpoints (same as body embeds).
+- Leaving rem scaling only in body embeds causes a late layout snap (CLS).
+- Do **not** add `scrollbar-gutter: stable` or desktop navbar `min-width` reserves — user wants content to shift when nav opens; no permanent empty left column.
+
+**Navbar width (desktop):**
+
+- Default `.navbar { width: 0 }` — menu panel is `position: absolute` (`.navbar--menu` stays `width: 272rem`).
+- At `min-width: 1752px` (inlined `code/style.css` rules in staging): `.navbar { width: 272rem !important }` and menu always visible.
+- IX2 opens the nav and expands width so content shifts — do **not** force `min-width: 272rem` on closed nav.
 
 **GTM (all templates):**
 
@@ -69,13 +86,19 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 
 ### 3b. Fonts (all self-hosted — no Google Fonts)
 
-- Prefer `assets/fonts/euclid-circular-b-*.woff2` in CSS `@font-face` (weights **400 / 500 / 600** only).
-- Homepage preloads Euclid medium woff2.
-- Bebas Neue is self-hosted: `assets/fonts/bebas-neue-regular.woff2` (+ latin-ext + TTF fallback) via `@font-face` in `trafigura-staging.css`.
+- Prefer `assets/fonts/euclid-circular-b-*.woff2` in CSS `@font-face` (weights **400 / 500 / 600** only; map light→400, bold→600 if export brings 300/700).
+- **`font-display: optional`** on Euclid **and** Bebas (all `@font-face` blocks, including the duplicate faces at the end of staging). This cuts desktop CLS from late font swap on `#smooth-content` hero text. Keep homepage **preload** of Euclid medium so it usually wins the optional race.
+- Bebas Neue files: `assets/fonts/bebas-neue-regular.woff2`, `bebas-neue-regular-latin-ext.woff2`, `bebas-neue-regular.ttf`.
 - `bebas-font.php` must **not** load `fonts.googleapis.com` / `fonts.gstatic.com` — keep only the Webflow `w-mod-js` / touch class bootstrap.
 - Keep `elementor/frontend/print_google_fonts` → false (no Elementor Roboto from Google).
 - Enqueue **one** CSS file: `assets/css/trafigura-bundle.css` (= normalize + components + staging, minified for ship). Rebuild after editing sources:
-  `cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css` then minify (or leave unminified if debugging).
+
+```bash
+cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > assets/css/trafigura-bundle.css
+# then minify for production (or ship unminified while debugging)
+```
+
+- Bump `ver=` on `wp_enqueue_style('trafigura-bundle', …)` in all `template-parts/head/*.php` after CSS changes (cache bust / W3TC).
 
 ### 3c. Listing images (card src + OceanImageBank)
 
@@ -88,52 +111,115 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 
 ### 3d. Render-blocking cleanup (keep in `functions.php` + `footer.php`)
 
-- `trafigura_dequeue_unused_assets()` — dequeues block-library, Elementor Roboto fonts, and Elementor frontend/kit CSS when the page has no Elementor content (`trafigura_page_needs_elementor_css()`)
+- `trafigura_dequeue_unused_assets()` — dequeues block-library, Elementor Roboto fonts, Elementor frontend/kit CSS when no real Elementor content (`trafigura_page_needs_elementor_css()`), honeypot/udesly common CSS
 - `elementor/frontend/print_google_fonts` → false
-- jQuery is marked footer-group via `trafigura_jquery_in_footer()`, then **`footer.php` calls `wp_print_scripts( 'jquery' )` immediately before** theme/GSAP/Swiper/Netlify scripts — do not put those scripts before jQuery again
-- Host former Netlify extras from theme `code/` (`style.css`, `script.js`, page-specific JS/CSS) — do **not** restore `https://trafigura-code.netlify.app/...` URLs
-- Self-host GSAP / ScrollTrigger / CustomEase / Swiper / SplitType under `assets/js/vendor/` — do **not** restore cdnjs / jsDelivr / unpkg URLs
-- Optional helper: `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )` in `functions.php`
-- `trafigura_dequeue_unused_scripts()` — dequeue honeypot JS and Udesly frontend-editor chunks for public visitors (keep jquery-migrate)
-- **Never** set `.main-wrapper { opacity: 0 }` waiting for GSAP — that blanks the filmstrip and destroys mobile FCP. `code/script.js` must not fade the whole main wrapper in on load.
-- Homepage H1 must **not** use `animation="loading"` (GSAP starts those at opacity 0 and delays LCP until scripts load).
+- `trafigura_jquery_in_footer()` marks jQuery footer-group; **`footer.php` calls `wp_print_scripts( 'jquery' )` immediately before** theme/GSAP/Swiper/`code/` scripts
+- Host former Netlify extras from theme `code/` — do **not** restore `https://trafigura-code.netlify.app/...` URLs
+- Self-host under `assets/js/vendor/`: `gsap.min.js`, `ScrollTrigger.min.js`, `CustomEase.min.js`, `swiper-bundle.min.js` (v11), `swiper10-bundle.min.js` + `.css` (tales), `split-type.min.js` — do **not** restore cdnjs / jsDelivr / unpkg
+- Helpers: `trafigura_code_uri( $path )`, `trafigura_vendor_uri( $path )`
+- `trafigura_dequeue_unused_scripts()` — dequeue honeypot/`wpa.js` by handle **and** src; dequeue Udesly frontend-editor chunks for **public** visitors only (keep for logged-in / preview); **keep jquery-migrate**
+- `code/style.css` is **inlined** into `trafigura-staging.css` (marker comment) — do not link Netlify/`code/style.css` separately in heads
+- **Never** set `.main-wrapper { opacity: 0 }` waiting for GSAP — blanks filmstrip / destroys mobile FCP
+- `code/script.js`: guard Swiper inits with `if (typeof Swiper !== "undefined")` so homepage/pages without Swiper do not throw; do not fade entire `.main-wrapper` on load
+
+**Footer script pattern (typical page):** jQuery → `trafigura-staging.js` → vendor GSAP trio → (Swiper if needed) → `code/script.js` (+ page JS). Homepage: `template-parts/footer/front-page.php` includes Swiper (partner slider uses `.swiper.is--slider-resources`). Tales: Swiper 10 CSS in head, JS in footer; SplitType from local vendor.
+
+### 3e. Partner story singles — areas tag (SEO links, visually hidden)
+
+In `template-parts/content/single-partner-stories.php`:
+
+- Keep place + state tags visible.
+- Areas-of-work tag stays in HTML (pillar links via `trafigura_link_areas_of_work_text()`) but is hidden:
+
+```php
+<div class="tag--item is--areas-of-work" hidden>
+  <div class=""><?php echo trafigura_link_areas_of_work_text( $partner_areas ); ?></div>
+</div>
+```
+
+- CSS: `.tag--item.is--areas-of-work[hidden] { display: none !important; }` (needed because `.tag--item { display: flex }` would override the HTML `hidden` attribute).
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
 
 - `trafigura_area_of_work_url( $slug )`
 - `trafigura_link_areas_of_work_text( $text )` — turns PlainText area labels into pillar links
-- `trafigura_card_image( $sizes )` / `trafigura_optimized_image_override( $thumb_id )` — listing image sizing + OceanImageBank overrides
-- `trafigura_code_uri( $path )` — local `code/` assets (ex-Netlify)
+- `trafigura_card_image( $sizes )` / `trafigura_optimized_image_override( $thumb_id )`
+- `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )`
 
 **Re-wire after sync:**
 
 | File | What to restore |
 |---|---|
-| `template-parts/content/front-page.php` | Pillar `supply-item` H3s → area-of-work permalinks; “CONTENT HUB” H2 → `/content-hub/`; partners heading → `/partners-stories/` |
+| `template-parts/content/front-page.php` | Pillar `supply-item` H3s → area-of-work permalinks; “CONTENT HUB” H2 → `/content-hub/`; partners heading → `/partners-stories/`; hero poster/video pattern above |
 | `template-parts/content/page-areas-of-work.php` | Same pillar `supply-item` links |
 | `template-parts/content/page-content-hub.php` | “Explore our partners” CTA → `/partners-stories/` |
 | `template-parts/content/single-news.php` | “Explore our partners” CTA before Other Spotlights |
-| `template-parts/content/single-partner-stories.php` | Area-of-work tag(s) via `trafigura_link_areas_of_work_text()` |
+| `template-parts/content/single-partner-stories.php` | Area tag via `trafigura_link_areas_of_work_text()` + hidden `is--areas-of-work` |
 | `template-parts/query/partner-stories-sorted-by-post_date.php` | `partner--area` uses `trafigura_link_areas_of_work_text()` |
 | `template-parts/query/partner-stories-sorted-by-post_date-v0.php` | Same (used on area-of-work singles) |
 
 Pillar slugs: `prepared-communities`, `thriving-nature`, `sustainable-livelihoods`.
+
+**A11y / copy to keep:**
+
+- Areas CTA text: “Explore our areas of work” (not bare “LEARN MORE”)
+- Footer brand link: `aria-label="Trafigura Foundation home"`
+- Do not put conflicting `role="list"` on Swiper wrappers
 
 ### 5. SEO / IA context (not always in theme files)
 
 Public hubs (index): `/content-hub/` · `/partners-stories/` · `/areas-of-work/`  
 Hidden CPT archives: `/news/` · `/partner-stories/` · `/area-of-work/` → noindex and/or 301 to hubs  
 
-Trackers live in `SEO/` (`yoast-meta-all-pages.csv`, `news-to-partner-links.csv`, `CHECKLIST-big-wins.md`) — do not delete on theme replace.
+Trackers live in `SEO/` (`yoast-meta-all-pages.csv`, `news-to-partner-links.csv`, `CHECKLIST-big-wins.md`, `WEEK1-step-by-step.md`) — do not delete on theme replace.
+
+### 6. Files / folders that must survive theme replace
+
+Copy these from the customized theme into any new Udesly drop:
+
+| Path | Why |
+|---|---|
+| `.cursor/rules/theme-updates.mdc` | This checklist |
+| `SEO/` | Metas, link trackers, checklists |
+| `assets/fonts/euclid-circular-b-*.woff2` (+ ttf if kept) | Self-hosted Euclid |
+| `assets/fonts/bebas-neue-*` | Self-hosted Bebas |
+| `assets/images/home-hero-poster*` | LCP poster |
+| `assets/images/optimized/` | OceanImageBank card overrides |
+| `assets/js/vendor/` | GSAP / Swiper / SplitType |
+| `assets/css/trafigura-bundle.css` | Built ship CSS (rebuild after staging edits) |
+| `code/` | Ex-Netlify JS/CSS (no nested `.git`) |
+| `template-parts/head/partials/rem-root.php` | Rem in `<head>` |
+| `template-parts/head/partials/gtm-deferred.php` | Deferred GTM |
+| `template-parts/head/partials/bebas-font.php` | No Google Fonts |
+| `template-parts/footer/front-page.php` | Homepage vendor scripts |
+| `functions.php` helpers + dequeue hooks | Cards, links, dequeue, vendor URIs |
+| `header.php` rem-root include | Before head partial |
+| `footer.php` `wp_print_scripts('jquery')` | Before GSAP stack |
 
 ## Quick verify after sync
 
 1. Grep query templates for `"order" => "ASC"` on news/partner-stories → fix to DESC  
-2. View-source homepage: poster preload present; no hero `<source src=` until desktop JS  
+2. View-source homepage: WebP poster preload present; no hero `<source src=` until desktop JS; Euclid medium preload  
 3. Content Hub H1 = `Content Hub`  
 4. Home pillars + Content Hub/Partners headings are links  
-5. `home-hero-poster.jpg` exists under `assets/images/`
-6. Head templates include deferred GTM partial (not blocking snippet)
-7. Euclid + Bebas `@font-face` prefer local `.woff2`; no `fonts.googleapis.com` / `fonts.gstatic.com`
-8. News/partner card imgs use `trafigura_card_image()`; `assets/images/optimized/` present
+5. `home-hero-poster-960.webp` (+ jpg) exists under `assets/images/`  
+6. Head templates include deferred GTM partial (not blocking snippet)  
+7. Euclid + Bebas `@font-face` local `.woff2`, `font-display: optional`; no `fonts.googleapis.com` / `fonts.gstatic.com`  
+8. News/partner card imgs use `trafigura_card_image()`; `assets/images/optimized/` present  
+9. No cdnjs / jsDelivr / unpkg / Netlify script URLs in footers  
+10. `header.php` includes `rem-root` before other head output  
+11. `.navbar` default `width: 0` (not a permanent 272rem column); 1752px rule still forces open sidebar  
+12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`  
+13. Purge W3TC after deploy  
+
+## Known anti-patterns (do not reintroduce)
+
+- Deferring homepage GSAP/Swiper until `load` + idle → blank filmstrip, LCP ~5–6s  
+- Removing `jquery-migrate` → Webflow staging regressions  
+- `.main-wrapper { opacity: 0 }` until JS  
+- `animation="loading"` on homepage H1  
+- Blocking GTM / Google Fonts / Elementor Roboto in `<head>`  
+- `min-width: 272rem` on closed navbar / `scrollbar-gutter` experiments that fight intended nav UX  
+- Hero layout “in-flow aspect-ratio” experiments that hurt mobile scores — keep absolute hero wrapper as designed unless carefully retested  

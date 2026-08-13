@@ -31,8 +31,6 @@ defined( 'ABSPATH' ) || exit;
                   <div class="partner-related-text"><?php echo $term->name; ?></div>
                 </div><?php endforeach ?>
               </div>
-              <?php else : ?><div class="w-dyn-empty">
-                <div>No items found.</div>
-              </div><?php endif; ?>
+              <?php endif; ?>
             </div>
  
