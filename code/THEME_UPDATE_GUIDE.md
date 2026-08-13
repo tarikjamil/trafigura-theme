@@ -2,6 +2,8 @@
 
 This guide documents all the standard updates that need to be applied when uploading or updating a Trafigura WordPress theme.
 
+**Maintenance rule:** Whenever we ship a theme customization that must be re-applied after an Udesly/Webflow theme drop, add it here **in the same PR/change** (new section + checklist item + verify command when useful). Also update `.cursor/rules/theme-updates.mdc`.
+
 ## 1. Related Partners Script Updates
 
 ### Files to update:
@@ -106,7 +108,64 @@ With: `"order" => "DESC",`
 
 ---
 
-## 3. Quick Update Checklist
+## 3. Partner / news gallery — hide empty state + show captions
+
+Udesly exports leave a Webflow-style empty state and do not wire per-image captions. Re-apply after every theme drop.
+
+### 3a. Hide “No items found.” when the gallery has slides
+
+**Problem:** Templates add `udesly-hidden` on `.w-dyn-empty`, but that class is **not defined** in CSS (Webflow uses `.w-dyn-hide`). The gray “No items found.” box stays visible.
+
+**Files:**
+- `assets/css/components.css` (rebuild `trafigura-bundle.css` after)
+- `template-parts/content/single-partner-stories.php`
+- `template-parts/content/single-news.php`
+- `template-parts/query/related-partners-of-current-partner-stories.php`
+
+**CSS (next to `.w-dyn-hide`):**
+
+```css
+.udesly-hidden {
+  display: none !important;
+}
+```
+
+**Gallery markup:** only output the empty block when there are no items:
+
+```php
+<?php if ( count( $setItems ) === 0 ) : ?><div class="w-dyn-empty">
+  <div>No items found.</div>
+</div><?php endif; ?>
+```
+
+**Related-partners taxonomy query:** do **not** render the empty “No items found.” else branch (unused taxonomy clutters the page). Keep the list when `$count > 0` only.
+
+### 3b. Gallery image captions under the swiper
+
+**Helper in `functions.php`:** keep `trafigura_gallery_image_caption( $set_item )` — prefers set `caption`, then `$image->caption`, then alt.
+
+**Templates** (`single-partner-stories.php`, `single-news.php`):
+- Each slide: `data-caption="<?php echo esc_attr( trafigura_gallery_image_caption( $set_item ) ); ?>"`
+- Under-slider element: `.gallery-slide-caption` with `data-fallback` = `slider-text-3` (partners) or `gallery---text` (news)
+- Initial text = first slide caption, else fallback
+
+**JS** (`code/script.js` + `code/unminified/script.js`): gallery Swiper `init` / `slideChange` syncs active `data-caption` into `.gallery-slide-caption`.
+
+**CSS** (`trafigura-staging.css` → rebuild bundle):
+
+```css
+.gallery-slide-caption:empty {
+  display: none;
+}
+```
+
+**Content note:** captions come from the WP Media Library **Caption** field (or alt). Images without captions will show nothing until editors fill them in.
+
+**After CSS/JS edits:** bump `ver=` on `trafigura-bundle` in head templates and `code/script.js?v=` in footers; purge W3TC.
+
+---
+
+## 4. Quick Update Checklist
 
 When a new theme is uploaded:
 
@@ -115,10 +174,14 @@ When a new theme is uploaded:
 - [ ] Search all files in `/template-parts/query/` for `"order" => "ASC"`
 - [ ] Replace all instances with `"order" => "DESC"`
 - [ ] Verify no ASC orders remain (except where specifically needed for custom sorting)
+- [ ] Re-apply gallery empty-state hide (`.udesly-hidden` + no empty markup when slides exist)
+- [ ] Re-apply gallery captions helper + slide `data-caption` + `.gallery-slide-caption` sync in `script.js`
+- [ ] Drop empty “No items found” from `related-partners-of-current-partner-stories.php`
+- [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---
 
-## 4. Verification Commands
+## 5. Verification Commands
 
 ### To find all ASC orders:
 ```bash
@@ -130,6 +193,13 @@ grep -r '"order" => "ASC"' template-parts/query/
 grep -r '"order" => "DESC"' template-parts/query/
 ```
 
+### Gallery / empty-state checks:
+```bash
+grep -n 'udesly-hidden' assets/css/components.css assets/css/trafigura-bundle.css
+grep -n 'trafigura_gallery_image_caption\|gallery-slide-caption\|data-caption' template-parts/content/single-partner-stories.php template-parts/content/single-news.php functions.php code/script.js
+grep -n 'No items found' template-parts/query/related-partners-of-current-partner-stories.php
+```
+
 ---
 
 ## Notes
@@ -138,8 +208,9 @@ grep -r '"order" => "DESC"' template-parts/query/
 - The related partners script handles various dash types used in partner names
 - All collections display newest content first for better user engagement
 - Always test the related partners functionality after updates
+- For performance, fonts, hero, GTM, and SEO re-wires after a full Udesly drop, use `.cursor/rules/theme-updates.mdc`
 
 ---
 
-**Last Updated:** February 11, 2026  
-**Version:** 1.0
+**Last Updated:** August 13, 2026  
+**Version:** 1.1

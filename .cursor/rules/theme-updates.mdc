@@ -5,6 +5,15 @@ alwaysApply: true
 
 # Theme updates
 
+## Document every theme customization
+
+Whenever you change theme behavior that must survive an Udesly/Webflow re-export (templates, CSS, `code/`, `functions.php` helpers, head/footer, fonts, performance patterns, SEO re-wires), **update both**:
+
+1. This file (`.cursor/rules/theme-updates.mdc`) — agent checklist after sync  
+2. `code/THEME_UPDATE_GUIDE.md` — human/dev guide (checklist + verify commands)
+
+Do this in the **same change** as the fix, not later. Include: what to re-apply, which files, and a quick verify step when useful.
+
 ## Source versions
 
 - New theme drops go in `themes/` (e.g. `themes/trafigura-vX/`).
@@ -139,12 +148,29 @@ In `template-parts/content/single-partner-stories.php`:
 
 - CSS: `.tag--item.is--areas-of-work[hidden] { display: none !important; }` (needed because `.tag--item { display: flex }` would override the HTML `hidden` attribute).
 
+### 3f. Gallery empty state + per-slide captions
+
+**Empty state (“No items found.”):**
+
+- `.udesly-hidden` must exist in `components.css` (`display: none !important`) — Udesly adds the class but Webflow CSS only ships `.w-dyn-hide`.
+- In `single-partner-stories.php` / `single-news.php` gallery: only render `.w-dyn-empty` when `count( $setItems ) === 0` (do not leave a visible empty box beside slides).
+- `related-partners-of-current-partner-stories.php`: no empty-state else branch.
+
+**Captions under gallery swiper:**
+
+- Keep `trafigura_gallery_image_caption( $set_item )` in `functions.php` (set caption → image caption → alt).
+- Slides: `data-caption="..."`; under-slider `.gallery-slide-caption` with `data-fallback` (`slider-text-3` partners / `gallery---text` news).
+- `code/script.js`: sync active slide caption on Swiper `init` / `slideChange`.
+- Staging: `.gallery-slide-caption:empty { display: none; }` then rebuild bundle + bump CSS/JS `ver=`.
+- Also documented in `code/THEME_UPDATE_GUIDE.md` §3.
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
 
 - `trafigura_area_of_work_url( $slug )`
 - `trafigura_link_areas_of_work_text( $text )` — turns PlainText area labels into pillar links
+- `trafigura_gallery_image_caption( $set_item )` — gallery slide captions
 - `trafigura_card_image( $sizes )` / `trafigura_optimized_image_override( $thumb_id )`
 - `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )`
 
@@ -155,10 +181,12 @@ In `template-parts/content/single-partner-stories.php`:
 | `template-parts/content/front-page.php` | Pillar `supply-item` H3s → area-of-work permalinks; “CONTENT HUB” H2 → `/content-hub/`; partners heading → `/partners-stories/`; hero poster/video pattern above |
 | `template-parts/content/page-areas-of-work.php` | Same pillar `supply-item` links |
 | `template-parts/content/page-content-hub.php` | “Explore our partners” CTA → `/partners-stories/` |
-| `template-parts/content/single-news.php` | “Explore our partners” CTA before Other Spotlights |
-| `template-parts/content/single-partner-stories.php` | Area tag via `trafigura_link_areas_of_work_text()` + hidden `is--areas-of-work` |
+| `template-parts/content/single-news.php` | “Explore our partners” CTA before Other Spotlights; gallery captions + empty-state hide |
+| `template-parts/content/single-partner-stories.php` | Area tag via `trafigura_link_areas_of_work_text()` + hidden `is--areas-of-work`; gallery captions + empty-state hide |
 | `template-parts/query/partner-stories-sorted-by-post_date.php` | `partner--area` uses `trafigura_link_areas_of_work_text()` |
 | `template-parts/query/partner-stories-sorted-by-post_date-v0.php` | Same (used on area-of-work singles) |
+| `template-parts/query/related-partners-of-current-partner-stories.php` | No “No items found” empty state |
+| `code/script.js` | Gallery caption sync on slide change |
 
 Pillar slugs: `prepared-communities`, `thriving-nature`, `sustainable-livelihoods`.
 
@@ -189,7 +217,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `assets/images/optimized/` | OceanImageBank card overrides |
 | `assets/js/vendor/` | GSAP / Swiper / SplitType |
 | `assets/css/trafigura-bundle.css` | Built ship CSS (rebuild after staging edits) |
-| `code/` | Ex-Netlify JS/CSS (no nested `.git`) |
+| `code/` | Ex-Netlify JS/CSS (no nested `.git`); keep `THEME_UPDATE_GUIDE.md` |
 | `template-parts/head/partials/rem-root.php` | Rem in `<head>` |
 | `template-parts/head/partials/gtm-deferred.php` | Deferred GTM |
 | `template-parts/head/partials/bebas-font.php` | No Google Fonts |
@@ -212,7 +240,8 @@ Copy these from the customized theme into any new Udesly drop:
 10. `header.php` includes `rem-root` before other head output  
 11. `.navbar` default `width: 0` (not a permanent 272rem column); 1752px rule still forces open sidebar  
 12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`  
-13. Purge W3TC after deploy  
+13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
+14. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)
 
@@ -223,3 +252,4 @@ Copy these from the customized theme into any new Udesly drop:
 - Blocking GTM / Google Fonts / Elementor Roboto in `<head>`  
 - `min-width: 272rem` on closed navbar / `scrollbar-gutter` experiments that fight intended nav UX  
 - Hero layout “in-flow aspect-ratio” experiments that hurt mobile scores — keep absolute hero wrapper as designed unless carefully retested  
+- Leaving gallery `.w-dyn-empty` visible via undefined `udesly-hidden` (use CSS + only render empty when no slides)  
