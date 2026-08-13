@@ -221,7 +221,7 @@ body {
               data-autoplay="false"
               data-loop="true"
               data-wf-ignore="true"
-              aria-hidden="true"
+              hidden
             >
               <video
                 id="home-hero-video"
@@ -263,9 +263,9 @@ body {
                   s2.type = 'video/mp4';
                   video.appendChild(s2);
                 }
-                // Fade in over the poster — do not toggle display/hidden (CLS).
+                // Keep wrap in flow as absolute overlay; only reveal after metadata to limit CLS.
                 video.addEventListener('loadeddata', function () {
-                  if (wrap) wrap.classList.add('is-ready');
+                  if (wrap) wrap.hidden = false;
                 }, { once: true });
                 video.load();
                 var playPromise = video.play();
@@ -275,6 +275,7 @@ body {
               }
 
               function schedule() {
+                // After full load so LCP/FCP are not competing with the hero MP4.
                 window.addEventListener('load', function () {
                   setTimeout(loadHeroVideo, 3000);
                 });

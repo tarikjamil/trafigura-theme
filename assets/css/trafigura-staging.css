@@ -475,8 +475,6 @@ img {
   padding-left: var(--padding--padding0\<deleted\|variable-4aff3481-eec1-cfa3-41e0-74141a20754c\>);
   color: var(--white);
   text-align: center;
-  /* Keep hero box in normal flow so aspect-ratio reserves height (desktop CLS). */
-  position: relative;
 }
 
 .section.is--partners-list {
@@ -699,11 +697,6 @@ img {
   position: absolute;
 }
 
-/* Homepage only: keep hero in flow so aspect-ratio reserves height (desktop CLS). */
-.section.is--home-hero .hero-image-wrapper {
-  position: relative;
-}
-
 .img--absolute {
   object-fit: cover;
   width: 100%;
@@ -743,11 +736,6 @@ img {
   margin-top: -30rem;
   display: flex;
   position: relative;
-}
-
-/* Reserve H1 block height so Euclid swap does not shove content (desktop CLS ~0.18). */
-.section.is--home-hero .heading-60 {
-  min-height: 2.4em;
 }
 
 .heading-60 {
