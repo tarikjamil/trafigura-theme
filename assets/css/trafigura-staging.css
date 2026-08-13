@@ -1887,7 +1887,8 @@ img {
   flex: none;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 272rem;
+  /* No reserved column — menu is position:absolute; width expands via IX / 1752px rule when open */
+  width: 0;
   display: flex;
   position: sticky;
   top: 0;
@@ -3270,7 +3271,7 @@ img {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-template-rows: auto;
-  grid-template-columns: minmax(0, 272rem) 1fr;
+  grid-template-columns: auto 1fr;
   grid-auto-columns: 1fr;
   justify-content: flex-start;
   align-items: flex-start;
