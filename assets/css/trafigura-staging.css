@@ -1893,13 +1893,6 @@ img {
   top: 0;
 }
 
-@media screen and (min-width: 992px) {
-  .navbar {
-    flex-shrink: 0;
-    min-width: 272rem;
-  }
-}
-
 .sub-areas-grid {
   grid-column-gap: 116rem;
   grid-row-gap: 116rem;
