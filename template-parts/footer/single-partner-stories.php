@@ -4,7 +4,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/CustomEase.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/swiper-bundle.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/code/related-partner.js?v=1786544000"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786544000"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786555200"></script>
 <script>
 document.getElementById('twitter-share-link').addEventListener('click', function() {
 const pageUrl = encodeURIComponent(window.location.href);

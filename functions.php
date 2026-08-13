@@ -67,6 +67,27 @@
     }
 
     /**
+     * Caption for a gallery Set row: optional set caption, else image caption, else alt.
+     */
+    function trafigura_gallery_image_caption( $set_item ) {
+        $caption = '';
+
+        if ( is_array( $set_item ) ) {
+            if ( ! empty( $set_item['caption'] ) && is_string( $set_item['caption'] ) ) {
+                $caption = $set_item['caption'];
+            } elseif ( ! empty( $set_item['image'] ) && is_object( $set_item['image'] ) ) {
+                if ( ! empty( $set_item['image']->caption ) ) {
+                    $caption = $set_item['image']->caption;
+                } elseif ( ! empty( $set_item['image']->alt ) ) {
+                    $caption = $set_item['image']->alt;
+                }
+            }
+        }
+
+        return trim( wp_strip_all_tags( (string) $caption ) );
+    }
+
+    /**
      * Theme-local compressed overrides for known heavy media-library files.
      * Keys match a substring of the attachment basename.
      */

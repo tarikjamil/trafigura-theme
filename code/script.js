@@ -237,20 +237,42 @@ if (typeof Swiper !== "undefined") {
     centeredSlides: !1,
     breakpoints: { 992: { slidesPerView: 1, spaceBetween: "20rem" } },
   });
-  new Swiper(".is--gallery-slider", {
-    direction: "horizontal",
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    spaceBetween: "20rem",
-    loop: !1,
-    centeredSlides: !1,
-    effect: "cards",
-    grabCursor: !0,
-    cardsEffect: { rotate: !1 },
-    breakpoints: { 992: { slidesPerView: 1, spaceBetween: "20rem" } },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+  document.querySelectorAll(".is--gallery-slider").forEach(function (el) {
+    var captionEl =
+      el.parentElement &&
+      el.parentElement.querySelector(".gallery-slide-caption");
+    if (!captionEl) {
+      var section = el.closest("section");
+      captionEl = section && section.querySelector(".gallery-slide-caption");
+    }
+    function syncCaption(swiper) {
+      if (!captionEl) return;
+      var slide = swiper.slides[swiper.activeIndex];
+      var text =
+        (slide && slide.getAttribute("data-caption")) ||
+        captionEl.getAttribute("data-fallback") ||
+        "";
+      captionEl.textContent = text;
+    }
+    new Swiper(el, {
+      direction: "horizontal",
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: "20rem",
+      loop: !1,
+      centeredSlides: !1,
+      effect: "cards",
+      grabCursor: !0,
+      cardsEffect: { rotate: !1 },
+      breakpoints: { 992: { slidesPerView: 1, spaceBetween: "20rem" } },
+      navigation: {
+        nextEl: el.querySelector(".swiper-button-next"),
+        prevEl: el.querySelector(".swiper-button-prev"),
+      },
+      on: {
+        init: syncCaption,
+        slideChange: syncCaption,
+      },
+    });
   });
 }

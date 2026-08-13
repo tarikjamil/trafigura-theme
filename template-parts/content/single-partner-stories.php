@@ -274,10 +274,16 @@ body {
           <div class="swiper-slide swiper-slide-active"></div>
           <div class="container--1440">
             <div id="slider" class="splide is-case is--partners">
-              <?php $setItems = (array) udesly_get_custom_post_field( get_queried_object_id(), "gallery-2", "Set" ) ?><div class="swiper is--gallery-slider w-dyn-list">
+              <?php $setItems = (array) udesly_get_custom_post_field( get_queried_object_id(), "gallery-2", "Set" );
+              $gallery_fallback = (string) udesly_get_custom_post_field( $post->ID, "slider-text-3", "PlainText" );
+              $gallery_first_caption = ! empty( $setItems[0] ) ? trafigura_gallery_image_caption( $setItems[0] ) : '';
+              $gallery_initial = $gallery_first_caption !== '' ? $gallery_first_caption : $gallery_fallback;
+              ?><div class="swiper is--gallery-slider w-dyn-list">
                 <div class="swiper-wrapper w-dyn-items" data-appended="true">
-                  <?php foreach ($setItems as $setItem) : ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item">
-                    <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo $setItem['image']->alt ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
+                  <?php foreach ($setItems as $setItem) :
+                    $slide_caption = trafigura_gallery_image_caption( $setItem );
+                    ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item" data-caption="<?php echo esc_attr( $slide_caption ); ?>">
+                    <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo esc_attr( $setItem['image']->alt ?: $slide_caption ); ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
                   </div><?php endforeach ?>
                 <?php $setItem = udesly_get_fake_set_item(); ?><template><div role="listitem" class="swiper-slide is--nomax w-dyn-item udesly-hidden" data-repeater-prop="item">
                     <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo $setItem['image']->alt ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
@@ -288,7 +294,7 @@ body {
               </div>
               <div class="container--960">
                 <div>
-                  <p class=""><?php echo udesly_get_custom_post_field( $post->ID, "slider-text-3", "PlainText" ) ?></p>
+                  <p class="gallery-slide-caption" data-fallback="<?php echo esc_attr( $gallery_fallback ); ?>"><?php echo esc_html( $gallery_initial ); ?></p>
                   <div data-text="t6428cb6"><?php echo _u('t6428cb6','text'); ?></div>
                 </div>
               </div>

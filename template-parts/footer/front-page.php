@@ -3,4 +3,4 @@
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/CustomEase.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/swiper-bundle.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786548000"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/code/script.js?v=1786555200"></script>

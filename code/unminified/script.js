@@ -385,30 +385,53 @@ const swiper2 = new Swiper(".is--circles-slider", {
   // Navigation arrows
 });
 
-const swiper3 = new Swiper(".is--gallery-slider", {
-  direction: "horizontal",
-  slidesPerView: 1, // Default to 1 slide per view for mobile and smaller viewports
-  slidesPerGroup: 1,
-  spaceBetween: "20rem",
-  loop: false,
-  centeredSlides: false,
-  effect: "cards",
-  grabCursor: true,
-  cardsEffect: {
-    rotate: false,
-  },
+const swiper3Instances = document.querySelectorAll(".is--gallery-slider");
+swiper3Instances.forEach(function (el) {
+  var captionEl =
+    (el.parentElement &&
+      el.parentElement.querySelector(".gallery-slide-caption")) ||
+    (el.closest("section") &&
+      el.closest("section").querySelector(".gallery-slide-caption"));
 
-  // If we need pagination
-  // Define breakpoints
-  breakpoints: {
-    // When window width is >= 992px
-    992: {
-      slidesPerView: 1,
-      spaceBetween: "20rem",
+  function syncCaption(swiper) {
+    if (!captionEl) return;
+    var slide = swiper.slides[swiper.activeIndex];
+    var text =
+      (slide && slide.getAttribute("data-caption")) ||
+      captionEl.getAttribute("data-fallback") ||
+      "";
+    captionEl.textContent = text;
+  }
+
+  new Swiper(el, {
+    direction: "horizontal",
+    slidesPerView: 1, // Default to 1 slide per view for mobile and smaller viewports
+    slidesPerGroup: 1,
+    spaceBetween: "20rem",
+    loop: false,
+    centeredSlides: false,
+    effect: "cards",
+    grabCursor: true,
+    cardsEffect: {
+      rotate: false,
     },
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
+
+    // If we need pagination
+    // Define breakpoints
+    breakpoints: {
+      // When window width is >= 992px
+      992: {
+        slidesPerView: 1,
+        spaceBetween: "20rem",
+      },
+    },
+    navigation: {
+      nextEl: el.querySelector(".swiper-button-next"),
+      prevEl: el.querySelector(".swiper-button-prev"),
+    },
+    on: {
+      init: syncCaption,
+      slideChange: syncCaption,
+    },
+  });
 });

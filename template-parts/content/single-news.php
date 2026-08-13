@@ -332,10 +332,16 @@ background-color:#212121;
         <?php if (udesly_get_custom_post_field( $post->ID, "gallery-2", "Set" )) : ?><section data-cms-section="true" class="section is--home-slider">
           <div class="container--1440">
             <div id="slider" class="splide is-case is--partners">
-              <?php $setItems = (array) udesly_get_custom_post_field( get_queried_object_id(), "gallery-2", "Set" ) ?><div class="swiper is--gallery-slider w-dyn-list">
+              <?php $setItems = (array) udesly_get_custom_post_field( get_queried_object_id(), "gallery-2", "Set" );
+              $gallery_fallback = (string) udesly_get_custom_post_field( $post->ID, "gallery---text", "PlainText" );
+              $gallery_first_caption = ! empty( $setItems[0] ) ? trafigura_gallery_image_caption( $setItems[0] ) : '';
+              $gallery_initial = $gallery_first_caption !== '' ? $gallery_first_caption : $gallery_fallback;
+              ?><div class="swiper is--gallery-slider w-dyn-list">
                 <div class="swiper-wrapper w-dyn-items" data-appended="true">
-                  <?php foreach ($setItems as $setItem) : ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item">
-                    <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo $setItem['image']->alt ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
+                  <?php foreach ($setItems as $setItem) :
+                    $slide_caption = trafigura_gallery_image_caption( $setItem );
+                    ?><div role="listitem" class="swiper-slide is--nomax w-dyn-item" data-caption="<?php echo esc_attr( $slide_caption ); ?>">
+                    <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo esc_attr( $setItem['image']->alt ?: $slide_caption ); ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
                   </div><?php endforeach ?>
                 <?php $setItem = udesly_get_fake_set_item(); ?><template><div role="listitem" class="swiper-slide is--nomax w-dyn-item udesly-hidden" data-repeater-prop="item">
                     <div class="swiper--slide-content"><img src="<?php echo $setItem['image']->src ?>" loading="lazy" alt="<?php echo $setItem['image']->alt ?>" class="image-100 is--32" data-img="i317f733b" srcset="<?php echo $setItem['image']->srcset ?>"></div>
@@ -347,7 +353,7 @@ background-color:#212121;
             </div>
           </div>
           <div class="container--960 is--news">
-            <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "gallery---text", "PlainText" ) ?></div>
+            <div class="gallery-slide-caption" data-fallback="<?php echo esc_attr( $gallery_fallback ); ?>"><?php echo esc_html( $gallery_initial ); ?></div>
           </div>
         </section><?php endif  ?>
         <section class="section is--other-news">

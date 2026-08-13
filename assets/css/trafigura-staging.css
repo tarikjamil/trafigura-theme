@@ -3894,6 +3894,10 @@ img {
   left: 0;
 }
 
+.gallery-slide-caption:empty {
+  display: none;
+}
+
 .container--960 {
   grid-column-gap: 40rem;
   grid-row-gap: 40rem;
