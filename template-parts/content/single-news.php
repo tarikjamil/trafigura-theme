@@ -254,7 +254,7 @@ background-color:#212121;
       <main class="main-wrapper">
         <section class="section is--template-hero">
           <div class="container--1440">
-            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
+            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
               <?php if (udesly_get_custom_post_field( $post->ID, "news-type", "Option" )) : ?><div class="tag-category is--purple-hero">
                 <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "news-type", "Option" ) ?></div>
               </div><?php endif  ?>

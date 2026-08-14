@@ -1,5 +1,4 @@
 <meta charset="utf-8">
-<meta content="Contact" name="twitter:title">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <?php wp_enqueue_style('trafigura-bundle', get_template_directory_uri() . '/assets/css/trafigura-bundle.css', [], '1786555200'); ?>
 <?php get_template_part('template-parts/head/partials/bebas-font'); ?>

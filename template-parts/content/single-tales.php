@@ -122,7 +122,7 @@ body {
               <div animation="loading" class="tale--card-flex is--2">
                 <div class="tales--card-name"><?php echo udesly_get_custom_post_field( $post->ID, "country", "PlainText" ) ?></div><img src="<?php echo udesly_get_custom_post_field( $post->ID, "country-flag", "ImageRef" )->src ?>" loading="lazy" alt="<?php echo udesly_get_custom_post_field( $post->ID, "country-flag", "ImageRef" )->alt ?>" class="flag--img" data-img="i317f733b" srcset="<?php echo udesly_get_custom_post_field( $post->ID, "country-flag", "ImageRef" )->srcset ?>">
               </div>
-              <h2 animation="loading" class="heading--tales-card"><?php the_title() ?></h2>
+              <h1 animation="loading" class="heading--tales-card"><?php the_title() ?></h1>
             </div>
           </div>
         </section>

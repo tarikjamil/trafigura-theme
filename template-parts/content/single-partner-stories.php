@@ -221,7 +221,7 @@ body {
       <main class="main-wrapper">
         <section class="section is--storytemplate-hero is--nopadding">
           <div class="container--1440">
-            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
+            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
               <div class="tags-wrapper-absolute">
                 <div class="tag--item">
                   <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
@@ -248,15 +248,16 @@ body {
                 <div class="w-richtext" data-richtext="r3fbe8166"><?php the_content() ?></div>
                 <div class="social-btn is--grey">
                   <div data-text="t6854fdf"><?php echo _u('t6854fdf','text'); ?></div>
-                  <div class="w-embed"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftrafigurafoundation.org/%2Fpartner-stories%2F<?php echo get_post_field("post_name") ?>" class="social-share w-inline-block" target="_blank"><svg class="icon-16" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 9.56 18.101"><path id="Path_54647" data-name="Path 54647" d="M6.33,28.251v2.1h3.1l-.5,3.23H6.33v7.937a11.509,11.509,0,0,1-1.689.126,10.928,10.928,0,0,1-1.8-.147V33.578H0v-3.23H2.839V27.888a4.415,4.415,0,0,1,1.224-3.3,4.182,4.182,0,0,1,3-1.052,16.342,16.342,0,0,1,2.5.216v2.749H8.153a1.961,1.961,0,0,0-1.24.359,1.693,1.693,0,0,0-.583,1.387" transform="translate(0 -23.54)" fill="currentColor"></path></svg></a></div>
+                  <?php $partner_share_url = rawurlencode( get_permalink() ); ?>
+                  <div class="w-embed"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_attr( $partner_share_url ); ?>" class="social-share w-inline-block" target="_blank" rel="noopener noreferrer"><svg class="icon-16" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 9.56 18.101"><path id="Path_54647" data-name="Path 54647" d="M6.33,28.251v2.1h3.1l-.5,3.23H6.33v7.937a11.509,11.509,0,0,1-1.689.126,10.928,10.928,0,0,1-1.8-.147V33.578H0v-3.23H2.839V27.888a4.415,4.415,0,0,1,1.224-3.3,4.182,4.182,0,0,1,3-1.052,16.342,16.342,0,0,1,2.5.216v2.749H8.153a1.961,1.961,0,0,0-1.24.359,1.693,1.693,0,0,0-.583,1.387" transform="translate(0 -23.54)" fill="currentColor"></path></svg></a></div>
                   <div class="w-embed">
-                    <a href="<?php echo _u('a23','link'); ?>" class="social-share w-inline-block" target="_blank" id="twitter-share-link" data-link="a23">
+                    <a href="<?php echo _u('a23','link'); ?>" class="social-share w-inline-block" target="_blank" rel="noopener noreferrer" id="twitter-share-link" data-link="a23">
                       <svg class="icon-16" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.513 17.768">
                         <path id="Tracé_54651" data-name="Tracé 54651" d="M802.293,237.055l-6.3-9.082,6.475-7.515h-1.547l-5.618,6.52-3.71-5.349-.813-1.172h-5.187l.813,1.172,6.024,8.684-6.817,7.912h1.546l5.961-6.919,3.987,5.747.812,1.172h5.187Zm-3.761,0-4.623-6.664-.69-.993-5.388-7.767h2.335l4.346,6.265.69.994,5.665,8.165Z" transform="translate(-785.592 -220.459)" fill="currentColor"></path>
                       </svg>
                     </a>
                   </div>
-                  <div class="w-embed"><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftrafigurafoundation.org%2Fpartner-stories%2F<?php echo get_post_field("post_name") ?>" class="social-share w-inline-block" target="_blank">
+                  <div class="w-embed"><a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo esc_attr( $partner_share_url ); ?>" class="social-share w-inline-block" target="_blank" rel="noopener noreferrer">
     <svg class="icon-16" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 18.14 18.101">
         <g id="Group_62" data-name="Group 62" transform="translate(-1468.042 -3042.64)">
             <rect id="Rectangle_385" data-name="Rectangle 385" width="3.764" height="12.088" transform="translate(1468.334 3048.653)" fill="currentColor"></rect>

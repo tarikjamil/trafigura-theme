@@ -203,7 +203,7 @@ body {
       <main class="main-wrapper">
         <section class="section is--storytemplate-hero">
           <div class="container--1440">
-            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo udesly_get_image()->alt ?>" class="img--absolute" data-img="in5ca4ed67" srcset="<?php echo udesly_get_image()->srcset ?>"></div>
+            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute" data-img="in5ca4ed67" srcset="<?php echo udesly_get_image()->srcset ?>"></div>
             <div class="news-hero-text">
               <a href="<?php echo _u('a-6749d800','link'); ?>" class="btn-arrow is--blue w-inline-block" data-link="a-6749d800"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.589 13.87" class="icon-arrow">
                   <path id="Tracé_54632" data-name="Tracé 54632" d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(17.588 13.87) rotate(180)" fill="currentColor"></path>

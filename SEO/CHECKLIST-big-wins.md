@@ -64,8 +64,8 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 ### 5. Template / H1 fixes (theme or Elementor)
 - [x] CPT archives no longer public hubs (redirected / noindex) — archive H1 issue moot for SEO
 - [x] Content Hub H1 → `Content Hub` (theme: `page-content-hub.php`)
-- [ ] Normalize remaining H1 casing if needed (`who we are`, `contact us`)
-- [ ] Ensure one clear H1 per page; keep brand voice consistent
+- [x] Normalize remaining H1 casing (`Who We Are`, `Contact Us`, `Areas of Work`)
+- [x] Ensure one clear H1 per page; tales singles use H1 (theme 14 Aug)
 
 ### 6. robots.txt & crawl hygiene
 - [x] Added `Sitemap: https://trafigurafoundation.org/sitemap_index.xml` (Yoast block) + kept `Crawl-delay: 10`
@@ -79,10 +79,11 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 ### 7. Complete Yoast for all News + Partner Stories
 - [x] Apply remaining CSV rows (`priority=P1`) — covered in 12 Aug live audit
 - [ ] In Yoast: spot-check focus keyphrase in intro + H1 where natural (optional polish)
-- [ ] Add unique OG title/description where social previews still look generic (optional)
+- [x] Theme prefers SEO title/description for OG/Twitter (14 Aug filters) — still clear stale Yoast social fields in admin when convenient
 
 ### 8. Slug & spelling clean-up (with 301s)
 - [x] `/tales-of-resistence/` → `/tales-of-resilience/` + 301
+- [x] Theme: `page-tales-of-resilience.php` restores custom Tales template (14 Aug)
 - [x] `/news/field-visit-in-columbia-…` → Colombia spelling + 301
 - [ ] Review `/news/trafigura-foundation-2025-annual-report-2/` slug (`-2` looks accidental)
 
@@ -96,10 +97,21 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 
 ### 10. Structured data (beyond basic Yoast WebPage)
 - [ ] `Organization` / `NGO` or `FundingScheme` accuracy (name, logo, sameAs LinkedIn, address Geneva)
-- [ ] `NewsArticle` / `Article` on news posts (author, datePublished, image)
-- [ ] `BreadcrumbList` on all nested URLs
+- [x] `NewsArticle` / `Article` on news posts (author, datePublished, image) — via Yoast
+- [x] `BreadcrumbList` on nested URLs — via Yoast
 - [ ] PDF publications: consider `DigitalDocument` or dedicated publication pages with metadata
 
+### 10b. Theme technical SEO (14 Aug)
+- [x] Remove hardcoded `twitter:title` from theme heads
+- [x] `archive.php` redirects leftover CPT archives (no homepage clone); `/tales/` → resilience
+- [x] Partner Facebook/LinkedIn share via `get_permalink()`
+- [x] Image alt fallbacks (`trafigura_image_alt` + card/hero/featured + buffer)
+- [x] Yoast OG/Twitter prefer SEO meta description + title
+- [x] `header.php` single `lang` via `language_attributes()`
+- [ ] Media library: still worth filling real descriptive alts in WP admin (theme falls back to titles)
+- [ ] Yoast admin: clear stale Facebook description field on homepage if still stored
+- [ ] `llms.txt`: replace resistence URL with resilience
+- [ ] Optional: remove `Crawl-delay: 10` from robots.txt
 ### 11. Performance & Core Web Vitals (W3TC + theme)
 - [x] Homepage hero: poster-first LCP image; **no autoplay video on mobile**; desktop loads video after idle
 - [x] Preload local hero poster (`assets/images/home-hero-poster.jpg`)

@@ -208,7 +208,7 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t420a88a4"><?php echo _u('t420a88a4','text'); ?></h1>
+                <h1 animation="loading" class="heading-160" data-text="t420a88a4">Who We Are</h1>
               </div>
             </div><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('if7d3881', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('if7d3881', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('if7d3881', 'img'))->src ?>" class="img--absolute" data-img="if7d3881">
           </div>

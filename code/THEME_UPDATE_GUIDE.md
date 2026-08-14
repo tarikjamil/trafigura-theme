@@ -200,6 +200,43 @@ grep -n 'trafigura_gallery_image_caption\|gallery-slide-caption\|data-caption' t
 grep -n 'No items found' template-parts/query/related-partners-of-current-partner-stories.php
 ```
 
+### Technical SEO guards:
+```bash
+# Must be empty (Yoast owns Twitter titles)
+grep -r 'twitter:title' template-parts/head/ || true
+
+# Archives must redirect, not render front-page
+grep -n 'wp_safe_redirect\|front-page' archive.php archive-tales.php archive-partner-stories.php
+
+# Resilience slug template present
+test -f page-tales-of-resilience.php && echo OK
+
+# No duplicate lang=
+grep -n 'language_attributes\|lang=' header.php
+
+# Partner share uses get_permalink
+grep -n 'get_permalink\|%2Fpartner-stories' template-parts/content/single-partner-stories.php
+
+# Alt + Yoast OG helpers
+grep -n 'trafigura_image_alt\|trafigura_yoast_prefer' functions.php
+```
+
+---
+
+## 6. Technical SEO customizations (Aug 2026)
+
+Re-apply after Udesly sync:
+
+1. **No** hardcoded `twitter:title` in `template-parts/head/*.php`
+2. `page-tales-of-resilience.php` loads Tales partials (slug rename)
+3. `archive.php` / CPT archive / taxonomy templates **redirect** to hubs (never homepage HTML)
+4. `header.php`: `language_attributes()` only
+5. Hardcoded Title Case H1s: Content Hub, Who We Are, Contact Us, Areas of Work
+6. Partner share URLs via `get_permalink()`; `trafigura_image_alt()` + Yoast OG/Twitter prefer SEO fields
+7. Home hero poster non-empty alt; single-tales title is `<h1>`
+
+See also `.cursor/rules/theme-updates.mdc` §2 / §2b.
+
 ---
 
 ## Notes
@@ -212,5 +249,5 @@ grep -n 'No items found' template-parts/query/related-partners-of-current-partne
 
 ---
 
-**Last Updated:** August 13, 2026  
-**Version:** 1.1
+**Last Updated:** August 14, 2026  
+**Version:** 1.2

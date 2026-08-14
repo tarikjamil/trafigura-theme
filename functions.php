@@ -131,6 +131,28 @@
     }
 
     /**
+     * Prefer a non-empty alt: provided value → explicit fallback → current title → site name.
+     */
+    function trafigura_image_alt( $alt = '', $fallback = '' ) {
+        $alt = trim( wp_strip_all_tags( (string) $alt ) );
+        if ( $alt !== '' ) {
+            return $alt;
+        }
+
+        $fallback = trim( wp_strip_all_tags( (string) $fallback ) );
+        if ( $fallback !== '' ) {
+            return $fallback;
+        }
+
+        $title = trim( wp_strip_all_tags( (string) get_the_title() ) );
+        if ( $title !== '' ) {
+            return $title;
+        }
+
+        return (string) get_bloginfo( 'name' );
+    }
+
+    /**
      * Card/listing image attrs: prefer medium_large src + sizes so mobile
      * does not fetch full-resolution featured images. Uses theme optimized
      * assets when a known override exists (e.g. OceanImageBank).
@@ -163,6 +185,8 @@
                 $alt = (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );
             }
         }
+
+        $alt = trafigura_image_alt( $alt, get_the_title() );
 
         return (object) [
             'src'    => $src,
@@ -344,6 +368,97 @@
         }
     }
     add_action( 'wp_default_scripts', 'trafigura_jquery_in_footer' );
+
+    /**
+     * Fill empty attachment alts with the attachment/post title (core image tags).
+     */
+    function trafigura_attachment_image_alt_fallback( $attr, $attachment ) {
+        if ( empty( $attr['alt'] ) && $attachment ) {
+            $attr['alt'] = trafigura_image_alt( '', get_the_title( $attachment ) );
+        }
+        return $attr;
+    }
+    add_filter( 'wp_get_attachment_image_attributes', 'trafigura_attachment_image_alt_fallback', 10, 2 );
+
+    /**
+     * Prefer Yoast SEO meta description for Open Graph / Twitter descriptions
+     * when social fields still hold stale boilerplate.
+     */
+    function trafigura_yoast_prefer_metadesc( $desc ) {
+        if ( ! function_exists( 'YoastSEO' ) ) {
+            return $desc;
+        }
+        try {
+            $meta = YoastSEO()->meta->for_current_page();
+            if ( $meta && ! empty( $meta->description ) ) {
+                return $meta->description;
+            }
+        } catch ( Throwable $e ) {
+            // Keep original.
+        }
+        return $desc;
+    }
+    add_filter( 'wpseo_opengraph_desc', 'trafigura_yoast_prefer_metadesc', 20 );
+    add_filter( 'wpseo_twitter_description', 'trafigura_yoast_prefer_metadesc', 20 );
+
+    /**
+     * Prefer Yoast SEO title for OG/Twitter titles (avoids bare “Home — …” leftovers).
+     */
+    function trafigura_yoast_prefer_seo_title( $title ) {
+        if ( ! function_exists( 'YoastSEO' ) ) {
+            return $title;
+        }
+        try {
+            $meta = YoastSEO()->meta->for_current_page();
+            if ( $meta && ! empty( $meta->title ) ) {
+                return $meta->title;
+            }
+        } catch ( Throwable $e ) {
+            // Keep original.
+        }
+        return $title;
+    }
+    add_filter( 'wpseo_opengraph_title', 'trafigura_yoast_prefer_seo_title', 20 );
+    add_filter( 'wpseo_twitter_title', 'trafigura_yoast_prefer_seo_title', 20 );
+
+    /**
+     * Last-resort: fill remaining empty alt="" in HTML with the current document title.
+     * Listing cards / hero / featured images should already have better alts above.
+     */
+    function trafigura_buffer_fill_empty_alts( $html ) {
+        if ( ! is_string( $html ) || $html === '' || is_admin() ) {
+            return $html;
+        }
+        $fallback = esc_attr( trafigura_image_alt() );
+        return preg_replace_callback(
+            '/<img\b[^>]*>/i',
+            static function ( $m ) use ( $fallback ) {
+                $tag = $m[0];
+                if ( preg_match( '/\balt=(""|\'\')/', $tag ) ) {
+                    return preg_replace( '/\balt=(""|\'\')/', 'alt="' . $fallback . '"', $tag, 1 );
+                }
+                if ( ! preg_match( '/\balt=/i', $tag ) ) {
+                    return preg_replace( '/<img\b/i', '<img alt="' . $fallback . '"', $tag, 1 );
+                }
+                return $tag;
+            },
+            $html
+        );
+    }
+
+    function trafigura_start_alt_buffer() {
+        if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+            return;
+        }
+        // Hooked on get_header so redirect-only templates (archives) never open a buffer.
+        static $started = false;
+        if ( $started ) {
+            return;
+        }
+        $started = true;
+        ob_start( 'trafigura_buffer_fill_empty_alts' );
+    }
+    add_action( 'get_header', 'trafigura_start_alt_buffer', 0 );
 
         
     function udesly_trafigura_setup() {

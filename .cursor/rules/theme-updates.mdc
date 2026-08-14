@@ -41,12 +41,52 @@ Do **not** leave Webflow/Udesly defaults of `"order" => "ASC"`.
 "order" => "DESC",
 ```
 
-### 2. Content Hub H1 casing
+### 2. Content Hub + core page H1 casing
 
-- File: `template-parts/content/page-content-hub.php`
-- H1 must be **`Content Hub`** (not lowercase `content hub` from Udesly `_u()`).
-- Prefer hardcoded text over `_u('tn17498f32','text')` so DB/editor overrides cannot regress it.
-- Also keep `_data/frontend-editor/page-content-hub.json` key `tn17498f32` = `Content Hub`.
+Hardcode Title Case H1s (not lowercase/`_u()` from Udesly) so DB/editor overrides cannot regress them:
+
+| Page | File | H1 text | Editor JSON key |
+|---|---|---|---|
+| Content Hub | `template-parts/content/page-content-hub.php` | `Content Hub` | `tn17498f32` |
+| Who We Are | `template-parts/content/page-who-we-are.php` | `Who We Are` | `t420a88a4` |
+| Contact Us | `template-parts/content/page-contact.php` | `Contact Us` | `t8556e9e` |
+| Areas of Work | `template-parts/content/page-areas-of-work.php` | `Areas of Work` | `tn7dd1a9e` |
+
+Also keep matching values in `_data/frontend-editor/page-*.json`.
+
+### 2b. Technical SEO theme guards (re-apply after sync)
+
+**Heads — no hardcoded social metas:**
+
+- Do **not** restore `<meta name="twitter:title" …>` in `template-parts/head/*.php` — Yoast owns Twitter/OG via `wp_head()`.
+
+**`header.php`:**
+
+- Use `<?php language_attributes(); ?>` only — do **not** also hardcode `lang="en"` (duplicate lang attrs).
+
+**Archives — never clone homepage:**
+
+- `archive.php` must **301/302 redirect** to the right hub (not render `front-page`).
+- `archive-tales.php` → `/tales-of-resilience/`
+- `archive-partner-stories.php` → `/partners-stories/`
+- `taxonomy-areas.php` → `/areas-of-work/`
+- `taxonomy-related-partners.php` → `/partners-stories/`
+
+**Tales of Resilience page template:**
+
+- Keep `page-tales-of-resilience.php` (slug after rename) loading the existing `page-tales-of-resistence` content/head/footer partials.
+- `single-tales.php`: episode title must be `<h1>`, not `<h2>`.
+
+**Share URLs (partner singles):**
+
+- Build Facebook/LinkedIn share links with `rawurlencode( get_permalink() )` — never hardcode `trafigurafoundation.org/%2F…`.
+
+**Image alts + Yoast social sync (`functions.php`):**
+
+- Keep `trafigura_image_alt()`; cards use it via `trafigura_card_image()`.
+- Home hero poster: non-empty alt (not `alt=""`).
+- Keep Yoast filters `trafigura_yoast_prefer_metadesc` / `trafigura_yoast_prefer_seo_title` so OG/Twitter use SEO fields.
+- Keep attachment alt fallback + empty-`alt=""` HTML buffer as last resort.
 
 ### 3. Homepage performance (hero video + GTM)
 
@@ -172,6 +212,7 @@ In `template-parts/content/single-partner-stories.php`:
 - `trafigura_link_areas_of_work_text( $text )` — turns PlainText area labels into pillar links
 - `trafigura_gallery_image_caption( $set_item )` — gallery slide captions
 - `trafigura_card_image( $sizes )` / `trafigura_optimized_image_override( $thumb_id )`
+- `trafigura_image_alt( $alt, $fallback )` — empty-alt fallback for cards / hero / featured
 - `trafigura_code_uri( $path )` / `trafigura_vendor_uri( $path )`
 
 **Re-wire after sync:**
@@ -222,26 +263,29 @@ Copy these from the customized theme into any new Udesly drop:
 | `template-parts/head/partials/gtm-deferred.php` | Deferred GTM |
 | `template-parts/head/partials/bebas-font.php` | No Google Fonts |
 | `template-parts/footer/front-page.php` | Homepage vendor scripts |
-| `functions.php` helpers + dequeue hooks | Cards, links, dequeue, vendor URIs |
-| `header.php` rem-root include | Before head partial |
+| `page-tales-of-resilience.php` | Slug-bound Tales template after resistence→resilience rename |
+| `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
+| `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
+| `header.php` rem-root include | Before head partial; `language_attributes()` only (no duplicate `lang`) |
 | `footer.php` `wp_print_scripts('jquery')` | Before GSAP stack |
 
 ## Quick verify after sync
 
 1. Grep query templates for `"order" => "ASC"` on news/partner-stories → fix to DESC  
 2. View-source homepage: WebP poster preload present; no hero `<source src=` until desktop JS; Euclid medium preload  
-3. Content Hub H1 = `Content Hub`  
+3. Content Hub / Who We Are / Contact Us / Areas of Work H1s = Title Case (hardcoded)  
 4. Home pillars + Content Hub/Partners headings are links  
 5. `home-hero-poster-960.webp` (+ jpg) exists under `assets/images/`  
-6. Head templates include deferred GTM partial (not blocking snippet)  
+6. Head templates include deferred GTM partial (not blocking snippet); **no** hardcoded `twitter:title`  
 7. Euclid + Bebas `@font-face` local `.woff2`, `font-display: optional`; no `fonts.googleapis.com` / `fonts.gstatic.com`  
 8. News/partner card imgs use `trafigura_card_image()`; `assets/images/optimized/` present  
 9. No cdnjs / jsDelivr / unpkg / Netlify script URLs in footers  
-10. `header.php` includes `rem-root` before other head output  
+10. `header.php` includes `rem-root` before other head output; single `lang` via `language_attributes()`  
 11. `.navbar` default `width: 0` (not a permanent 272rem column); 1752px rule still forces open sidebar  
-12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`  
+12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`; share URLs use `get_permalink()`  
 13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
-14. Purge W3TC after deploy  
+14. `/tales/` 301s to `/tales-of-resilience/`; `page-tales-of-resilience.php` present; single-tales has H1  
+15. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)
 
@@ -253,3 +297,7 @@ Copy these from the customized theme into any new Udesly drop:
 - `min-width: 272rem` on closed navbar / `scrollbar-gutter` experiments that fight intended nav UX  
 - Hero layout “in-flow aspect-ratio” experiments that hurt mobile scores — keep absolute hero wrapper as designed unless carefully retested  
 - Leaving gallery `.w-dyn-empty` visible via undefined `udesly-hidden` (use CSS + only render empty when no slides)  
+- Hardcoded `<meta name="twitter:title">` in theme heads (fights Yoast)  
+- `archive.php` rendering `front-page` (duplicate homepage at `/tales/` etc.)  
+- Duplicate `lang="en"` alongside `language_attributes()`  
+- Partner Facebook share URLs with hardcoded `org/%2Fpartner-stories` 

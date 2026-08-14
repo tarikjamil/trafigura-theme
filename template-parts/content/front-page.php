@@ -208,7 +208,7 @@ body {
             <img
               class="img--absolute hero-poster no-lazy"
               src="<?php echo esc_url( $hero_poster_webp ); ?>"
-              alt=""
+              alt="<?php echo esc_attr( trafigura_image_alt( '', 'Trafigura Foundation — climate adaptation' ) ); ?>"
               width="960"
               height="423"
               fetchpriority="high"

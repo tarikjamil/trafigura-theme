@@ -1,26 +1,30 @@
 <?php
+/**
+ * Fallback archive template.
+ *
+ * Never render the homepage here — that created soft-404 / duplicate-content
+ * URLs (e.g. /tales/ indexed with homepage HTML). Prefer 301s to the public hub.
+ */
+defined( 'ABSPATH' ) || exit;
 
+$target = home_url( '/' );
+$code   = 301;
 
-$args = [
-    'wfPage' => '65f6c491b11f2cc9f4e4fc78',
-    'body' => '',
-    'head' => 'head/front-page',
-];   
-
-if (function_exists('udesly_set_frontend_editor_data')) {
-    udesly_set_frontend_editor_data('front-page');
+if ( is_post_type_archive( 'tales' ) ) {
+	$target = home_url( '/tales-of-resilience/' );
+} elseif ( is_post_type_archive( 'news' ) ) {
+	$target = home_url( '/content-hub/' );
+} elseif ( is_post_type_archive( 'partner-stories' ) ) {
+	$target = home_url( '/partners-stories/' );
+} elseif ( is_post_type_archive( 'area-of-work' ) || is_tax( 'areas' ) ) {
+	$target = home_url( '/areas-of-work/' );
+} elseif ( is_post_type_archive( 'team' ) ) {
+	$target = home_url( '/who-we-are/' );
+} elseif ( is_search() ) {
+	// Search has no real results UI; send users to Content Hub.
+	$target = home_url( '/content-hub/' );
+	$code   = 302;
 }
-     
-get_header('', $args);
 
-udesly_get_content_template( 'front-page' );
-
-$args = [
-  'footer' => 'footer/page-areas-of-work',
-];  
-
-if (function_exists('udesly_output_frontend_editor_data')) {
-     udesly_output_frontend_editor_data('front-page');
-}
-
-get_footer('', $args);
+wp_safe_redirect( $target, $code );
+exit;
