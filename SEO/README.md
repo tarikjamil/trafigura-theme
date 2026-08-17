@@ -1,6 +1,6 @@
 # SEO / AEO pack — Trafigura Foundation
 
-Last updated: **11 Aug 2026** (content-based meta rewrite).  
+Last updated: **14 Aug 2026** (Lighthouse before/after + technical SEO pass).  
 Scope: full Yoast sitemap — **114 URLs**.
 
 ## Files
@@ -10,6 +10,9 @@ Scope: full Yoast sitemap — **114 URLs**.
 | `yoast-meta-all-pages.csv` | Focus keyphrase + SEO title + meta description for every sitemap URL (content-based), plus current live values and notes |
 | `CHECKLIST-big-wins.md` | Prioritised implementation checklist after technical/content audit |
 | `AEO-recommendations.md` | Answer Engine Optimization roadmap (AI Overviews, ChatGPT, Perplexity, etc.) |
+| `lighthouse/BEFORE-AFTER.md` | Homepage Lighthouse before (12 Aug) vs after (14 Aug) scores + metrics |
+| `lighthouse/after-mobile-2026-08-14.png` | After screenshot — mobile |
+| `lighthouse/after-desktop-2026-08-14.png` | After screenshot — desktop |
 
 ## How the CSV was generated (v2)
 
