@@ -13,6 +13,17 @@ Scope: full Yoast sitemap — **114 URLs**.
 | `lighthouse/BEFORE-AFTER.md` | Homepage Lighthouse before (12 Aug) vs after (14 Aug) scores + metrics |
 | `lighthouse/after-mobile-2026-08-14.png` | After screenshot — mobile |
 | `lighthouse/after-desktop-2026-08-14.png` | After screenshot — desktop |
+| `monthly-reports/README.md` | How to produce monthly client reports |
+| `monthly-reports/_TEMPLATE.md` | Report template (Performance / Work / Plan / Risks) |
+| `monthly-reports/2026-08-client.md` | August 2026 client report (plain language) |
+| `monthly-reports/2026-08-Report.pdf` | August 2026 client PDF (UNE) |
+| `monthly-reports/2026-07-client.md` | July 2026 client report (plain language) |
+| `monthly-reports/2026-07-Report.pdf` | July 2026 client PDF (UNE) |
+| `monthly-reports/2026-08.md` | August 2026 internal working copy |
+| `sitemap-baseline/README.md` | Live sitemap baseline + monthly diff process |
+| `sitemap-baseline/all-urls.csv` | **114 URLs** snapshot (2 Sep 2026) — compare each month |
+| `sitemap-baseline/compare.sh` | Fetch live sitemap + diff vs baseline |
+| `sitemap-baseline/CHANGELOG.md` | Sitemap change history |
 
 ## How the CSV was generated (v2)
 
