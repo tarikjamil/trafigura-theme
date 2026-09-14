@@ -250,7 +250,7 @@ function ensureStaffMapStyles() {
   style.textContent =
     ".div-block-13 > .staff-continent-wrapper," +
     ".div-block-13 > .staff-cities-wrapper{align-self:start;}" +
-    ".staff-cities-wrapper{display:flex;flex-direction:column;justify-content:center;gap:12rem;}" +
+    ".staff-cities-wrapper{display:flex;flex-direction:column;justify-content:center;gap:4rem;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city{cursor:pointer;color:#bebebe;transition:color .2s ease;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city.is--active{color:var(--color--orange);}" +
     ".staff-continent-wrapper.is--active .heading-18.is--staff-continent{color:#2b2b2b;}";

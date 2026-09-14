@@ -4589,6 +4589,13 @@ img {
   align-self: start;
 }
 
+.staff-cities-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+}
+
 .img--staff {
   aspect-ratio: 836 / 472;
 }
