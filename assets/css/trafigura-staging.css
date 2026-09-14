@@ -1615,8 +1615,8 @@ img {
 }
 
 .container--1440.is--staff-in-action {
-  grid-column-gap: 48rem;
-  grid-row-gap: 48rem;
+  grid-column-gap: 64rem;
+  grid-row-gap: 64rem;
   flex-flow: column;
   display: flex;
 }
@@ -6047,6 +6047,14 @@ img {
     height: 64rem;
     padding-left: 24rem;
   }
+
+  .div-block-13 {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .img--staff {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -6240,6 +6248,10 @@ img {
     grid-column-gap: 0rem;
   }
 
+  .heading-28.is--orange-city {
+    font-size: 16rem;
+  }
+
   .pub-grid {
     grid-column-gap: 20rem;
     grid-row-gap: 20rem;
@@ -6263,6 +6275,10 @@ img {
   .tabs-link {
     justify-content: flex-start;
     align-items: center;
+  }
+
+  .heading-18.is--staff-continent {
+    font-size: 14rem;
   }
 }
 

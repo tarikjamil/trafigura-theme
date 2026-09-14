@@ -166,6 +166,24 @@
     }
 
     /**
+     * Second Staff Engagement content block (before Staff in Action).
+     * Independent from the main page/Elementor content used in the video section.
+     */
+    function trafigura_staff_lower_content( $post_id = null ) {
+        if ( ! $post_id ) {
+            $post_id = get_the_ID();
+        }
+        if ( function_exists( 'get_field' ) ) {
+            $html = get_field( 'staff_lower_content', $post_id );
+            if ( is_string( $html ) && trim( $html ) !== '' ) {
+                return $html;
+            }
+        }
+        $html = get_post_meta( $post_id, 'staff_lower_content', true );
+        return is_string( $html ) ? $html : '';
+    }
+
+    /**
      * Card/listing image attrs: prefer medium_large src + sizes so mobile
      * does not fetch full-resolution featured images. Uses theme optimized
      * assets when a known override exists (e.g. OceanImageBank).
@@ -744,6 +762,46 @@ udesly_define_taxonomy("areas", [
 
         
         add_action('acf/init', function() {
+
+            if ( function_exists( 'acf_add_local_field_group' ) ) {
+                $staff_page = get_page_by_path( 'staff-engagement' );
+                if ( $staff_page ) {
+                    acf_add_local_field_group( [
+                        'key'    => 'group_trafigura_staff_engagement',
+                        'title'  => 'Staff Engagement — lower content',
+                        'fields' => [
+                            [
+                                'key'           => 'field_staff_lower_content_note',
+                                'label'         => 'Upper content (video)',
+                                'name'          => '',
+                                'type'          => 'message',
+                                'message'       => 'The upper block (map video) is the main page content — edit it with Elementor / the page editor.',
+                            ],
+                            [
+                                'key'           => 'field_staff_lower_content',
+                                'label'         => 'Lower content (before Staff in Action)',
+                                'name'          => 'staff_lower_content',
+                                'type'          => 'wysiwyg',
+                                'instructions'  => 'Separate from the video block above Voices of Impact. Leave empty to hide this section.',
+                                'tabs'          => 'all',
+                                'toolbar'       => 'full',
+                                'media_upload'  => 1,
+                                'delay'         => 0,
+                            ],
+                        ],
+                        'location' => [ [
+                            [
+                                'param'    => 'page',
+                                'operator' => '==',
+                                'value'    => (string) $staff_page->ID,
+                            ],
+                        ] ],
+                        'position' => 'normal',
+                        'style'    => 'default',
+                        'active'   => true,
+                    ] );
+                }
+            }
 
             if (!function_exists('udesly_custom_field_text')) {
                 return;

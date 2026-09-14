@@ -295,6 +295,14 @@ body {
             </div>
           </div>
         </section>
+        <?php
+        $staff_lower = trafigura_staff_lower_content();
+        if ( trim( wp_strip_all_tags( (string) $staff_lower ) ) !== '' ) :
+        ?>
+        <section class="section is--padding">
+          <div class="w-richtext"><?php echo $staff_lower; ?></div>
+        </section>
+        <?php endif; ?>
         <section class="section is--padding-bottom">
           <div class="container--1440 is--staff-in-action">
             <div animation="parallax-parent" class="title-areas is--staff">

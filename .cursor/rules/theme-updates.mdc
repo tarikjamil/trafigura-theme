@@ -208,14 +208,15 @@ In `template-parts/content/single-partner-stories.php`:
 
 Re-apply after a Udesly sync of the Staff Engagement page. Do **not** restore Netlify/CDN scripts or `twitter:title` from the drop.
 
-- Template `template-parts/content/page-staff-engagement.php`: video section (one `the_content()` only), Voices of Impact slider, Staff in Action grid + `staff-locations` query. New labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
+- Template `template-parts/content/page-staff-engagement.php`: video section (`the_content()` / Elementor only), Voices of Impact slider, optional lower content from ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query. New labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
+- ACF group on the Staff Engagement page only: field `staff_lower_content` (WYSIWYG). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
 - CPT `staff-locations` + continent select (`Africa` / `Asia` / `Europe` / `North America` / `South America`) in `functions.php`.
 - `template-parts/query/staff-locations.php`: hidden list with `data-city` (post title) + `data-continent`. JS reads these to build the clickable map.
 - `template-parts/query/partner-stories-max-6-sorted-by-post_date-v0.php`: `"order" => "DESC"`, `trafigura_card_image()`, class `partner-item is--voice`.
 - `code/staff-engagement.js` (+ unminified): continent/city map from the hidden collection. Read image `data-src` (W3TC lazyload), not the placeholder `src`. City/continent rows use `align-self: start` (top).
 - Footer `page-staff-engagement.php`: local Swiper before `script.js` (slider uses `.is--slider-resources`).
 - `archive.php` + `single-staff-locations.php`: 301 `/staff-locations/` to `/staff-engagement/`.
-- Staging CSS for `.is--staff-video`, `.is--voicesofimpact`, `.div-block-13`, `.is--orange-city`, `.collection-list-wrapper-3 { display: none }`. Rebuild bundle + bump `ver=`.
+- Staging CSS for `.is--staff-video`, `.is--voicesofimpact`, `.div-block-13`, `.is--orange-city`, `.collection-list-wrapper-3 { display: none }`. Tablet: `.div-block-13` → 2 cols, `.img--staff { display: none }`. Mobile ≤479: city 16rem / continent 14rem. Keep local `align-self: start` + `.staff-cities-wrapper { gap: 4rem }`. Rebuild bundle + bump `ver=`.
 
 Verify: `/staff-engagement/` shows the voices slider and clickable cities; collection list is not visible; footer has no Netlify/cdnjs URLs.
 
