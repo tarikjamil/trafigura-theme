@@ -165,6 +165,27 @@ Udesly exports leave a Webflow-style empty state and do not wire per-image capti
 
 ---
 
+## 3c. Staff Engagement (voices slider + locations collection)
+
+Re-apply after an Udesly drop. Keep local GTM, fonts, and the footer `aria-label`.
+
+- `template-parts/content/page-staff-engagement.php` — video, Voices of Impact, Staff in Action. Restore `aria-label="Trafigura Foundation home"` on the footer brand link.
+- `functions.php` — CPT `staff-locations` + continent select.
+- `template-parts/query/staff-locations.php` — `data-city` / `data-continent` (title + continent field).
+- `template-parts/query/partner-stories-max-6-sorted-by-post_date-v0.php` — order `DESC`, `trafigura_card_image()`.
+- `code/staff-engagement.js` and `code/unminified/staff-engagement.js` — map built from the hidden collection.
+- `template-parts/footer/page-staff-engagement.php` — local Swiper, not Netlify.
+- `archive.php` / `single-staff-locations.php` — 301 to `/staff-engagement/`.
+- CSS in `assets/css/trafigura-staging.css`, then rebuild the bundle.
+
+```bash
+grep -n 'staff-locations\|data-continent' template-parts/query/staff-locations.php functions.php
+grep -n 'buildStaffContinents' code/staff-engagement.js
+grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement.php || true
+```
+
+---
+
 ## 4. Quick Update Checklist
 
 When a new theme is uploaded:
@@ -177,6 +198,7 @@ When a new theme is uploaded:
 - [ ] Re-apply gallery empty-state hide (`.udesly-hidden` + no empty markup when slides exist)
 - [ ] Re-apply gallery captions helper + slide `data-caption` + `.gallery-slide-caption` sync in `script.js`
 - [ ] Drop empty “No items found” from `related-partners-of-current-partner-stories.php`
+- [ ] Re-apply Staff Engagement voices slider + `staff-locations` map (§3c)
 - [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---

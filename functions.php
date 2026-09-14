@@ -588,7 +588,16 @@ function udesly_register_required_plugins() {
             return;
         }
         
-        udesly_define_post_type("tales", [
+        udesly_define_post_type("staff-locations", [
+        "labels" => [
+            "name" => __("Staff locations"),
+            "singular_name" => __("Staff location"),
+        ],
+        "rewrite" => [
+            "name" => __("staff-locations"),
+        ],
+    ]);
+udesly_define_post_type("tales", [
         "labels" => [
             "name" => __("Tales"),
             "singular_name" => __("Tale"),
@@ -727,7 +736,27 @@ udesly_define_taxonomy("areas", [
                 return;
             }
         
-            udesly_register_custom_fields_for_post_type('tales',[
+            udesly_register_custom_fields_for_post_type('staff-locations',[
+         udesly_custom_field_select([
+            "name" => "continent", 
+            "label" => "Continent", 
+            "instructions" => "", 
+            "choices" => [
+                "Africa" => "Africa",
+            "Asia" => "Asia",
+            "Europe" => "Europe",
+            "North America" => "North America",
+            "South America" => "South America",
+            
+               ]
+            ]),   
+udesly_custom_field_checkbox([
+            "name" => "_noSearch",
+            "label" => "No Search",
+            "instructions" => ""
+            ])
+    ]);        
+udesly_register_custom_fields_for_post_type('tales',[
          udesly_custom_field_image([
             "name" => "thumbnail", 
             "label" => "thumbnail", 

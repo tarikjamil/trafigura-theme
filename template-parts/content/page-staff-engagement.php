@@ -217,6 +217,30 @@ body {
 </style>
           </div>
         </section>
+        <section class="section is--staff-video">
+          <div class="container--1440">
+            <div class="w-richtext"><?php the_content(); ?></div>
+          </div>
+        </section>
+        <section class="section is--staff-voices">
+          <div class="container--1440 is--staff-voices">
+            <div animation="parallax-parent" class="title-areas is--staff">
+              <h2 animation="parallax-top" class="heading-160 is--grey" data-text="t7ee14fd0"><?php echo _u('t7ee14fd0','text'); ?></h2>
+            </div>
+            <div class="container--468 is--staff">
+              <p data-text="t29043f2e"><?php echo _u('t29043f2e','text'); ?></p>
+            </div>
+          </div>
+        </section>
+        <section class="section is--staff-slider">
+          <div class="container--1440 is--staff-voices">
+            <div id="slider" class="splide is--voicesofimpact">
+              <div class="mask-right"></div>
+              <div class="mask-left"></div>
+              <?php get_template_part('template-parts/query/partner-stories-max-6-sorted-by-post_date-v0') ?>
+            </div>
+          </div>
+        </section>
         <section class="section is--staffengagement-top">
           <div class="container--1440">
             <div class="w-layout-grid grid">
@@ -241,7 +265,7 @@ body {
                 </svg>
                 <div animation="fadefromright" id="w-node-ae29d5e9-650d-f380-a8c5-5647095cf794-f0db2302" class="quote-author is--staffengagement">
                   <div class="author-thumbnail is--staffengagement">
-                    <div class="author-thumbnail_inside"><img src="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->src ?>" loading="lazy" sizes="(max-width: 719px) 100vw, 719px" srcset="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->alt ?>" class="image-100" data-img="ic8a39f4"></div>
+                    <div class="author-thumbnail_inside"><img src="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->src ?>" loading="lazy" sizes="(max-width: 479px) 69vw, 49vw" srcset="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('ic8a39f4', 'img'))->alt ?>" class="image-100" data-img="ic8a39f4"></div>
                   </div>
                   <div class="author-info">
                     <div class="text-20 is--orange" data-text="tn3c2cee03"><?php echo _u('tn3c2cee03','text'); ?></div>
@@ -255,7 +279,7 @@ body {
         <section class="section is--padding-top">
           <div class="container--1440">
             <div class="w-layout-grid grid--56">
-              <div animation="fadefromleft" class="staff-image-wrapper is--left"><img src="<?php echo udesly_get_image(_u('i527cd681', 'img'))->src ?>" loading="lazy" sizes="(max-width: 1438px) 100vw, 1438px" srcset="<?php echo udesly_get_image(_u('i527cd681', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i527cd681', 'img'))->alt ?>" class="img--absolute" data-img="i527cd681"></div>
+              <div animation="fadefromleft" class="staff-image-wrapper is--left"><img src="<?php echo udesly_get_image(_u('i527cd681', 'img'))->src ?>" loading="lazy" sizes="(max-width: 479px) 48vw, (max-width: 2934px) 49vw, 1438px" srcset="<?php echo udesly_get_image(_u('i527cd681', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i527cd681', 'img'))->alt ?>" class="img--absolute" data-img="i527cd681"></div>
               <div>
                 <div class="max--370 is--48margin-bottom">
                   <h2 animation="fadefromright" class="heading-28 is--orange" data-text="tn8d22048"><?php echo _u('tn8d22048','text'); ?></h2>
@@ -272,11 +296,33 @@ body {
           </div>
         </section>
         <section class="section is--padding">
-          <div class="container--1440">
-            <div>
-              <h3 animation="fade" class="heading-60 is--map" data-text="tn28b1a5d8"><?php echo _u('tn28b1a5d8','text'); ?></h3>
+          <div class="w-richtext"><?php the_content(); ?></div>
+        </section>
+        <section class="section is--padding-bottom">
+          <div class="container--1440 is--staff-in-action">
+            <div animation="parallax-parent" class="title-areas is--staff">
+              <h2 animation="parallax-top" class="heading-160 is--grey" data-textarea="tan52b48705"><?php echo _u('tan52b48705', 'textarea'); ?></h2>
             </div>
-            <div class="w-richtext"><?php the_content(); ?></div>
+            <div>
+              <div class="div-block-13">
+                <div id="w-node-c9f2b12f-3c80-7690-cb87-9d18486d74af-f0db2302" class="staff-continent-wrapper">
+                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo _u('t74bdc69a','text'); ?></div>
+                </div>
+                <div class="staff-cities-wrapper">
+                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo _u('t44d26854','text'); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo _u('t44d26854','text'); ?></div>
+                </div>
+                <div id="w-node-_2c63fb1c-e288-d677-2526-6ed43a21189c-f0db2302" class="staff-continent-wrapper">
+                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo _u('t74bdc69a','text'); ?></div>
+                </div>
+                <div class="staff-cities-wrapper">
+                  <div class="heading-28 is--orange-city" data-text="tn75f711bb"><?php echo _u('tn75f711bb','text'); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="tn28b1ced5"><?php echo _u('tn28b1ced5','text'); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="tn28b1ced5"><?php echo _u('tn28b1ced5','text'); ?></div>
+                </div><img src="<?php echo udesly_get_image(_u('i317f733b', 'img'))->src ?>" loading="lazy" id="w-node-_8a3c482e-2442-709c-a769-bd3222928f60-f0db2302" alt="<?php echo udesly_get_image(_u('i317f733b', 'img'))->alt ?>" class="img--staff" data-img="i317f733b" srcset="<?php echo udesly_get_image(_u('i317f733b', 'img'))->srcset ?>">
+              </div>
+              <?php get_template_part('template-parts/query/staff-locations') ?>
+            </div>
           </div>
         </section>
       </main>
