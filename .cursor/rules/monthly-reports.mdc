@@ -1,0 +1,17 @@
+---
+description: Trafigura Foundation monthly digital/SEO/AEO client reports (Looker → PDF)
+globs: SEO/monthly-reports/**,SEO/sitemap-baseline/**
+alwaysApply: false
+---
+
+# Monthly reports
+
+Follow `.cursor/skills/monthly-reports/SKILL.md`. Primary output is `SEO/monthly-reports/YYYY-MM-client.md` + `YYYY-MM-Report.pdf`.
+
+- Copy last month’s client HTML; keep `pdf-style.css` classes.
+- Plain language, British English, ~6–8 pages. Insight after every data section.
+- Do not invent GSC/GA4/AEO numbers. No Looker URL in client files.
+- Sitemap: `bash SEO/sitemap-baseline/compare.sh YYYY-MM`
+- Internal asks go in `YYYY-MM-todos.md`, not the PDF.
+- Position: lower is better → client label “Improved”.
+- Build PDF with `npx md-to-pdf` + `pdf-style.css` (see skill / `SEO/monthly-reports/README.md`).

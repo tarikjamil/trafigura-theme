@@ -251,7 +251,9 @@ Copy these from the customized theme into any new Udesly drop:
 | Path | Why |
 |---|---|
 | `.cursor/rules/theme-updates.mdc` | This checklist |
-| `SEO/` | Metas, link trackers, checklists |
+| `.cursor/rules/monthly-reports.mdc` | Monthly client-report rule |
+| `.cursor/skills/monthly-reports/` | Monthly report agent skill |
+| `SEO/` | Metas, link trackers, checklists, monthly reports |
 | `assets/fonts/euclid-circular-b-*.woff2` (+ ttf if kept) | Self-hosted Euclid |
 | `assets/fonts/bebas-neue-*` | Self-hosted Bebas |
 | `assets/images/home-hero-poster*` | LCP poster |

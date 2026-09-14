@@ -1,5 +1,7 @@
 # Monthly client reports — Trafigura Foundation
 
+**Cursor agent:** skill `.cursor/skills/monthly-reports/` (auto-loads for report prompts). Say *“Draft YYYY-MM monthly client report from PDF + recheck sitemap”* and attach the Looker export.
+
 **Goal:** a short, decision-ready brief each month covering:
 
 1. Search performance (GSC)  
