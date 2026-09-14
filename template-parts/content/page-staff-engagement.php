@@ -225,10 +225,10 @@ body {
         <section class="section is--staff-voices">
           <div class="container--1440 is--staff-voices">
             <div animation="parallax-parent" class="title-areas is--staff">
-              <h2 animation="parallax-top" class="heading-160 is--grey" data-text="t7ee14fd0"><?php echo _u('t7ee14fd0','text'); ?></h2>
+              <h2 animation="parallax-top" class="heading-160 is--grey" data-text="t7ee14fd0"><?php echo trafigura_editor_text( 't7ee14fd0', 'text', 'VOICES OF IMPACT' ); ?></h2>
             </div>
             <div class="container--468 is--staff">
-              <p data-text="t29043f2e"><?php echo _u('t29043f2e','text'); ?></p>
+              <p data-text="t29043f2e"><?php echo trafigura_editor_text( 't29043f2e', 'text', 'Real people. Real stories. Real impact. Hear how Trafigura employees are giving their time, skills and energy to causes that matter, creating lasting impact in communities around the world.' ); ?></p>
             </div>
           </div>
         </section>
@@ -295,30 +295,26 @@ body {
             </div>
           </div>
         </section>
-        <section class="section is--padding">
-          <div class="w-richtext"><?php the_content(); ?></div>
-        </section>
         <section class="section is--padding-bottom">
           <div class="container--1440 is--staff-in-action">
             <div animation="parallax-parent" class="title-areas is--staff">
-              <h2 animation="parallax-top" class="heading-160 is--grey" data-textarea="tan52b48705"><?php echo _u('tan52b48705', 'textarea'); ?></h2>
+              <h2 animation="parallax-top" class="heading-160 is--grey" data-textarea="tan52b48705"><?php echo trafigura_editor_text( 'tan52b48705', 'textarea', 'STAFF IN<br>ACTION' ); ?></h2>
             </div>
             <div>
               <div class="div-block-13">
                 <div id="w-node-c9f2b12f-3c80-7690-cb87-9d18486d74af-f0db2302" class="staff-continent-wrapper">
-                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo _u('t74bdc69a','text'); ?></div>
+                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo trafigura_editor_text( 't74bdc69a', 'text', 'Africa' ); ?></div>
                 </div>
                 <div class="staff-cities-wrapper">
-                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo _u('t44d26854','text'); ?></div>
-                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo _u('t44d26854','text'); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo trafigura_editor_text( 't44d26854', 'text', 'Johannesburg' ); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="t44d26854"><?php echo trafigura_editor_text( 't44d26854', 'text', 'Luanda' ); ?></div>
                 </div>
                 <div id="w-node-_2c63fb1c-e288-d677-2526-6ed43a21189c-f0db2302" class="staff-continent-wrapper">
-                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo _u('t74bdc69a','text'); ?></div>
+                  <div class="heading-18 is--staff-continent" data-text="t74bdc69a"><?php echo trafigura_editor_text( 't74bdc69a', 'text', 'Asia' ); ?></div>
                 </div>
                 <div class="staff-cities-wrapper">
-                  <div class="heading-28 is--orange-city" data-text="tn75f711bb"><?php echo _u('tn75f711bb','text'); ?></div>
-                  <div class="heading-28 is--orange-city" data-text="tn28b1ced5"><?php echo _u('tn28b1ced5','text'); ?></div>
-                  <div class="heading-28 is--orange-city" data-text="tn28b1ced5"><?php echo _u('tn28b1ced5','text'); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="tn75f711bb"><?php echo trafigura_editor_text( 'tn75f711bb', 'text', 'Mumbai' ); ?></div>
+                  <div class="heading-28 is--orange-city" data-text="tn28b1ced5"><?php echo trafigura_editor_text( 'tn28b1ced5', 'text', 'Shanghai' ); ?></div>
                 </div><img src="<?php echo udesly_get_image(_u('i317f733b', 'img'))->src ?>" loading="lazy" id="w-node-_8a3c482e-2442-709c-a769-bd3222928f60-f0db2302" alt="<?php echo udesly_get_image(_u('i317f733b', 'img'))->alt ?>" class="img--staff" data-img="i317f733b" srcset="<?php echo udesly_get_image(_u('i317f733b', 'img'))->srcset ?>">
               </div>
               <?php get_template_part('template-parts/query/staff-locations') ?>

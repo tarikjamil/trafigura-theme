@@ -208,7 +208,7 @@ In `template-parts/content/single-partner-stories.php`:
 
 Re-apply after a Udesly sync of the Staff Engagement page. Do **not** restore Netlify/CDN scripts or `twitter:title` from the drop.
 
-- Template `template-parts/content/page-staff-engagement.php`: video section, Voices of Impact slider, Staff in Action grid + `staff-locations` query. Keep footer `aria-label="Trafigura Foundation home"`.
+- Template `template-parts/content/page-staff-engagement.php`: video section (one `the_content()` only), Voices of Impact slider, Staff in Action grid + `staff-locations` query. New labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
 - CPT `staff-locations` + continent select (`Africa` / `Asia` / `Europe` / `North America` / `South America`) in `functions.php`.
 - `template-parts/query/staff-locations.php`: hidden list with `data-city` (post title) + `data-continent`. JS reads these to build the clickable map.
 - `template-parts/query/partner-stories-max-6-sorted-by-post_date-v0.php`: `"order" => "DESC"`, `trafigura_card_image()`, class `partner-item is--voice`.

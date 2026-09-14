@@ -153,6 +153,19 @@
     }
 
     /**
+     * Udesly prints "Import Data" when a new text node is not in the saved
+     * page editor JSON. Fall back to the export copy until that node is saved.
+     */
+    function trafigura_editor_text( $key, $type, $fallback ) {
+        $value = function_exists( '_u' ) ? _u( $key, $type ) : '';
+        $plain = trim( wp_strip_all_tags( html_entity_decode( (string) $value ) ) );
+        if ( $plain === '' || strcasecmp( $plain, 'Import Data' ) === 0 ) {
+            return $fallback;
+        }
+        return $value;
+    }
+
+    /**
      * Card/listing image attrs: prefer medium_large src + sizes so mobile
      * does not fetch full-resolution featured images. Uses theme optimized
      * assets when a known override exists (e.g. OceanImageBank).
