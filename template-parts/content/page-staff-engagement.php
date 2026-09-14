@@ -225,7 +225,7 @@ body {
         <section class="section is--staff-voices">
           <div class="container--1440 is--staff-voices">
             <div animation="parallax-parent" class="title-areas is--staff">
-              <h2 animation="parallax-top" class="heading-160 is--grey" data-text="t7ee14fd0"><?php echo trafigura_editor_text( 't7ee14fd0', 'text', 'VOICES OF IMPACT' ); ?></h2>
+              <h2 class="heading-160 is--grey" data-text="t7ee14fd0"><?php echo trafigura_editor_text( 't7ee14fd0', 'text', 'VOICES OF IMPACT' ); ?></h2>
             </div>
             <div class="container--468 is--staff">
               <p data-text="t29043f2e"><?php echo trafigura_editor_text( 't29043f2e', 'text', 'Real people. Real stories. Real impact. Hear how Trafigura employees are giving their time, skills and energy to causes that matter, creating lasting impact in communities around the world.' ); ?></p>
@@ -306,7 +306,7 @@ body {
         <section class="section is--padding-bottom">
           <div class="container--1440 is--staff-in-action">
             <div animation="parallax-parent" class="title-areas is--staff">
-              <h2 animation="parallax-top" class="heading-160 is--grey" data-textarea="tan52b48705"><?php echo trafigura_editor_text( 'tan52b48705', 'textarea', 'STAFF IN<br>ACTION' ); ?></h2>
+              <h2 class="heading-160 is--grey" data-textarea="tan52b48705"><?php echo trafigura_editor_text( 'tan52b48705', 'textarea', 'STAFF IN<br>ACTION' ); ?></h2>
             </div>
             <div>
               <div class="div-block-13">

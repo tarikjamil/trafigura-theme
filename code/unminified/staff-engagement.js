@@ -66,6 +66,15 @@ function buildStaffContinents() {
 
   if (!groups.length) return;
 
+  groups.forEach(function (group) {
+    group.cities.sort(function (a, b) {
+      return a.city.localeCompare(b.city, undefined, { sensitivity: "base" });
+    });
+  });
+  groups.sort(function (a, b) {
+    return a.continent.localeCompare(b.continent, undefined, { sensitivity: "base" });
+  });
+
   var image = grid.querySelector(".img--staff");
   var imageId = image ? image.id : "";
 
@@ -137,17 +146,9 @@ function selectStaffCity(grid, cityEl) {
     el.classList.remove("is--active");
     el.setAttribute("aria-pressed", "false");
   });
-  grid.querySelectorAll(".staff-continent-wrapper.is--active").forEach(function (el) {
-    el.classList.remove("is--active");
-  });
 
   cityEl.classList.add("is--active");
   cityEl.setAttribute("aria-pressed", "true");
-
-  var citiesWrap = cityEl.closest(".staff-cities-wrapper");
-  if (citiesWrap && citiesWrap.previousElementSibling) {
-    citiesWrap.previousElementSibling.classList.add("is--active");
-  }
 
   var image = grid.querySelector(".img--staff");
   if (!image) return;
@@ -252,7 +253,6 @@ function ensureStaffMapStyles() {
     ".div-block-13 > .staff-cities-wrapper{align-self:start;}" +
     ".staff-cities-wrapper{display:flex;flex-direction:column;justify-content:center;gap:4rem;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city{cursor:pointer;color:#bebebe;transition:color .2s ease;}" +
-    ".staff-cities-wrapper .heading-28.is--orange-city.is--active{color:var(--color--orange);}" +
-    ".staff-continent-wrapper.is--active .heading-18.is--staff-continent{color:#2b2b2b;}";
+    ".staff-cities-wrapper .heading-28.is--orange-city.is--active{color:var(--color--orange);}";
   document.head.appendChild(style);
 }
