@@ -102,15 +102,16 @@ function buildStaffContinents() {
   });
 
   var staffImage = document.createElement("img");
-  staffImage.className = "img--staff";
+  staffImage.className = "img--staff skip-lazy no-lazy";
   staffImage.alt = "";
   staffImage.loading = "eager";
+  staffImage.setAttribute("data-no-lazy", "1");
   if (imageId) staffImage.id = imageId;
   staffImage.style.gridArea = "1 / 3 / " + (groups.length + 1) + " / 4";
   staffImage.style.width = "100%";
-  staffImage.style.height = "100%";
+  staffImage.style.height = "auto";
   staffImage.style.objectFit = "cover";
-  staffImage.style.aspectRatio = "auto";
+  staffImage.style.aspectRatio = "836 / 472";
   grid.appendChild(staffImage);
 
   grid.addEventListener("click", function (event) {
@@ -163,14 +164,16 @@ function selectStaffCity(grid, cityEl) {
   else image.removeAttribute("sizes");
 
   image.alt = alt;
+  image.setAttribute("data-no-lazy", "1");
+  image.classList.add("skip-lazy", "no-lazy");
   if (src) image.src = src;
 }
 
 function readStaffEntry(item) {
   var img = item.querySelector("img");
-  var src = img ? img.getAttribute("src") || "" : "";
-  var srcset = img ? img.getAttribute("srcset") || "" : "";
-  var sizes = img ? img.getAttribute("sizes") || "" : "";
+  var src = staffImageAttr(img, "src", "data-src");
+  var srcset = staffImageAttr(img, "srcset", "data-srcset");
+  var sizes = staffImageAttr(img, "sizes", "data-sizes");
   var alt = img ? img.getAttribute("alt") || "" : "";
 
   var dataCity = item.getAttribute("data-city") || (img && img.getAttribute("data-city"));
@@ -204,6 +207,19 @@ function readStaffEntry(item) {
   };
 }
 
+function staffImageAttr(img, attr, dataAttr) {
+  if (!img) return "";
+  var direct = img.getAttribute(attr) || "";
+  var lazy = img.getAttribute(dataAttr) || "";
+  if (lazy && isLazyPlaceholder(direct)) return lazy;
+  return direct || lazy;
+}
+
+function isLazyPlaceholder(url) {
+  if (!url) return true;
+  return url.indexOf("data:image") === 0;
+}
+
 function findCityAttribute(el) {
   var attrs = Array.from(el.attributes);
   for (var i = 0; i < attrs.length; i++) {
@@ -233,7 +249,7 @@ function ensureStaffMapStyles() {
   style.id = "staff-engagement-map-style";
   style.textContent =
     ".div-block-13 > .staff-continent-wrapper," +
-    ".div-block-13 > .staff-cities-wrapper{align-self:center;}" +
+    ".div-block-13 > .staff-cities-wrapper{align-self:start;}" +
     ".staff-cities-wrapper{display:flex;flex-direction:column;justify-content:center;gap:12rem;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city{cursor:pointer;color:#bebebe;transition:color .2s ease;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city.is--active{color:var(--color--orange);}" +

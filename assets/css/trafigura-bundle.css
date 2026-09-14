@@ -6766,6 +6766,11 @@ img {
   display: grid;
 }
 
+.div-block-13 > .staff-continent-wrapper,
+.div-block-13 > .staff-cities-wrapper {
+  align-self: start;
+}
+
 .img--staff {
   aspect-ratio: 836 / 472;
 }
