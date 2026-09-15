@@ -8758,6 +8758,16 @@ img {
   align-items: center;
   justify-content: center;
 }
+.voice--popup-close:hover {
+  background: transparent;
+  color: #fff;
+  opacity: 0.8;
+}
+.voice--popup-close:focus,
+.voice--popup-close:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
 .voice--popup-media {
   position: relative;
   width: 100%;
