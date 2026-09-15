@@ -4,5 +4,5 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-wp_safe_redirect( home_url( '/staff-engagement/' ), 301 );
+wp_safe_redirect( home_url( '/staff-engagement-new/' ), 301 );
 exit;

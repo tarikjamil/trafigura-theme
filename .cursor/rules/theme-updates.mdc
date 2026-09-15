@@ -204,21 +204,32 @@ In `template-parts/content/single-partner-stories.php`:
 - Staging: `.gallery-slide-caption:empty { display: none; }` then rebuild bundle + bump CSS/JS `ver=`.
 - Also documented in `code/THEME_UPDATE_GUIDE.md` §3.
 
-### 3g. Staff Engagement — voices slider + locations map
+### 3g. Staff Engagement (legacy) + Staff Engagement New
 
-Re-apply after a Udesly sync of the Staff Engagement page. Do **not** restore Netlify/CDN scripts or `twitter:title` from the drop.
+Two pages — do **not** merge them after a Udesly sync.
 
-- Template `template-parts/content/page-staff-engagement.php`: video section (`the_content()` / Elementor only), Voices of Impact slider, optional lower content from ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query. New labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
-- ACF group on the Staff Engagement page only: field `staff_lower_content` (WYSIWYG). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
+**`/staff-engagement/` (legacy — keep as original layout):**
+
+- `page-staff-engagement.php` + `template-parts/content|head|footer/page-staff-engagement.php`
+- Hero → `is--staffengagement-top` → map H3 (`tn28b1a5d8`) + single `the_content()` (no Voices slider / no Staff in Action map)
+- Footer: local GSAP + `code/script.js` + `staff-engagement.js` (video only; **no** Swiper)
+- Editor JSON: `_data/frontend-editor/page-staff-engagement.json` (includes `tn28b1a5d8`)
+
+**`/staff-engagement-new/` (redesign):**
+
+- Requires a WP page titled “Staff Engagement New”, slug `staff-engagement-new` (theme file `page-staff-engagement-new.php` binds by slug)
+- Content/head/footer/editor: `*-staff-engagement-new.php` / `page-staff-engagement-new.json`
+- Video section (`the_content()` / Elementor only), Voices of Impact slider, optional ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query
+- Labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
+- ACF group prefers page `staff-engagement-new` (fallback `staff-engagement`): field `staff_lower_content` (WYSIWYG). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
 - CPT `staff-locations` + continent select (`Africa` / `Asia` / `Europe` / `North America` / `South America`) in `functions.php`.
-- `template-parts/query/staff-locations.php`: hidden list with `data-city` (post title) + `data-continent`. JS reads these to build the clickable map.
-- `template-parts/query/partner-stories-max-6-sorted-by-post_date-v0.php`: `"order" => "DESC"`, `trafigura_card_image()`, class `partner-item is--voice`.
-- `code/staff-engagement.js` (+ unminified): continent/city map from the hidden collection. Read image `data-src` (W3TC lazyload), not the placeholder `src`. City/continent rows use `align-self: start` (top).
-- Footer `page-staff-engagement.php`: local Swiper before `script.js` (slider uses `.is--slider-resources`).
-- `archive.php` + `single-staff-locations.php`: 301 `/staff-locations/` to `/staff-engagement/`.
-- Staging CSS for `.is--staff-video`, `.is--voicesofimpact`, `.div-block-13`, `.is--orange-city`, `.collection-list-wrapper-3 { display: none }`. Tablet: `.div-block-13` → 2 cols, `.img--staff { display: none }`. Mobile ≤479: city 16rem / continent 14rem. Keep local `align-self: start` + `.staff-cities-wrapper { gap: 4rem }`. Rebuild bundle + bump `ver=`.
+- `template-parts/query/staff-locations.php` + `partner-stories-max-6-sorted-by-post_date-v0.php`: editor data key `page-staff-engagement-new`; order `DESC`; `trafigura_card_image()`; class `partner-item is--voice`.
+- `code/staff-engagement.js` (+ unminified): continent/city map from the hidden collection. Read image `data-src` (W3TC lazyload). City/continent rows `align-self: start`; `.staff-cities-wrapper { gap: 4rem }`.
+- Footer `page-staff-engagement-new.php`: local Swiper before `script.js` (slider uses `.is--slider-resources`).
+- `archive.php` + `single-staff-locations.php`: 301 `/staff-locations/` → `/staff-engagement-new/`.
+- Staging CSS for `.is--staff-video`, `.is--voicesofimpact`, `.div-block-13`, `.is--orange-city`, `.collection-list-wrapper-3 { display: none }`. Rebuild bundle + bump `ver=`.
 
-Verify: `/staff-engagement/` shows the voices slider and clickable cities; collection list is not visible; footer has no Netlify/cdnjs URLs.
+Verify: `/staff-engagement/` = old layout; `/staff-engagement-new/` = voices slider + clickable cities; collection list hidden; no Netlify/cdnjs URLs.
 
 ### 4. Internal linking helpers + templates
 
@@ -282,6 +293,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `template-parts/head/partials/bebas-font.php` | No Google Fonts |
 | `template-parts/footer/front-page.php` | Homepage vendor scripts |
 | `page-tales-of-resilience.php` | Slug-bound Tales template after resistence→resilience rename |
+| `page-staff-engagement-new.php` | Slug-bound redesign (`/staff-engagement-new/`); keep legacy `page-staff-engagement*` separate |
 | `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
 | `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
 | `header.php` rem-root include | Before head partial; `language_attributes()` only (no duplicate `lang`) |
@@ -303,7 +315,7 @@ Copy these from the customized theme into any new Udesly drop:
 12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`; share URLs use `get_permalink()`  
 13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
 14. `/tales/` 301s to `/tales-of-resilience/`; `page-tales-of-resilience.php` present; single-tales has H1  
-15. Staff Engagement: voices slider + `staff-locations` map; `/staff-locations/` 301s to `/staff-engagement/`; no Netlify URL in that footer  
+15. `/staff-engagement/` = legacy layout; `/staff-engagement-new/` = voices + map; `/staff-locations/` 301s to `/staff-engagement-new/`; `page-staff-engagement-new.php` present; no Netlify URL in that footer  
 16. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)

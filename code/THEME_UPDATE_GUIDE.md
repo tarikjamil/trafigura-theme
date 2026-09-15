@@ -165,23 +165,31 @@ Udesly exports leave a Webflow-style empty state and do not wire per-image capti
 
 ---
 
-## 3c. Staff Engagement (voices slider + locations collection)
+## 3c. Staff Engagement (legacy) + Staff Engagement New
 
-Re-apply after an Udesly drop. Keep local GTM, fonts, and the footer `aria-label`.
+Two pages — keep them separate after an Udesly drop. Local GTM, fonts, footer `aria-label`.
 
-- `template-parts/content/page-staff-engagement.php` — upper video via `the_content()` (Elementor); lower block via ACF `staff_lower_content` / `trafigura_staff_lower_content()` (hidden when empty). Voices of Impact + Staff in Action. Labels use `trafigura_editor_text()`. Restore `aria-label="Trafigura Foundation home"` on the footer brand link. Location photos are the featured image of each `staff-locations` post.
-- `functions.php` — CPT `staff-locations` + continent select.
-- `template-parts/query/staff-locations.php` — `data-city` / `data-continent` (title + continent field).
-- `template-parts/query/partner-stories-max-6-sorted-by-post_date-v0.php` — order `DESC`, `trafigura_card_image()`.
-- `code/staff-engagement.js` and `code/unminified/staff-engagement.js` — map built from the hidden collection.
-- `template-parts/footer/page-staff-engagement.php` — local Swiper, not Netlify.
-- `archive.php` / `single-staff-locations.php` — 301 to `/staff-engagement/`.
+**Legacy `/staff-engagement/`**
+
+- `page-staff-engagement.php` + content/head/footer `page-staff-engagement` — original layout (map H3 + single `the_content()`). No Voices slider / Staff in Action map.
+- Footer: GSAP + `script.js` + `staff-engagement.js` (no Swiper).
+
+**New `/staff-engagement-new/`**
+
+- Create WP page slug `staff-engagement-new` so `page-staff-engagement-new.php` binds.
+- Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact + Staff in Action. Labels: `trafigura_editor_text()`.
+- `functions.php` — CPT `staff-locations` + continent select; ACF on `staff-engagement-new`.
+- Queries `staff-locations.php` / `partner-stories-max-6-…-v0.php` — editor key `page-staff-engagement-new`.
+- `code/staff-engagement.js` (+ unminified) — map from hidden collection.
+- Footer `page-staff-engagement-new.php` — local Swiper, not Netlify.
+- `archive.php` / `single-staff-locations.php` — 301 to `/staff-engagement-new/`.
 - CSS in `assets/css/trafigura-staging.css`, then rebuild the bundle.
 
 ```bash
 grep -n 'staff-locations\|data-continent' template-parts/query/staff-locations.php functions.php
 grep -n 'buildStaffContinents' code/staff-engagement.js
-grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement.php || true
+grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement-new.php || true
+ls page-staff-engagement-new.php template-parts/content/page-staff-engagement-new.php
 ```
 
 ---

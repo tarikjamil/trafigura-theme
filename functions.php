@@ -764,18 +764,21 @@ udesly_define_taxonomy("areas", [
         add_action('acf/init', function() {
 
             if ( function_exists( 'acf_add_local_field_group' ) ) {
-                $staff_page = get_page_by_path( 'staff-engagement' );
+                $staff_page = get_page_by_path( 'staff-engagement-new' );
+                if ( ! $staff_page ) {
+                    $staff_page = get_page_by_path( 'staff-engagement' );
+                }
                 if ( $staff_page ) {
                     acf_add_local_field_group( [
                         'key'    => 'group_trafigura_staff_engagement',
-                        'title'  => 'Staff Engagement — lower content',
+                        'title'  => 'Staff Engagement New — lower content',
                         'fields' => [
                             [
                                 'key'           => 'field_staff_lower_content_note',
                                 'label'         => 'Upper content (video)',
                                 'name'          => '',
                                 'type'          => 'message',
-                                'message'       => 'The upper block (map video) is the main page content — edit it with Elementor / the page editor.',
+                                'message'       => 'The upper block (map video) is the main page content — edit it with Elementor / the page editor on Staff Engagement New.',
                             ],
                             [
                                 'key'           => 'field_staff_lower_content',

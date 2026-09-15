@@ -21,7 +21,7 @@ if ( is_post_type_archive( 'tales' ) ) {
 } elseif ( is_post_type_archive( 'team' ) ) {
 	$target = home_url( '/who-we-are/' );
 } elseif ( is_post_type_archive( 'staff-locations' ) ) {
-	$target = home_url( '/staff-engagement/' );
+	$target = home_url( '/staff-engagement-new/' );
 } elseif ( is_search() ) {
 	// Search has no real results UI; send users to Content Hub.
 	$target = home_url( '/content-hub/' );
