@@ -237,7 +237,7 @@ body {
             <div id="slider" class="splide is--voicesofimpact">
               <div class="mask-right"></div>
               <div class="mask-left"></div>
-              <?php get_template_part('template-parts/query/partner-stories-max-6-sorted-by-post_date-v0') ?>
+              <?php get_template_part('template-parts/query/voices-of-impacts') ?>
             </div>
           </div>
         </section>
@@ -330,6 +330,20 @@ body {
           </div>
         </section>
       </main>
+      <div class="voice--popup" id="voice-popup" hidden>
+        <div class="voice--popup-bg" data-voice-close></div>
+        <div class="voice--popup-content" role="dialog" aria-modal="true" aria-label="Video">
+          <button type="button" class="popup--close voice--popup-close" data-voice-close aria-label="Close video">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 8.707 8.707" class="svg" aria-hidden="true">
+              <g id="Group_1" data-name="Group 1" transform="translate(-1006.646 -365.646)">
+                <line id="Line_1" data-name="Line 1" x2="8" y2="8" transform="translate(1007 366)" fill="none" stroke="currentColor" stroke-width="1"></line>
+                <line id="Line_2" data-name="Line 2" x1="8" y2="8" transform="translate(1007 366)" fill="none" stroke="currentColor" stroke-width="1"></line>
+              </g>
+            </svg>
+          </button>
+          <div class="voice--popup-media"></div>
+        </div>
+      </div>
       <footer data-wf--footer--variant="base" class="footer">
         <div class="container--footer">
           <div class="flexv is--gap40">

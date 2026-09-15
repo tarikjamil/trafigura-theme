@@ -14,11 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   );
 
-  document.querySelectorAll("video").forEach(function (video) {
+  document.querySelectorAll("video:not(.voice--popup-video)").forEach(function (video) {
     observer.observe(video);
   });
 
   buildStaffContinents();
+  initVoiceVideoPopup();
 });
 
 var STAFF_SKIP_ATTRS = {
@@ -255,4 +256,124 @@ function ensureStaffMapStyles() {
     ".staff-cities-wrapper .heading-28.is--orange-city{cursor:pointer;color:#bebebe;transition:color .2s ease;}" +
     ".staff-cities-wrapper .heading-28.is--orange-city.is--active{color:var(--color--orange);}";
   document.head.appendChild(style);
+}
+
+function initVoiceVideoPopup() {
+  var popup = document.getElementById("voice-popup");
+  if (!popup) return;
+
+  var media = popup.querySelector(".voice--popup-media");
+  if (!media) return;
+
+  var lastFocus = null;
+
+  function youtubeEmbed(url) {
+    var id = "";
+    var m = url.match(/[?&]v=([^&]+)/);
+    if (m) id = m[1];
+    if (!id) {
+      m = url.match(/youtu\.be\/([^?&]+)/);
+      if (m) id = m[1];
+    }
+    if (!id) {
+      m = url.match(/youtube\.com\/embed\/([^?&]+)/);
+      if (m) id = m[1];
+    }
+    if (!id) {
+      m = url.match(/youtube\.com\/shorts\/([^?&]+)/);
+      if (m) id = m[1];
+    }
+    return id
+      ? "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0"
+      : "";
+  }
+
+  function vimeoEmbed(url) {
+    var m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    return m ? "https://player.vimeo.com/video/" + m[1] + "?autoplay=1" : "";
+  }
+
+  function isFileVideo(url) {
+    return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url);
+  }
+
+  function closePopup() {
+    var video = media.querySelector("video");
+    if (video) {
+      try {
+        video.pause();
+      } catch (e) {}
+    }
+    media.innerHTML = "";
+    popup.hidden = true;
+    popup.classList.remove("is--open");
+    document.documentElement.classList.remove("voice-popup-open");
+    if (lastFocus && typeof lastFocus.focus === "function") {
+      lastFocus.focus();
+    }
+    lastFocus = null;
+  }
+
+  function openPopup(url, trigger) {
+    if (!url) return;
+    lastFocus = trigger || document.activeElement;
+    media.innerHTML = "";
+
+    var embed = youtubeEmbed(url) || vimeoEmbed(url);
+    if (embed) {
+      var iframe = document.createElement("iframe");
+      iframe.className = "voice--popup-iframe";
+      iframe.src = embed;
+      iframe.title = "Video";
+      iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.setAttribute("frameborder", "0");
+      media.appendChild(iframe);
+    } else {
+      var video = document.createElement("video");
+      video.className = "voice--popup-video";
+      video.controls = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.src = url;
+      if (!isFileVideo(url)) {
+        // Still try as HTML5 source (ACF file URLs without extension in query).
+        video.src = url;
+      }
+      media.appendChild(video);
+      video.play().catch(function () {});
+    }
+
+    popup.hidden = false;
+    popup.classList.add("is--open");
+    document.documentElement.classList.add("voice-popup-open");
+    var closeBtn = popup.querySelector(".voice--popup-close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  document.addEventListener("click", function (e) {
+    var closeEl = e.target.closest("[data-voice-close]");
+    if (closeEl && popup.contains(closeEl)) {
+      e.preventDefault();
+      closePopup();
+      return;
+    }
+
+    var item = e.target.closest(".partner-item.is--voice");
+    if (!item || !item.closest(".is--voicesofimpact")) return;
+    e.preventDefault();
+    openPopup(item.getAttribute("data-video") || "", item);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !popup.hidden) {
+      closePopup();
+      return;
+    }
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var item = e.target.closest && e.target.closest(".partner-item.is--voice");
+    if (!item || !item.closest(".is--voicesofimpact")) return;
+    e.preventDefault();
+    openPopup(item.getAttribute("data-video") || "", item);
+  });
 }

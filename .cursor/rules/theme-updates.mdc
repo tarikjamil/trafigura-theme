@@ -220,17 +220,18 @@ Two pages — do **not** merge them after a Udesly sync.
 - Requires a WP page titled “Staff Engagement New”, slug `staff-engagement-new` (theme file `page-staff-engagement-new.php` binds by slug)
 - **Always noindex:** `functions.php` forces `noindex, follow` (Yoast + `wp_robots`) and excludes the page from the Yoast sitemap — do not make this URL publicly indexable while it remains the parallel redesign
 - Content/head/footer/editor: `*-staff-engagement-new.php` / `page-staff-engagement-new.json`
-- Video section (`the_content()` / Elementor only), Voices of Impact slider, optional ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query
+- Video section (`the_content()` / Elementor only), Voices of Impact slider (**CPT `voices-of-impact`** via `template-parts/query/voices-of-impacts.php`, not partner-stories), optional ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query
+- Slider cards: `data-video` from ACF/Udesly Video field (`trafigura_voice_video_url()`); click opens `#voice-popup` and plays file / YouTube / Vimeo (`code/staff-engagement.js` → `initVoiceVideoPopup`)
 - Labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
 - ACF group prefers page `staff-engagement-new` (fallback `staff-engagement`): field `staff_lower_content` (WYSIWYG). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
-- CPT `staff-locations` + continent select (`Africa` / `Asia` / `Europe` / `North America` / `South America`) in `functions.php`.
-- `template-parts/query/staff-locations.php` + `partner-stories-max-6-sorted-by-post_date-v0.php`: editor data key `page-staff-engagement-new`; order `DESC`; `trafigura_card_image()`; class `partner-item is--voice`.
-- `code/staff-engagement.js` (+ unminified): continent/city map from the hidden collection. Read image `data-src` (W3TC lazyload). City/continent rows `align-self: start`; `.staff-cities-wrapper { gap: 4rem }`.
+- CPT `voices-of-impact` (video + date) + CPT `staff-locations` + continent select in `functions.php`.
+- `template-parts/query/staff-locations.php` + `voices-of-impacts.php`: editor data key `page-staff-engagement-new`; order `DESC`; `trafigura_card_image()`; class `partner-item is--voice`.
+- `code/staff-engagement.js` (+ unminified): continent/city map + Voices video popup. Read image `data-src` (W3TC lazyload). City/continent rows `align-self: start`; `.staff-cities-wrapper { gap: 4rem }`.
 - Footer `page-staff-engagement-new.php`: local Swiper before `script.js` (slider uses `.is--slider-resources`).
-- `archive.php` + `single-staff-locations.php`: 301 `/staff-locations/` → `/staff-engagement-new/`.
-- Staging CSS for `.is--staff-video`, `.is--voicesofimpact`, `.div-block-13`, `.is--orange-city`, `.collection-list-wrapper-3 { display: none }`. Rebuild bundle + bump `ver=`.
+- `archive.php` + `single-staff-locations.php` + `single-voices-of-impact.php`: 301 → `/staff-engagement-new/`.
+- Staging CSS: `.svg--play`, `.voice--popup*`, plus staff map rules. Rebuild bundle + bump `ver=`.
 
-Verify: `/staff-engagement/` = old layout; `/staff-engagement-new/` = voices slider + clickable cities; collection list hidden; no Netlify/cdnjs URLs.
+Verify: `/staff-engagement/` = old layout; `/staff-engagement-new/` = voices slider (CPT) opens video popup + clickable cities; collection list hidden; no Netlify/cdnjs URLs.
 
 ### 4. Internal linking helpers + templates
 

@@ -178,17 +178,17 @@ Two pages — keep them separate after an Udesly drop. Local GTM, fonts, footer 
 
 - Create WP page slug `staff-engagement-new` so `page-staff-engagement-new.php` binds.
 - Theme forces **noindex, follow** + Yoast sitemap exclusion (`trafigura_staff_engagement_new_*` in `functions.php`).
-- Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact + Staff in Action. Labels: `trafigura_editor_text()`.
-- `functions.php` — CPT `staff-locations` + continent select; ACF on `staff-engagement-new`.
-- Queries `staff-locations.php` / `partner-stories-max-6-…-v0.php` — editor key `page-staff-engagement-new`.
-- `code/staff-engagement.js` (+ unminified) — map from hidden collection.
+- Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact (**CPT `voices-of-impact`**, query `voices-of-impacts.php`) + Staff in Action. Click card → `#voice-popup` plays linked video (`trafigura_voice_video_url()` + `initVoiceVideoPopup`). Labels: `trafigura_editor_text()`.
+- `functions.php` — CPT `voices-of-impact` + video field; CPT `staff-locations` + continent select; ACF on `staff-engagement-new`.
+- Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement-new`.
+- `code/staff-engagement.js` (+ unminified) — map + Voices popup.
 - Footer `page-staff-engagement-new.php` — local Swiper, not Netlify.
-- `archive.php` / `single-staff-locations.php` — 301 to `/staff-engagement-new/`.
-- CSS in `assets/css/trafigura-staging.css`, then rebuild the bundle.
+- `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` — 301 to `/staff-engagement-new/`.
+- CSS: `.svg--play`, `.voice--popup*` in `trafigura-staging.css`, then rebuild the bundle.
 
 ```bash
-grep -n 'staff-locations\|data-continent' template-parts/query/staff-locations.php functions.php
-grep -n 'buildStaffContinents' code/staff-engagement.js
+grep -n 'voices-of-impact\|data-video\|voice-popup' template-parts/query/voices-of-impacts.php functions.php template-parts/content/page-staff-engagement-new.php
+grep -n 'initVoiceVideoPopup\|buildStaffContinents' code/staff-engagement.js
 grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement-new.php || true
 ls page-staff-engagement-new.php template-parts/content/page-staff-engagement-new.php
 ```

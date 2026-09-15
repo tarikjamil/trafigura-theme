@@ -166,6 +166,39 @@
     }
 
     /**
+     * Video URL for a Voices of Impact CPT item (ACF / Udesly Video field).
+     */
+    function trafigura_voice_video_url( $post_id = null ) {
+        if ( ! $post_id ) {
+            $post_id = get_the_ID();
+        }
+        $video = '';
+        if ( function_exists( 'udesly_get_custom_post_field' ) ) {
+            $video = udesly_get_custom_post_field( $post_id, 'video', 'Video' );
+        }
+        if ( ( $video === '' || $video === null ) && function_exists( 'get_field' ) ) {
+            $video = get_field( 'video', $post_id );
+        }
+        if ( is_array( $video ) ) {
+            if ( ! empty( $video['url'] ) ) {
+                return esc_url_raw( $video['url'] );
+            }
+            if ( ! empty( $video['src'] ) ) {
+                return esc_url_raw( $video['src'] );
+            }
+            return '';
+        }
+        $video = trim( (string) $video );
+        if ( $video === '' ) {
+            return '';
+        }
+        if ( preg_match( '/src=["\']([^"\']+)/i', $video, $m ) ) {
+            return esc_url_raw( $m[1] );
+        }
+        return esc_url_raw( $video );
+    }
+
+    /**
      * Second Staff Engagement content block (before Staff in Action).
      * Independent from the main page/Elementor content used in the video section.
      */
@@ -651,7 +684,16 @@ function udesly_register_required_plugins() {
             return;
         }
         
-        udesly_define_post_type("staff-locations", [
+        udesly_define_post_type("voices-of-impact", [
+        "labels" => [
+            "name" => __("Voices of Impacts"),
+            "singular_name" => __("Voices of Impact"),
+        ],
+        "rewrite" => [
+            "name" => __("voices-of-impact"),
+        ],
+    ]);
+udesly_define_post_type("staff-locations", [
         "labels" => [
             "name" => __("Staff locations"),
             "singular_name" => __("Staff location"),
@@ -842,7 +884,24 @@ udesly_define_taxonomy("areas", [
                 return;
             }
         
-            udesly_register_custom_fields_for_post_type('staff-locations',[
+            udesly_register_custom_fields_for_post_type('voices-of-impact',[
+         udesly_custom_field_video([
+            "name" => "video", 
+            "label" => "Video", 
+            "instructions" => "", 
+            ]),   
+udesly_custom_field_date([
+            "name" => "date",
+            "label" => "Date",
+            "instructions" => ""
+            ]),   
+udesly_custom_field_checkbox([
+            "name" => "_noSearch",
+            "label" => "No Search",
+            "instructions" => ""
+            ])
+    ]);        
+udesly_register_custom_fields_for_post_type('staff-locations',[
          udesly_custom_field_select([
             "name" => "continent", 
             "label" => "Continent", 

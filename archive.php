@@ -20,7 +20,7 @@ if ( is_post_type_archive( 'tales' ) ) {
 	$target = home_url( '/areas-of-work/' );
 } elseif ( is_post_type_archive( 'team' ) ) {
 	$target = home_url( '/who-we-are/' );
-} elseif ( is_post_type_archive( 'staff-locations' ) ) {
+} elseif ( is_post_type_archive( 'staff-locations' ) || is_post_type_archive( 'voices-of-impact' ) ) {
 	$target = home_url( '/staff-engagement-new/' );
 } elseif ( is_search() ) {
 	// Search has no real results UI; send users to Content Hub.
