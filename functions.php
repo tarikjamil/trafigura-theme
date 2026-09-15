@@ -928,11 +928,11 @@ udesly_custom_field_checkbox([
                             'label'         => 'Video',
                             'name'          => 'video',
                             'type'          => 'file',
-                            'instructions'  => 'Choose an MP4 (or WebM) from the Media Library. The card image is the Featured Image (thumbnail).',
+                            'instructions'  => 'Choose a video file (MP4 / WebM) from the Media Library. The card image is the Featured Image (thumbnail).',
                             'required'      => 0,
                             'return_format' => 'array',
                             'library'       => 'all',
-                            'mime_types'    => 'mp4,webm,mov,m4v',
+                            // No mime_types: ACF would also restrict the Featured Image media frame.
                         ],
                     ],
                     'location' => [ [
@@ -946,6 +946,22 @@ udesly_custom_field_checkbox([
                     'style'    => 'default',
                     'active'   => true,
                 ] );
+
+                // Soft-validate video field only (does not affect Featured Image picker).
+                add_filter( 'acf/validate_value/key=field_voices_video_file', function ( $valid, $value ) {
+                    if ( $valid !== true || empty( $value ) ) {
+                        return $valid;
+                    }
+                    $id = is_array( $value ) ? (int) ( $value['ID'] ?? $value['id'] ?? 0 ) : (int) $value;
+                    if ( ! $id ) {
+                        return $valid;
+                    }
+                    $mime = (string) get_post_mime_type( $id );
+                    if ( $mime && strpos( $mime, 'video/' ) !== 0 ) {
+                        return 'Please select a video file (MP4 / WebM), not an image.';
+                    }
+                    return $valid;
+                }, 10, 2 );
             }
 
 udesly_register_custom_fields_for_post_type('staff-locations',[
