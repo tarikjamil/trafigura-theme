@@ -221,10 +221,10 @@ Two pages — do **not** merge them after a Udesly sync.
 - **Always noindex:** `functions.php` forces `noindex, follow` (Yoast + `wp_robots`) and excludes the page from the Yoast sitemap — do not make this URL publicly indexable while it remains the parallel redesign
 - Content/head/footer/editor: `*-staff-engagement-new.php` / `page-staff-engagement-new.json`
 - Video section (`the_content()` / Elementor only), Voices of Impact slider (**CPT `voices-of-impact`** via `template-parts/query/voices-of-impacts.php`, not partner-stories), optional ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query
-- Slider cards: `data-video` from ACF/Udesly Video field (`trafigura_voice_video_url()`); click opens `#voice-popup` and plays file / YouTube / Vimeo (`code/staff-engagement.js` → `initVoiceVideoPopup`)
+- Slider cards: `data-video` from Media Library **File** field (`trafigura_voice_video_url()`); card image = Featured Image via `trafigura_card_image()`; click opens `#voice-popup` and plays the file (`initVoiceVideoPopup`)
 - Labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
 - ACF group prefers page `staff-engagement-new` (fallback `staff-engagement`): field `staff_lower_content` (WYSIWYG). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
-- CPT `voices-of-impact` (video + date) + CPT `staff-locations` + continent select in `functions.php`.
+- CPT `voices-of-impact` (ACF File `video` + date; not URL/oEmbed) + CPT `staff-locations` + continent select in `functions.php`.
 - `template-parts/query/staff-locations.php` + `voices-of-impacts.php`: editor data key `page-staff-engagement-new`; order `DESC`; `trafigura_card_image()`; class `partner-item is--voice`.
 - `code/staff-engagement.js` (+ unminified): continent/city map + Voices video popup. Read image `data-src` (W3TC lazyload). City/continent rows `align-self: start`; `.staff-cities-wrapper { gap: 4rem }`.
 - Footer `page-staff-engagement-new.php`: local Swiper before `script.js` (slider uses `.is--slider-resources`).

@@ -179,7 +179,7 @@ Two pages — keep them separate after an Udesly drop. Local GTM, fonts, footer 
 - Create WP page slug `staff-engagement-new` so `page-staff-engagement-new.php` binds.
 - Theme forces **noindex, follow** + Yoast sitemap exclusion (`trafigura_staff_engagement_new_*` in `functions.php`).
 - Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact (**CPT `voices-of-impact`**, query `voices-of-impacts.php`) + Staff in Action. Click card → `#voice-popup` plays linked video (`trafigura_voice_video_url()` + `initVoiceVideoPopup`). Labels: `trafigura_editor_text()`.
-- `functions.php` — CPT `voices-of-impact` + video field; CPT `staff-locations` + continent select; ACF on `staff-engagement-new`.
+- `functions.php` — CPT `voices-of-impact` + ACF **File** field `video` (Media Library); CPT `staff-locations` + continent select; ACF on `staff-engagement-new`. Card image = Featured Image.
 - Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement-new`.
 - `code/staff-engagement.js` (+ unminified) — map + Voices popup.
 - Footer `page-staff-engagement-new.php` — local Swiper, not Netlify.

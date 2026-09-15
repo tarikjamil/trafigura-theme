@@ -166,28 +166,48 @@
     }
 
     /**
-     * Video URL for a Voices of Impact CPT item (ACF / Udesly Video field).
+     * Video file URL for a Voices of Impact item (ACF File from Media Library).
+     * Card image remains the post Featured Image / thumbnail.
      */
     function trafigura_voice_video_url( $post_id = null ) {
         if ( ! $post_id ) {
             $post_id = get_the_ID();
         }
-        $video = '';
-        if ( function_exists( 'udesly_get_custom_post_field' ) ) {
-            $video = udesly_get_custom_post_field( $post_id, 'video', 'Video' );
-        }
-        if ( ( $video === '' || $video === null ) && function_exists( 'get_field' ) ) {
+
+        $video = null;
+        if ( function_exists( 'get_field' ) ) {
             $video = get_field( 'video', $post_id );
         }
+        if ( ( $video === null || $video === '' || $video === false ) && function_exists( 'udesly_get_custom_post_field' ) ) {
+            $video = udesly_get_custom_post_field( $post_id, 'video', 'File' );
+            if ( $video === '' || $video === null ) {
+                $video = udesly_get_custom_post_field( $post_id, 'video', 'Video' );
+            }
+        }
+
+        if ( is_numeric( $video ) ) {
+            $url = wp_get_attachment_url( (int) $video );
+            return $url ? esc_url_raw( $url ) : '';
+        }
+
         if ( is_array( $video ) ) {
             if ( ! empty( $video['url'] ) ) {
                 return esc_url_raw( $video['url'] );
+            }
+            if ( ! empty( $video['ID'] ) ) {
+                $url = wp_get_attachment_url( (int) $video['ID'] );
+                return $url ? esc_url_raw( $url ) : '';
+            }
+            if ( ! empty( $video['id'] ) ) {
+                $url = wp_get_attachment_url( (int) $video['id'] );
+                return $url ? esc_url_raw( $url ) : '';
             }
             if ( ! empty( $video['src'] ) ) {
                 return esc_url_raw( $video['src'] );
             }
             return '';
         }
+
         $video = trim( (string) $video );
         if ( $video === '' ) {
             return '';
@@ -885,11 +905,6 @@ udesly_define_taxonomy("areas", [
             }
         
             udesly_register_custom_fields_for_post_type('voices-of-impact',[
-         udesly_custom_field_video([
-            "name" => "video", 
-            "label" => "Video", 
-            "instructions" => "", 
-            ]),   
 udesly_custom_field_date([
             "name" => "date",
             "label" => "Date",
@@ -900,7 +915,39 @@ udesly_custom_field_checkbox([
             "label" => "No Search",
             "instructions" => ""
             ])
-    ]);        
+    ]);
+
+            // Media Library file picker (not URL) — card image stays the Featured Image.
+            if ( function_exists( 'acf_add_local_field_group' ) ) {
+                acf_add_local_field_group( [
+                    'key'    => 'group_trafigura_voices_of_impact',
+                    'title'  => 'Voices of Impact — video',
+                    'fields' => [
+                        [
+                            'key'           => 'field_voices_video_file',
+                            'label'         => 'Video',
+                            'name'          => 'video',
+                            'type'          => 'file',
+                            'instructions'  => 'Choose an MP4 (or WebM) from the Media Library. The card image is the Featured Image (thumbnail).',
+                            'required'      => 0,
+                            'return_format' => 'array',
+                            'library'       => 'all',
+                            'mime_types'    => 'mp4,webm,mov,m4v',
+                        ],
+                    ],
+                    'location' => [ [
+                        [
+                            'param'    => 'post_type',
+                            'operator' => '==',
+                            'value'    => 'voices-of-impact',
+                        ],
+                    ] ],
+                    'position' => 'normal',
+                    'style'    => 'default',
+                    'active'   => true,
+                ] );
+            }
+
 udesly_register_custom_fields_for_post_type('staff-locations',[
          udesly_custom_field_select([
             "name" => "continent", 
