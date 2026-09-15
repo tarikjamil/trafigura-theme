@@ -453,6 +453,38 @@
     add_filter( 'wpseo_twitter_title', 'trafigura_yoast_prefer_seo_title', 20 );
 
     /**
+     * Staff Engagement New is a staging/parallel layout — keep it out of search.
+     */
+    function trafigura_is_staff_engagement_new_page() {
+        return is_page( 'staff-engagement-new' );
+    }
+
+    function trafigura_staff_engagement_new_noindex( $robots ) {
+        if ( ! trafigura_is_staff_engagement_new_page() ) {
+            return $robots;
+        }
+        return 'noindex, follow';
+    }
+    add_filter( 'wpseo_robots', 'trafigura_staff_engagement_new_noindex', 20 );
+
+    function trafigura_staff_engagement_new_wp_robots( $robots ) {
+        if ( trafigura_is_staff_engagement_new_page() ) {
+            $robots['noindex'] = true;
+        }
+        return $robots;
+    }
+    add_filter( 'wp_robots', 'trafigura_staff_engagement_new_wp_robots', 20 );
+
+    function trafigura_exclude_staff_engagement_new_from_sitemap( $excluded_ids ) {
+        $page = get_page_by_path( 'staff-engagement-new' );
+        if ( $page ) {
+            $excluded_ids[] = (int) $page->ID;
+        }
+        return $excluded_ids;
+    }
+    add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', 'trafigura_exclude_staff_engagement_new_from_sitemap' );
+
+    /**
      * Last-resort: fill remaining empty alt="" in HTML with the current document title.
      * Listing cards / hero / featured images should already have better alts above.
      */

@@ -177,6 +177,7 @@ Two pages — keep them separate after an Udesly drop. Local GTM, fonts, footer 
 **New `/staff-engagement-new/`**
 
 - Create WP page slug `staff-engagement-new` so `page-staff-engagement-new.php` binds.
+- Theme forces **noindex, follow** + Yoast sitemap exclusion (`trafigura_staff_engagement_new_*` in `functions.php`).
 - Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact + Staff in Action. Labels: `trafigura_editor_text()`.
 - `functions.php` — CPT `staff-locations` + continent select; ACF on `staff-engagement-new`.
 - Queries `staff-locations.php` / `partner-stories-max-6-…-v0.php` — editor key `page-staff-engagement-new`.

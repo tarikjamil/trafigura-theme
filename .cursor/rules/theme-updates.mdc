@@ -218,6 +218,7 @@ Two pages — do **not** merge them after a Udesly sync.
 **`/staff-engagement-new/` (redesign):**
 
 - Requires a WP page titled “Staff Engagement New”, slug `staff-engagement-new` (theme file `page-staff-engagement-new.php` binds by slug)
+- **Always noindex:** `functions.php` forces `noindex, follow` (Yoast + `wp_robots`) and excludes the page from the Yoast sitemap — do not make this URL publicly indexable while it remains the parallel redesign
 - Content/head/footer/editor: `*-staff-engagement-new.php` / `page-staff-engagement-new.json`
 - Video section (`the_content()` / Elementor only), Voices of Impact slider, optional ACF `staff_lower_content`, Staff in Action grid + `staff-locations` query
 - Labels use `trafigura_editor_text()` so unbound nodes do not stay on “Import Data”. Keep footer `aria-label="Trafigura Foundation home"`.
