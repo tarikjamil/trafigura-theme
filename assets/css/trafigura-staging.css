@@ -6501,6 +6501,15 @@ img {
 /* Voices of Impact — play icon + video popup */
 .partner-item.is--voice {
   cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.partner-item.is--voice:focus {
+  outline: none;
+}
+.partner-item.is--voice:focus-visible {
+  outline: 2rem solid var(--color--orange);
+  outline-offset: 4rem;
 }
 .case-image-wrapper.is--min260 {
   position: relative;

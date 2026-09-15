@@ -363,6 +363,7 @@ function initVoiceVideoPopup() {
     if (!item || !item.closest(".is--voicesofimpact")) return;
     e.preventDefault();
     openPopup(item.getAttribute("data-video") || "", item);
+    if (typeof item.blur === "function") item.blur();
   });
 
   document.addEventListener("keydown", function (e) {
