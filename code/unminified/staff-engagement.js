@@ -347,8 +347,6 @@ function initVoiceVideoPopup() {
     popup.hidden = false;
     popup.classList.add("is--open");
     document.documentElement.classList.add("voice-popup-open");
-    var closeBtn = popup.querySelector(".voice--popup-close");
-    if (closeBtn) closeBtn.focus();
   }
 
   document.addEventListener("click", function (e) {
