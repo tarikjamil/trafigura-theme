@@ -276,7 +276,7 @@ body {
             </div>
           </div>
         </section>
-        <section class="section is--padding-top">
+        <section class="section is--padding">
           <div class="container--1440">
             <div class="w-layout-grid grid--56">
               <div animation="fadefromleft" class="staff-image-wrapper is--left"><img src="<?php echo udesly_get_image(_u('i527cd681', 'img'))->src ?>" loading="lazy" sizes="(max-width: 479px) 48vw, (max-width: 2934px) 49vw, 1438px" srcset="<?php echo udesly_get_image(_u('i527cd681', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i527cd681', 'img'))->alt ?>" class="img--absolute" data-img="i527cd681"></div>
