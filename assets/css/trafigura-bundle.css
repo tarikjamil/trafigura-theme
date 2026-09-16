@@ -8799,7 +8799,7 @@ html.voice-popup-open {
   }
 }
 
-/* Voices slider arrows — white circles + orange accents */
+/* Voices slider arrows — left-aligned, 8rem gap */
 .splide.is--voicesofimpact {
   position: relative;
 }
@@ -8810,31 +8810,49 @@ html.voice-popup-open {
   z-index: 20;
   pointer-events: none;
   color: #ef7b61;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: end;
   display: flex;
-  position: absolute;
-  inset: 0%;
+  position: static;
+  flex-direction: row;
+  gap: 8rem;
+  margin-top: 48rem;
+  height: 80rem;
 }
 .swiper-arrows.is--voices .swiper-button-prev.is--shadow,
 .swiper-arrows.is--voices .swiper-button-next.is--shadow {
   pointer-events: auto;
+  position: relative;
+  left: auto;
+  right: auto;
+  inset: auto;
   background-color: #fff;
   border-color: #ef7b61;
   color: #ef7b61;
   box-shadow: 0 7rem 16rem #00000014;
+  transition: transform .2s ease;
 }
 .swiper-arrows.is--voices .swiper-button-prev.is--shadow:hover,
 .swiper-arrows.is--voices .swiper-button-next.is--shadow:hover {
-  background-color: #fff;
-  color: #ef7b61;
-  border-color: #ef7b61;
+  background-color: #fff !important;
+  border-color: #ef7b61 !important;
+  color: #ef7b61 !important;
+  transform: translateY(-8rem);
 }
-.swiper-arrows.is--voices .swiper-button-prev.swiper-button-disabled,
-.swiper-arrows.is--voices .swiper-button-next.swiper-button-disabled {
-  border-color: #cccccc;
-  color: #bebebe;
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled {
+  border-color: #e8e8e8;
+  color: #cfcfcf;
   opacity: 1;
+  pointer-events: none;
+  box-shadow: 0 7rem 16rem #00000014;
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled:hover,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled:hover {
+  background-color: #fff !important;
+  border-color: #e8e8e8 !important;
+  color: #cfcfcf !important;
+  transform: none;
 }
 .swiper-arrows.is--voices .icon-arrow {
   width: 18rem;
