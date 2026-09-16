@@ -8815,7 +8815,7 @@ html.voice-popup-open {
   display: flex;
   position: static;
   flex-direction: row;
-  gap: 8rem;
+  gap: 28rem;
   margin-top: 48rem;
   height: 80rem;
 }
@@ -8827,10 +8827,11 @@ html.voice-popup-open {
   right: auto;
   inset: auto;
   background-color: #fff;
-  border-color: #ef7b61;
-  color: #ef7b61;
+  border-color: #ef7b61 !important;
+  color: #ef7b61 !important;
   box-shadow: 0 7rem 16rem #00000014;
   transition: transform .2s ease;
+  opacity: 1;
 }
 .swiper-arrows.is--voices .swiper-button-prev.is--shadow:hover,
 .swiper-arrows.is--voices .swiper-button-next.is--shadow:hover {
@@ -8841,17 +8842,19 @@ html.voice-popup-open {
 }
 .swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled,
 .swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled {
-  border-color: #e8e8e8;
-  color: #cfcfcf;
-  opacity: 1;
+  background-color: #fff !important;
+  border-color: #eeeeee !important;
+  color: #d0d0d0 !important;
+  opacity: 1 !important;
   pointer-events: none;
   box-shadow: 0 7rem 16rem #00000014;
+  transform: none;
 }
 .swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled:hover,
 .swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled:hover {
   background-color: #fff !important;
-  border-color: #e8e8e8 !important;
-  color: #cfcfcf !important;
+  border-color: #eeeeee !important;
+  color: #d0d0d0 !important;
   transform: none;
 }
 .swiper-arrows.is--voices .icon-arrow {
@@ -8861,3 +8864,31 @@ html.voice-popup-open {
 
 /* === trafigura code/style.css (inlined; do not load separately) === */
 .navbar--dropdown-trigger.open .nav--arrow{transform:rotate(0)}.container--1440.is--relative{max-width:1480rem;overflow-x:clip}.navbar--dropdown--list{height:0;overflow:hidden!important}.swiper,.swiper-cards .swiper-slide{overflow:visible!important}.w-richtext a{color:#7563ad;font-weight:600}.filter--options{display:none}.filter-grid{color:inherit!important}.elementor-element .swiper-wrapper{transform:translate3d(0,0,0)!important}@media screen and (min-width:1752px){.navbar--menu{display:flex!important;transform:translate3d(0,0,0) scale3d(1,1,1) rotateX(0) rotateY(0) rotateZ(0) skew(0deg,0deg)!important}.navbar{width:272rem!important}}@keyframes is--scrolling{from{transform:translateX(0)}to{transform:translateX(calc(-1 * var(--scroll-width)))}}.swiper-slide{width:100%;flex-grow:0;flex-shrink:0;flex-basis:auto}.swiper{width:100%!important;margin-left:0!important}.elementor-element .swiper-slide{max-width:100%!important;width:100%}.swiper-button-next.is--shadow,.swiper-button-prev.is--shadow{border-style:solid;border-width:1rem;border-color:inherit!important;color:inherit!important;border-radius:100%;justify-content:center;align-items:center;width:78rem!important;height:78rem!important;display:flex!important}.swiper-button-next:after,.swiper-button-prev:after{content:none!important}.swiper-button-next.is--shadow:hover,.swiper-button-prev.is--shadow:hover{color:#fff!important}.text-date{width:auto}.swiper-3d .swiper-slide-shadow{background:0 0!important}.team-popup-img{border-radius:100rem;width:52rem;margin-bottom:20rem;overflow:revert!important;aspect-ratio:1/1;height:100%}
+
+/* Voices arrows — final overrides (after inlined code/style.css) */
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow {
+  border-color: #ef7b61 !important;
+  color: #ef7b61 !important;
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow:hover,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow:hover {
+  background-color: #fff !important;
+  border-color: #ef7b61 !important;
+  color: #ef7b61 !important;
+  transform: translateY(-8rem);
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled {
+  background-color: #fff !important;
+  border-color: #eeeeee !important;
+  color: #d0d0d0 !important;
+  opacity: 1 !important;
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow.swiper-button-disabled:hover,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow.swiper-button-disabled:hover {
+  background-color: #fff !important;
+  border-color: #eeeeee !important;
+  color: #d0d0d0 !important;
+  transform: none;
+}
