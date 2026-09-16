@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   buildStaffContinents();
   initVoiceVideoPopup();
+  initVoiceSliderArrows();
 });
 
 var STAFF_SKIP_ATTRS = {
@@ -337,7 +338,6 @@ function initVoiceVideoPopup() {
       video.autoplay = true;
       video.src = url;
       if (!isFileVideo(url)) {
-        // Still try as HTML5 source (ACF file URLs without extension in query).
         video.src = url;
       }
       media.appendChild(video);
@@ -374,5 +374,43 @@ function initVoiceVideoPopup() {
     if (!item || !item.closest(".is--voicesofimpact")) return;
     e.preventDefault();
     openPopup(item.getAttribute("data-video") || "", item);
+  });
+}
+
+function initVoiceSliderArrows() {
+  var root = document.querySelector(".splide.is--voicesofimpact");
+  if (!root || typeof Swiper === "undefined") return;
+
+  var swiperEl = root.querySelector(".swiper.is--slider-resources");
+  if (!swiperEl) return;
+
+  var arrows = root.querySelector(".swiper-arrows.is--voices");
+  if (!arrows) return;
+
+  var nextEl = arrows.querySelector(".swiper-button-next");
+  var prevEl = arrows.querySelector(".swiper-button-prev");
+  if (!nextEl || !prevEl) return;
+
+  if (swiperEl.swiper) {
+    swiperEl.swiper.destroy(true, true);
+  }
+
+  new Swiper(swiperEl, {
+    direction: "horizontal",
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: "20rem",
+    loop: false,
+    centeredSlides: false,
+    navigation: {
+      nextEl: nextEl,
+      prevEl: prevEl,
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 1,
+        spaceBetween: "20rem",
+      },
+    },
   });
 }

@@ -8733,23 +8733,23 @@ img {
   width: min(960rem, 100%);
   max-width: 960rem;
   border-radius: 0;
-  padding: 56rem 0 0;
+  padding: 64rem 0 0;
   position: relative;
   z-index: 1;
   box-shadow: none;
 }
-.voice--popup-close.popup--close,
 .voice--popup-close {
   position: absolute;
   top: 0;
   right: 0;
-  inset: auto 0 auto auto;
-  width: 40rem;
-  height: 40rem;
-  color: #fff;
-  background: transparent;
+  z-index: 2;
+  width: 48rem;
+  height: 48rem;
+  color: #111;
+  background: #fff;
   border: 0;
-  box-shadow: none;
+  border-radius: 100%;
+  box-shadow: 0 7rem 16rem #00000029;
   outline: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
@@ -8759,14 +8759,19 @@ img {
   justify-content: center;
 }
 .voice--popup-close:hover {
-  background: transparent;
-  color: #fff;
-  opacity: 0.8;
+  background: #fff;
+  color: #111;
+  opacity: 0.9;
 }
 .voice--popup-close:focus,
 .voice--popup-close:focus-visible {
   outline: none;
-  box-shadow: none;
+  box-shadow: 0 7rem 16rem #00000029;
+}
+.voice--popup-close-icon {
+  width: 14rem;
+  height: 14rem;
+  display: block;
 }
 .voice--popup-media {
   position: relative;
@@ -8792,6 +8797,48 @@ html.voice-popup-open {
   .svg--play {
     width: 24rem;
   }
+}
+
+/* Voices slider arrows — white circles + orange accents */
+.splide.is--voicesofimpact {
+  position: relative;
+}
+.splide.is--voicesofimpact .swiper.is--slider-resources {
+  position: relative;
+}
+.swiper-arrows.is--voices {
+  z-index: 20;
+  pointer-events: none;
+  color: #ef7b61;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  inset: 0%;
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow {
+  pointer-events: auto;
+  background-color: #fff;
+  border-color: #ef7b61;
+  color: #ef7b61;
+  box-shadow: 0 7rem 16rem #00000014;
+}
+.swiper-arrows.is--voices .swiper-button-prev.is--shadow:hover,
+.swiper-arrows.is--voices .swiper-button-next.is--shadow:hover {
+  background-color: #fff;
+  color: #ef7b61;
+  border-color: #ef7b61;
+}
+.swiper-arrows.is--voices .swiper-button-prev.swiper-button-disabled,
+.swiper-arrows.is--voices .swiper-button-next.swiper-button-disabled {
+  border-color: #cccccc;
+  color: #bebebe;
+  opacity: 1;
+}
+.swiper-arrows.is--voices .icon-arrow {
+  width: 18rem;
+  height: auto;
 }
 
 /* === trafigura code/style.css (inlined; do not load separately) === */

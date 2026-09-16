@@ -48,5 +48,17 @@ $args = apply_filters('udesly/posts/voices-of-impacts', $args);
                   </div><?php endwhile; ?>
                 </div>
                 <?php endif; ?>
+                <div class="swiper-arrows is--voices">
+                  <button type="button" class="swiper-button-prev is--shadow" aria-label="Previous">
+                    <svg class="icon-arrow" xmlns="http://www.w3.org/2000/svg" width="17.589" height="13.87" viewBox="0 0 17.589 13.87" aria-hidden="true">
+                      <path d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(17.589 13.87) rotate(180)" fill="currentColor"></path>
+                    </svg>
+                  </button>
+                  <button type="button" class="swiper-button-next is--shadow" aria-label="Next">
+                    <svg class="icon-arrow" xmlns="http://www.w3.org/2000/svg" width="17.589" height="13.87" viewBox="0 0 17.589 13.87" aria-hidden="true">
+                      <path d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" fill="currentColor"></path>
+                    </svg>
+                  </button>
+                </div>
               </div>
 <?php wp_reset_postdata(); ?>

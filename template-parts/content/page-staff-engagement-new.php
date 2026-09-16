@@ -333,12 +333,10 @@ body {
       <div class="voice--popup" id="voice-popup" hidden>
         <div class="voice--popup-bg" data-voice-close></div>
         <div class="voice--popup-content" role="dialog" aria-modal="true" aria-label="Video">
-          <button type="button" class="popup--close voice--popup-close" data-voice-close aria-label="Close video">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 8.707 8.707" class="svg" aria-hidden="true">
-              <g id="Group_1" data-name="Group 1" transform="translate(-1006.646 -365.646)">
-                <line id="Line_1" data-name="Line 1" x2="8" y2="8" transform="translate(1007 366)" fill="none" stroke="currentColor" stroke-width="1"></line>
-                <line id="Line_2" data-name="Line 2" x1="8" y2="8" transform="translate(1007 366)" fill="none" stroke="currentColor" stroke-width="1"></line>
-              </g>
+          <button type="button" class="voice--popup-close" data-voice-close aria-label="Close video">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" class="voice--popup-close-icon" aria-hidden="true">
+              <line x1="1" y1="1" x2="13" y2="13" fill="none" stroke="currentColor" stroke-width="1.5"></line>
+              <line x1="13" y1="1" x2="1" y2="13" fill="none" stroke="currentColor" stroke-width="1.5"></line>
             </svg>
           </button>
           <div class="voice--popup-media"></div>
