@@ -5524,6 +5524,10 @@ img {
   max-width: 1000rem;
 }
 
+.max--hero.is--puma {
+  max-width: 1140rem;
+}
+
 .content-page-wrapper {
   grid-column-gap: 0px;
   grid-row-gap: 0px;

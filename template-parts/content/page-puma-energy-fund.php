@@ -247,7 +247,7 @@ body {
         <section class="section is--hero">
           <div class="hero-image-wrapper"><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->src ?>" class="img--absolute" data-img="i1b9e38d8">
             <div class="hero-images">
-              <div class="max--hero">
+              <div class="max--hero is--puma">
                 <h1 animation="loading" class="heading-160" data-text="t6c7059be">Puma Energy Fund</h1>
               </div>
             </div>
