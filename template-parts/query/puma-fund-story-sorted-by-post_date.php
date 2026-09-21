@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <?php
             if (function_exists('udesly_set_frontend_editor_data') && wp_doing_ajax()) {
-              udesly_set_frontend_editor_data('single-puma-energy-fund-stories');
+              udesly_set_frontend_editor_data('page-puma-energy-fund');
           }
 ?>
 <?php
@@ -18,20 +18,17 @@ defined( 'ABSPATH' ) || exit;
 
 
 $args = [
-  "post_type" => "puma-energy-fund-stories",
+  "post_type" => "puma-fund-story",
   "order" => "DESC",
   "orderby" => "date",
-  "post__not_in" => [
-    get_the_ID()
-  ],
   "paged" => $paged
 ];
 
-$args = apply_filters('udesly/posts/puma-energy-fund-stories-where-id-ne-current-sorted-by-post_date', $args);
+$args = apply_filters('udesly/posts/puma-fund-story-sorted-by-post_date', $args);
 
         $query = new WP_Query($args);
 ?>
-<div class="w-dyn-list" udy-collection="puma-energy-fund-stories">
+<div class="w-dyn-list" udy-collection="puma-fund-story">
               <?php if ( $query->have_posts() ) : ?><div role="list" class="partner-grid w-dyn-items">
                 <?php while ($query->have_posts()) : $query->the_post(); global $post; ?><div role="listitem" class="partner--item w-dyn-item">
                   <a href="<?php the_permalink() ?>" class="partner-item w-inline-block">
@@ -48,10 +45,10 @@ $args = apply_filters('udesly/posts/puma-energy-fund-stories-where-id-ne-current
                     </div>
                     <div class="case-bottom">
                       <div class="flexv">
-                        <div class="heading-32 is--black2"><?php the_title() ?></div>
+                        <h2 class="heading-32 is--black2"><?php the_title() ?></h2>
                         <p class=""><?php echo udesly_get_custom_post_field( $post->ID, "description", "PlainText" ) ?></p>
                       </div>
-                      <div class="btn-purple">
+                      <div class="btn is--ghost-blue">
                         <div class="btn-arrow is--shadow"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.589 13.87" class="icon-arrow">
                             <path id="Tracé_42314" data-name="Tracé 42314" d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(0 0)" fill="currentColor"></path>
                           </svg></div>
@@ -61,6 +58,12 @@ $args = apply_filters('udesly/posts/puma-energy-fund-stories-where-id-ne-current
                       </div>
                     </div>
                   </a>
+                  <div class="partners--filter-tags">
+                    <div class="partner--region"><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
+                    <div class="partner--continent"></div>
+                    <div class="partner--state"><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?></div>
+                    <div class="partner--area"><?php echo trafigura_link_areas_of_work_text( udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" ) ); ?></div>
+                  </div>
                 </div><?php endwhile; ?>
               </div>
               <?php else : ?><div class="w-dyn-empty">

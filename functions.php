@@ -776,13 +776,13 @@ udesly_define_post_type("partner-stories", [
             "name" => __("partner-stories"),
         ],
     ]);
-udesly_define_post_type("puma-energy-fund-stories", [
+udesly_define_post_type("puma-fund-story", [
         "labels" => [
             "name" => __("Puma Energy Fund stories"),
             "singular_name" => __("Puma Energy Fund story"),
         ],
         "rewrite" => [
-            "name" => __("puma-energy-fund-stories"),
+            "name" => __("puma-fund-story"),
         ],
     ]);
         
@@ -794,7 +794,7 @@ udesly_define_post_type("puma-energy-fund-stories", [
         "rewrite" => [
             "name" => __("related-partners"),
         ],
-    ], ["partner-stories", "puma-energy-fund-stories"]);
+    ], ["partner-stories", "puma-fund-story"]);
 udesly_define_taxonomy("areas", [
         "labels" => [
             "name" => __("Areas"),
@@ -803,7 +803,7 @@ udesly_define_taxonomy("areas", [
         "rewrite" => [
             "name" => __("areas"),
         ],
-    ], ["partner-stories", "puma-energy-fund-stories"]);
+    ], ["partner-stories", "puma-fund-story"]);
     
     }
 
@@ -1238,7 +1238,7 @@ udesly_custom_field_checkbox([
             "instructions" => ""
             ])
     ]);
-udesly_register_custom_fields_for_post_type('puma-energy-fund-stories',[
+udesly_register_custom_fields_for_post_type('puma-fund-story',[
          udesly_custom_field_text([
             "name" => "description", 
             "label" => "Description", 

@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 <?php
 
             if (function_exists('udesly_set_frontend_editor_data') && wp_doing_ajax()) {
-              udesly_set_frontend_editor_data('single-puma-energy-fund-stories');
+              udesly_set_frontend_editor_data('single-puma-fund-story');
           }
 
                 global $post;

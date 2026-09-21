@@ -295,7 +295,7 @@ body {
                 </div><button id="resetFilters" class="btn--reset" data-text="tn35d3b097"><?php echo _u('tn35d3b097','text'); ?></button>
               </div>
             </div>
-            <?php get_template_part('template-parts/query/puma-energy-fund-stories-sorted-by-post_date') ?>
+            <?php get_template_part('template-parts/query/puma-fund-story-sorted-by-post_date') ?>
           </div>
         </section>
       </main>

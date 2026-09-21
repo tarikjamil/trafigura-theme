@@ -307,8 +307,8 @@ body {
             <div class="other-partners">
               <h2 class="heading-46" data-text="tn539b6628"><?php echo _u('tn539b6628','text'); ?></h2>
             </div>
-            <?php get_template_part('template-parts/query/puma-energy-fund-stories-where-id-ne-current-sorted-by-post_date') ?>
-            <?php get_template_part('template-parts/query/related-partners-of-current-puma-energy-fund-stories') ?>
+            <?php get_template_part('template-parts/query/puma-fund-story-where-id-ne-current-sorted-by-post_date') ?>
+            <?php get_template_part('template-parts/query/related-partners-of-current-puma-fund-story') ?>
           </div>
         </section>
       </main>
