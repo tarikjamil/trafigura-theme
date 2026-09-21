@@ -233,6 +233,21 @@ Two pages — do **not** merge them after a Udesly sync.
 
 Verify: `/staff-engagement/` = old layout; `/staff-engagement-new/` = voices slider (CPT) opens video popup + clickable cities; collection list hidden; no Netlify/cdnjs URLs.
 
+### 3h. Puma Energy Fund (hub + stories CPT)
+
+Mirrors Partners Stories. Do **not** merge with `/partners-stories/`.
+
+- Hub page slug `puma-energy-fund` → `page-puma-energy-fund.php` + content/head/footer + `_data/frontend-editor/page-puma-energy-fund.json`
+- H1 hardcoded `Puma Energy Fund`
+- CPT `puma-energy-fund-stories` (labels “Puma Energy Fund stories”) — same fields as partner-stories: `description`, `place`, `state`, `area-of-work`, `gallery-2`, `slider-text-3`, `_noSearch`
+- Taxonomies `areas` + `related-partners` also attached to this CPT
+- Hub query: `template-parts/query/puma-energy-fund-stories-sorted-by-post_date.php` (`order => DESC`, `trafigura_card_image()`)
+- Singles: `single-puma-energy-fund-stories.php` + content/footer; back link → `/puma-energy-fund/`
+- `archive-puma-energy-fund-stories.php` + `archive.php` → 301 `/puma-energy-fund-stories/` → `/puma-energy-fund/`
+- Reuses `code/partnerstory.js` / `partnerstory.css` for hub filters
+
+Verify: WP page “Puma Energy Fund” slug `puma-energy-fund` exists; CPT items appear on hub; archive 301s; flush permalinks after deploy.
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
@@ -296,6 +311,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `template-parts/footer/front-page.php` | Homepage vendor scripts |
 | `page-tales-of-resilience.php` | Slug-bound Tales template after resistence→resilience rename |
 | `page-staff-engagement-new.php` | Slug-bound redesign (`/staff-engagement-new/`); keep legacy `page-staff-engagement*` separate |
+| `page-puma-energy-fund.php` | Slug-bound hub `/puma-energy-fund/` + CPT `puma-energy-fund-stories` |
 | `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
 | `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
 | `header.php` rem-root include | Before head partial; `language_attributes()` only (no duplicate `lang`) |
@@ -318,7 +334,8 @@ Copy these from the customized theme into any new Udesly drop:
 13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
 14. `/tales/` 301s to `/tales-of-resilience/`; `page-tales-of-resilience.php` present; single-tales has H1  
 15. `/staff-engagement/` = legacy layout; `/staff-engagement-new/` = voices + map; `/staff-locations/` 301s to `/staff-engagement-new/`; `page-staff-engagement-new.php` present; no Netlify URL in that footer  
-16. Purge W3TC after deploy  
+16. `/puma-energy-fund/` hub + CPT `puma-energy-fund-stories`; archive 301s to hub; `page-puma-energy-fund.php` present  
+17. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)
 

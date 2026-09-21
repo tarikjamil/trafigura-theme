@@ -776,6 +776,15 @@ udesly_define_post_type("partner-stories", [
             "name" => __("partner-stories"),
         ],
     ]);
+udesly_define_post_type("puma-energy-fund-stories", [
+        "labels" => [
+            "name" => __("Puma Energy Fund stories"),
+            "singular_name" => __("Puma Energy Fund story"),
+        ],
+        "rewrite" => [
+            "name" => __("puma-energy-fund-stories"),
+        ],
+    ]);
         
         udesly_define_taxonomy("related-partners", [
         "labels" => [
@@ -785,7 +794,7 @@ udesly_define_post_type("partner-stories", [
         "rewrite" => [
             "name" => __("related-partners"),
         ],
-    ], ["partner-stories"]);
+    ], ["partner-stories", "puma-energy-fund-stories"]);
 udesly_define_taxonomy("areas", [
         "labels" => [
             "name" => __("Areas"),
@@ -794,7 +803,7 @@ udesly_define_taxonomy("areas", [
         "rewrite" => [
             "name" => __("areas"),
         ],
-    ], ["partner-stories"]);
+    ], ["partner-stories", "puma-energy-fund-stories"]);
     
     }
 
@@ -1187,6 +1196,49 @@ udesly_custom_field_checkbox([
             ])
     ]);        
 udesly_register_custom_fields_for_post_type('partner-stories',[
+         udesly_custom_field_text([
+            "name" => "description", 
+            "label" => "Description", 
+            "instructions" => "", 
+            ]),   
+udesly_custom_field_text([
+            "name" => "place", 
+            "label" => "Country", 
+            "instructions" => "", 
+            ]),   
+udesly_custom_field_select([
+            "name" => "state", 
+            "label" => "State", 
+            "instructions" => "", 
+            "choices" => [
+                "Ongoing" => "Ongoing",
+            "New" => "New",
+            "Ended" => "Ended",
+            
+               ]
+            ]),   
+udesly_custom_field_text([
+            "name" => "area-of-work", 
+            "label" => "Area of Work", 
+            "instructions" => "", 
+            ]),   
+udesly_custom_field_set([
+            "name" => "gallery-2", 
+            "label" => "Gallery", 
+            "instructions" => "",
+            ]),   
+udesly_custom_field_text([
+            "name" => "slider-text-3", 
+            "label" => "Text under slider", 
+            "instructions" => "", 
+            ]),   
+udesly_custom_field_checkbox([
+            "name" => "_noSearch",
+            "label" => "No Search",
+            "instructions" => ""
+            ])
+    ]);
+udesly_register_custom_fields_for_post_type('puma-energy-fund-stories',[
          udesly_custom_field_text([
             "name" => "description", 
             "label" => "Description", 

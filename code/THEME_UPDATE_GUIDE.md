@@ -195,6 +195,23 @@ ls page-staff-engagement-new.php template-parts/content/page-staff-engagement-ne
 
 ---
 
+## 3d. Puma Energy Fund (hub + stories CPT)
+
+Mirrors Partners Stories. Keep separate from `/partners-stories/`.
+
+- Hub: `page-puma-energy-fund.php` (slug `puma-energy-fund`), H1 `Puma Energy Fund`
+- CPT: `puma-energy-fund-stories` + same custom fields as partner-stories
+- Query: `puma-energy-fund-stories-sorted-by-post_date.php` (`DESC`)
+- Singles + archive 301 → `/puma-energy-fund/`
+- Filters: reuse `code/partnerstory.js` / `.css`
+
+```bash
+grep -n 'puma-energy-fund' functions.php archive.php page-puma-energy-fund.php
+ls template-parts/query/puma-energy-fund-stories-sorted-by-post_date.php single-puma-energy-fund-stories.php
+```
+
+---
+
 ## 4. Quick Update Checklist
 
 When a new theme is uploaded:
