@@ -128,6 +128,7 @@ For each URL in CSV: Focus keyphrase → SEO title → Meta description
 - [x] Defer non-critical CSS (`code/style.css`, honeypot, udesly common); inline `.main-wrapper{opacity:0}`
 - [x] A11y/SEO: descriptive areas CTA; footer brand `aria-label`; Swiper wrappers without conflicting `role="list"`
 - [x] Re-run PageSpeed / Lighthouse after deploy (14 Aug: mobile Perf **99** / LCP **2.0s**; desktop Perf **100** / LCP **0.7s**) — see `SEO/lighthouse/BEFORE-AFTER.md`
+- [x] Sep 22 retest after hero LCP render-delay fixes: mobile Perf **98** / LCP **2.0s**; desktop Perf **100** / LCP **0.5s**
 ### 12. Search Console hygiene
 - [x] Sitemap already in GSC; `robots.txt` now declares sitemap
 - [x] Requested indexing for hubs (`/content-hub/`, `/partners-stories/`, `/areas-of-work/`)

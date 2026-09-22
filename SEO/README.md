@@ -1,7 +1,7 @@
 # SEO / AEO pack — Trafigura Foundation
 
-Last updated: **14 Aug 2026** (Lighthouse before/after + technical SEO pass).  
-Scope: full Yoast sitemap — **114 URLs**.
+Last updated: **22 Sep 2026** (Lighthouse retest + SEO/AEO pack).  
+Scope: full Yoast sitemap — **116 URLs** (was 114 on 14 Aug).
 
 ## Files
 
@@ -10,9 +10,11 @@ Scope: full Yoast sitemap — **114 URLs**.
 | `yoast-meta-all-pages.csv` | Focus keyphrase + SEO title + meta description for every sitemap URL (content-based), plus current live values and notes |
 | `CHECKLIST-big-wins.md` | Prioritised implementation checklist after technical/content audit |
 | `AEO-recommendations.md` | Answer Engine Optimization roadmap (AI Overviews, ChatGPT, Perplexity, etc.) |
-| `lighthouse/BEFORE-AFTER.md` | Homepage Lighthouse before (12 Aug) vs after (14 Aug) scores + metrics |
-| `lighthouse/after-mobile-2026-08-14.png` | After screenshot — mobile |
-| `lighthouse/after-desktop-2026-08-14.png` | After screenshot — desktop |
+| `lighthouse/BEFORE-AFTER.md` | Homepage Lighthouse: Aug + **22 Sep final** (mobile Perf **98** / LCP **2.0s**; desktop **100**) |
+| `lighthouse/after-mobile-2026-09-22.png` | Sep 22 screenshot — mobile |
+| `lighthouse/after-desktop-2026-09-22.png` | Sep 22 screenshot — desktop |
+| `lighthouse/after-mobile-2026-08-14.png` | Aug 14 screenshot — mobile |
+| `lighthouse/after-desktop-2026-08-14.png` | Aug 14 screenshot — desktop |
 | `monthly-reports/README.md` | How to produce monthly client reports |
 | `monthly-reports/_TEMPLATE.md` | Report template (Performance / Work / Plan / Risks) |
 | `monthly-reports/2026-08-client.md` | August 2026 client report (plain language) |
