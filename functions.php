@@ -520,36 +520,63 @@
     add_filter( 'wpseo_twitter_title', 'trafigura_yoast_prefer_seo_title', 20 );
 
     /**
-     * /staff-engagement-new/ is retired (301 → /staff-engagement/) — keep noindex if ever hit.
+     * Supporting CPTs (Voices, staff map pins) and Tales of Resilience must not
+     * appear in Google / Yoast sitemap / llms.txt. They have no public landing.
      */
-    function trafigura_is_staff_engagement_new_page() {
-        return is_page( 'staff-engagement-new' );
+    function trafigura_noindex_post_types() {
+        return [ 'voices-of-impact', 'staff-locations', 'tales' ];
     }
 
-    function trafigura_staff_engagement_new_noindex( $robots ) {
-        if ( ! trafigura_is_staff_engagement_new_page() ) {
+    function trafigura_is_noindex_utility_content() {
+        $types = trafigura_noindex_post_types();
+        if ( is_singular( $types ) || is_post_type_archive( $types ) ) {
+            return true;
+        }
+        return is_page( [ 'tales-of-resilience', 'tales-of-resistence' ] );
+    }
+
+    function trafigura_noindex_utility_wpseo_robots( $robots ) {
+        if ( ! trafigura_is_noindex_utility_content() ) {
             return $robots;
         }
         return 'noindex, follow';
     }
-    add_filter( 'wpseo_robots', 'trafigura_staff_engagement_new_noindex', 20 );
+    add_filter( 'wpseo_robots', 'trafigura_noindex_utility_wpseo_robots', 20 );
 
-    function trafigura_staff_engagement_new_wp_robots( $robots ) {
-        if ( trafigura_is_staff_engagement_new_page() ) {
+    function trafigura_noindex_utility_wp_robots( $robots ) {
+        if ( trafigura_is_noindex_utility_content() ) {
             $robots['noindex'] = true;
         }
         return $robots;
     }
-    add_filter( 'wp_robots', 'trafigura_staff_engagement_new_wp_robots', 20 );
+    add_filter( 'wp_robots', 'trafigura_noindex_utility_wp_robots', 20 );
 
-    function trafigura_exclude_staff_engagement_new_from_sitemap( $excluded_ids ) {
-        $page = get_page_by_path( 'staff-engagement-new' );
-        if ( $page ) {
-            $excluded_ids[] = (int) $page->ID;
+    function trafigura_yoast_exclude_utility_post_types( $excluded, $post_type ) {
+        if ( in_array( $post_type, trafigura_noindex_post_types(), true ) ) {
+            return true;
+        }
+        return $excluded;
+    }
+    add_filter( 'wpseo_sitemap_exclude_post_type', 'trafigura_yoast_exclude_utility_post_types', 10, 2 );
+
+    function trafigura_yoast_excluded_indexable_post_types( $post_types ) {
+        if ( ! is_array( $post_types ) ) {
+            $post_types = [];
+        }
+        return array_values( array_unique( array_merge( $post_types, trafigura_noindex_post_types() ) ) );
+    }
+    add_filter( 'wpseo_indexable_excluded_post_types', 'trafigura_yoast_excluded_indexable_post_types' );
+
+    function trafigura_exclude_tales_page_from_sitemap( $excluded_ids ) {
+        foreach ( [ 'tales-of-resilience', 'tales-of-resistence' ] as $slug ) {
+            $page = get_page_by_path( $slug );
+            if ( $page ) {
+                $excluded_ids[] = (int) $page->ID;
+            }
         }
         return $excluded_ids;
     }
-    add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', 'trafigura_exclude_staff_engagement_new_from_sitemap' );
+    add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', 'trafigura_exclude_tales_page_from_sitemap' );
 
     /**
      * Last-resort: fill remaining empty alt="" in HTML with the current document title.

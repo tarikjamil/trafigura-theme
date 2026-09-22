@@ -167,21 +167,23 @@ Udesly exports leave a Webflow-style empty state and do not wire per-image capti
 
 ## 3c. Staff Engagement (canonical at `/staff-engagement/`)
 
-Public URL is **`/staff-engagement/`**. `/staff-engagement-new/` 301s here.
+Public URL is **`/staff-engagement/`**. The parallel `/staff-engagement-new/` page was deleted — **do not restore a 301**.
 
 - Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact (**CPT `voices-of-impact`**) + Staff in Action map. Click card → `#voice-popup`.
 - `functions.php` — CPT `voices-of-impact` + ACF File `video`; CPT `staff-locations`; ACF on `staff-engagement`.
 - Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement`.
 - `code/staff-engagement.js` (+ unminified) — map + Voices popup.
 - Footer `page-staff-engagement.php` — local Swiper, not Netlify.
-- `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` / `page-staff-engagement-new.php` — 301 to `/staff-engagement/`.
+- `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` — 301 to `/staff-engagement/` (no public landing).
+- Yoast: `voices-of-impact`, `staff-locations`, and `tales` + page `/tales-of-resilience/` are **noindex** and **sitemap-excluded**.
 - CSS: `.svg--play`, `.voice--popup*` in `trafigura-staging.css`, then rebuild the bundle.
 
 ```bash
 grep -n 'voices-of-impact\|data-video\|voice-popup' template-parts/query/voices-of-impacts.php functions.php template-parts/content/page-staff-engagement.php
 grep -n 'initVoiceVideoPopup\|buildStaffContinents' code/staff-engagement.js
 grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement.php || true
-ls page-staff-engagement.php page-staff-engagement-new.php
+test -f page-staff-engagement.php && test ! -f page-staff-engagement-new.php && echo OK
+grep -n 'trafigura_noindex_post_types\|wpseo_sitemap_exclude_post_type' functions.php
 ```
 
 ---
@@ -216,6 +218,8 @@ When a new theme is uploaded:
 - [ ] Re-apply gallery captions helper + slide `data-caption` + `.gallery-slide-caption` sync in `script.js`
 - [ ] Drop empty “No items found” from `related-partners-of-current-partner-stories.php`
 - [ ] Re-apply Staff Engagement voices slider + `staff-locations` map (§3c)
+- [ ] Re-apply noindex + sitemap exclude for voices, staff-locations, tales (`trafigura_noindex_post_types`)
+- [ ] Do not restore `page-staff-engagement-new.php`
 - [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---

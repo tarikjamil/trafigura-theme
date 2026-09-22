@@ -76,6 +76,12 @@ Also keep matching values in `_data/frontend-editor/page-*.json`.
 
 - Keep `page-tales-of-resilience.php` (slug after rename) loading the existing `page-tales-of-resistence` content/head/footer partials.
 - `single-tales.php`: episode title must be `<h1>`, not `<h2>`.
+- Page + `tales` CPT: **noindex, follow** and excluded from Yoast sitemap (`trafigura_is_noindex_utility_content()`).
+
+**Noindex utility CPTs (not public landings):**
+
+- `voices-of-impact` and `staff-locations`: noindex + excluded from sitemap. Singles/archives still **301** to `/staff-engagement/` for visitors.
+- Do **not** restore `page-staff-engagement-new.php` — that WP page was deleted; no redirect.
 
 **Share URLs (partner singles):**
 
@@ -206,21 +212,20 @@ In `template-parts/content/single-partner-stories.php`:
 
 ### 3g. Staff Engagement (canonical redesign)
 
-Public URL: **`/staff-engagement/`** only. `/staff-engagement-new/` **301s** here.
+Public URL: **`/staff-engagement/`** only. The parallel `/staff-engagement-new/` page was **deleted** — do not restore a 301 template.
 
 - `page-staff-engagement.php` + content/head/footer `page-staff-engagement` — video (`the_content()`), Voices of Impact CPT slider, ACF lower content, Staff in Action map
-- `page-staff-engagement-new.php` → 301 `/staff-engagement/` (keep file so old links resolve)
 - Footer: Swiper + `code/script.js` + `staff-engagement.js` (voices popup + map)
 - Editor JSON: `_data/frontend-editor/page-staff-engagement.json`
 - Labels: `trafigura_editor_text()`; footer `aria-label="Trafigura Foundation home"`
-- ACF on page `staff-engagement` (fallback `staff-engagement-new`): `staff_lower_content`. Helper `trafigura_staff_lower_content()` also falls back across both pages. Do **not** call `the_content()` twice.
+- ACF on page `staff-engagement` (legacy fallback `staff-engagement-new` if the slug ever reappears). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
 - CPT `voices-of-impact` (ACF File `video` + Featured Image cards) + CPT `staff-locations` + continent select
 - Queries `voices-of-impacts.php` / `staff-locations.php`: editor key `page-staff-engagement`; order `DESC`; `trafigura_card_image()`
 - `archive.php` + `single-staff-locations.php` + `single-voices-of-impact.php`: 301 → `/staff-engagement/`
+- Yoast: both CPTs **noindex** + **sitemap-excluded** (`trafigura_noindex_post_types()`)
 - Staging CSS: voices popup, `.svg--play`, staff map rules. Rebuild bundle + bump `ver=`
-- `/staff-engagement-new/` stays **noindex** + sitemap-excluded if ever hit without redirect
 
-Verify: `/staff-engagement/` = voices slider + map; `/staff-engagement-new/` 301s; no Netlify/cdnjs URLs.
+Verify: `/staff-engagement/` = voices slider + map; `/staff-engagement-new/` 404s; no `voices-of-impact` / `staff-locations` in `sitemap_index.xml`; no Netlify/cdnjs URLs.
 
 ### 3h. Puma Energy Fund (hub + stories CPT)
 
@@ -299,7 +304,6 @@ Copy these from the customized theme into any new Udesly drop:
 | `template-parts/head/partials/bebas-font.php` | No Google Fonts |
 | `template-parts/footer/front-page.php` | Homepage vendor scripts |
 | `page-tales-of-resilience.php` | Slug-bound Tales template after resistence→resilience rename |
-| `page-staff-engagement-new.php` | 301 → `/staff-engagement/` (retired parallel URL) |
 | `page-puma-energy-fund.php` | Slug-bound hub `/puma-energy-fund/` + CPT `puma-fund-story` |
 | `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
 | `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
@@ -321,8 +325,8 @@ Copy these from the customized theme into any new Udesly drop:
 11. `.navbar` default `width: 0` (not a permanent 272rem column); 1752px rule still forces open sidebar  
 12. Partner singles: areas tag present in HTML with `hidden` / `is--areas-of-work`; share URLs use `get_permalink()`  
 13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
-14. `/tales/` 301s to `/tales-of-resilience/`; `page-tales-of-resilience.php` present; single-tales has H1  
-15. `/staff-engagement/` = redesign (voices + map); `/staff-engagement-new/` 301s there; `/staff-locations/` 301s to `/staff-engagement/`; no Netlify URL in that footer  
+14. `/tales/` 301s to `/tales-of-resilience/`; page + tales CPT are **noindex** and sitemap-excluded; `page-tales-of-resilience.php` present; single-tales has H1  
+15. `/staff-engagement/` = redesign (voices + map); `/staff-engagement-new/` 404s (page deleted, no 301); voices + staff-locations noindex / not in sitemap; no Netlify URL in that footer  
 16. `/puma-energy-fund/` hub + CPT `puma-fund-story`; archive 301s to hub; `page-puma-energy-fund.php` present  
 17. Purge W3TC after deploy  
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Staff Engagement — public layout (Voices of Impact + Staff in Action).
- * Former parallel redesign; /staff-engagement-new/ 301s here.
+ * Public URL only — the parallel /staff-engagement-new/ page was removed.
  */
 
 $args = [

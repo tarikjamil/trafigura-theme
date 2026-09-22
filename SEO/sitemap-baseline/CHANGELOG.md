@@ -1,5 +1,26 @@
 # Sitemap changelog
 
+## 2026-09-22 — Mid-month recrawl (vs 2 Sep baseline)
+
+**Tracked sitemaps:** page 8→**9** · areas 3 · news 62→**63** · partners 41 · **total 114→116**
+
+Live `sitemap_index.xml` also added `voices-of-impact-sitemap.xml` (9) and `staff-locations-sitemap.xml` (15). Those URLs 301 to `/staff-engagement/` and should be sitemap-excluded.
+
+### Added (indexable)
+- `/puma-energy-fund/` — new hub (21 Sep). Generic 2007 meta.
+- `/news/against-the-current/` — new news (21 Sep). Generic 2007 meta.
+
+### Edited
+- `/staff-engagement/` — redesign live (voices + map), lastmod 22 Sep
+- `/partner-stories/comaco/` — lastmod 3 Sep
+
+### Not added to baseline
+Voices of Impact + Staff locations CPT URLs (redirect-only). Puma CPT archive empty/404.
+
+Full notes: `diffs/2026-09.md`.
+
+---
+
 ## 2026-09-02 — Baseline established
 
 Snapshot saved as `all-urls.csv` + per-type CSVs. **114 URLs** total.
