@@ -299,7 +299,7 @@ body {
         $staff_lower = trafigura_staff_lower_content();
         if ( trim( wp_strip_all_tags( (string) $staff_lower ) ) !== '' ) :
         ?>
-        <section class="section is--padding">
+        <section class="section is--padding-bottom">
           <div class="w-richtext"><?php echo $staff_lower; ?></div>
         </section>
         <?php endif; ?>
