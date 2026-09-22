@@ -9,9 +9,34 @@
 <?php get_template_part('template-parts/head/partials/gtm-deferred'); ?>
 
 <style>
+  /* Critical hero layout — paint LCP poster before trafigura-bundle.css */
+  .section.is--home-hero {
+    position: relative;
+    color: #fff;
+    text-align: center;
+  }
+  .hero-image-wrapper {
+    aspect-ratio: 1440 / 634;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    inset: 0 auto auto 0;
+  }
+  .img--absolute {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: auto auto 0% 0%;
+  }
   .hero-poster {
     z-index: 0;
     object-fit: cover;
+  }
+  .hero-overlay {
+    z-index: 2;
+    pointer-events: none;
   }
   .hero-video-wrap {
     z-index: 1;
@@ -25,6 +50,9 @@
     object-fit: cover;
   }
   @media (max-width: 991px) {
+    .hero-image-wrapper {
+      aspect-ratio: 390 / 510;
+    }
     .hero-video-wrap {
       display: none !important;
     }

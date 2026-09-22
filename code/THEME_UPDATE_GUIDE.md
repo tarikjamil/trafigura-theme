@@ -276,7 +276,7 @@ Re-apply after Udesly sync:
 4. `header.php`: `language_attributes()` only
 5. Hardcoded Title Case H1s: Content Hub, Who We Are, Contact Us, Areas of Work
 6. Partner share URLs via `get_permalink()`; `trafigura_image_alt()` + Yoast OG/Twitter prefer SEO fields
-7. Home hero poster non-empty alt; single-tales title is `<h1>`
+7. Home hero poster: non-empty alt; `decoding="sync"`; critical hero CSS in `head/front-page.php`; single-tales title is `<h1>`
 
 See also `.cursor/rules/theme-updates.mdc` §2 / §2b.
 

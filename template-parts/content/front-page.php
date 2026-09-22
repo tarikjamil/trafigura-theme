@@ -213,7 +213,7 @@ body {
               height="423"
               fetchpriority="high"
               loading="eager"
-              decoding="async"
+              decoding="sync"
               data-no-lazy="1"
             >
             <div

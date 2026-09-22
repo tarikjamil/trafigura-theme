@@ -104,7 +104,7 @@ Also keep matching values in `_data/frontend-editor/page-*.json`.
 
 **`template-parts/content/front-page.php` — home hero:**
 
-- Show local poster `<img class="hero-poster no-lazy">` with `src` = `home-hero-poster-960.webp`, `fetchpriority="high"`, `loading="eager"`, `data-no-lazy="1"`, width/height set (W3TC must not lazy-load it).
+- Show local poster `<img class="hero-poster no-lazy">` with `src` = `home-hero-poster-960.webp`, `fetchpriority="high"`, `loading="eager"`, **`decoding="sync"`** (not `async` — async inflated LCP element render delay), `data-no-lazy="1"`, width/height set (W3TC must not lazy-load it).
 - Do **not** put `<source src="...">` in the HTML (avoids downloading ~6.7MB Webflow video on mobile).
 - Video wrap starts with `hidden`; element keeps `data-mp4` / `data-webm` from `_u('i-5fdbe129')` / `_u('i64642473')`.
 - Inline script loads sources **only** when `min-width: 992px` and not `prefers-reduced-motion`, after `window.load` + ~3s delay; reveal with `wrap.hidden = false` after `loadeddata`.
@@ -118,7 +118,7 @@ Also keep matching values in `_data/frontend-editor/page-*.json`.
 - Preload **WebP** poster only (not both WebP + JPEG):  
   `<link rel="preload" as="image" href=".../home-hero-poster-960.webp" type="image/webp" fetchpriority="high">`
 - Preload Euclid medium woff2 (`crossorigin`).
-- Small CSS for `.hero-poster` / `.hero-video-wrap` / `[hidden]`; hide video wrap on `max-width: 991px`.
+- Critical inline CSS so the poster can paint before `trafigura-bundle.css`: `.section.is--home-hero` (relative), `.hero-image-wrapper` (absolute + aspect-ratio desktop/mobile), `.img--absolute`, `.hero-poster`, video wrap `[hidden]` / hide on `max-width: 991px`.
 
 **Rem root (all pages — CLS/LCP):**
 
@@ -313,7 +313,7 @@ Copy these from the customized theme into any new Udesly drop:
 ## Quick verify after sync
 
 1. Grep query templates for `"order" => "ASC"` on news/partner-stories → fix to DESC  
-2. View-source homepage: WebP poster preload present; no hero `<source src=` until desktop JS; Euclid medium preload  
+2. View-source homepage: WebP poster preload present; `decoding="sync"` on `.hero-poster`; critical hero layout CSS in head; no hero `<source src=` until desktop JS; Euclid medium preload  
 3. Content Hub / Who We Are / Contact Us / Areas of Work H1s = Title Case (hardcoded)  
 4. Home pillars + Content Hub/Partners headings are links  
 5. `home-hero-poster-960.webp` (+ jpg) exists under `assets/images/`  
@@ -339,6 +339,7 @@ Copy these from the customized theme into any new Udesly drop:
 - Blocking GTM / Google Fonts / Elementor Roboto in `<head>`  
 - `min-width: 272rem` on closed navbar / `scrollbar-gutter` experiments that fight intended nav UX  
 - Hero layout “in-flow aspect-ratio” experiments that hurt mobile scores — keep absolute hero wrapper as designed unless carefully retested  
+- Homepage LCP poster with `decoding="async"` (inflates element render delay; use `sync`)  
 - Leaving gallery `.w-dyn-empty` visible via undefined `udesly-hidden` (use CSS + only render empty when no slides)  
 - Hardcoded `<meta name="twitter:title">` in theme heads (fights Yoast)  
 - `archive.php` rendering `front-page` (duplicate homepage at `/tales/` etc.)  
