@@ -165,32 +165,23 @@ Udesly exports leave a Webflow-style empty state and do not wire per-image capti
 
 ---
 
-## 3c. Staff Engagement (legacy) + Staff Engagement New
+## 3c. Staff Engagement (canonical at `/staff-engagement/`)
 
-Two pages — keep them separate after an Udesly drop. Local GTM, fonts, footer `aria-label`.
+Public URL is **`/staff-engagement/`**. `/staff-engagement-new/` 301s here.
 
-**Legacy `/staff-engagement/`**
-
-- `page-staff-engagement.php` + content/head/footer `page-staff-engagement` — original layout (map H3 + single `the_content()`). No Voices slider / Staff in Action map.
-- Footer: GSAP + `script.js` + `staff-engagement.js` (no Swiper).
-
-**New `/staff-engagement-new/`**
-
-- Create WP page slug `staff-engagement-new` so `page-staff-engagement-new.php` binds.
-- Theme forces **noindex, follow** + Yoast sitemap exclusion (`trafigura_staff_engagement_new_*` in `functions.php`).
-- Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact (**CPT `voices-of-impact`**, query `voices-of-impacts.php`) + Staff in Action. Click card → `#voice-popup` plays linked video (`trafigura_voice_video_url()` + `initVoiceVideoPopup`). Labels: `trafigura_editor_text()`.
-- `functions.php` — CPT `voices-of-impact` + ACF **File** field `video` (Media Library); CPT `staff-locations` + continent select; ACF on `staff-engagement-new`. Card image = Featured Image.
-- Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement-new`.
+- Content: upper video via `the_content()`; lower via ACF `staff_lower_content` / `trafigura_staff_lower_content()`; Voices of Impact (**CPT `voices-of-impact`**) + Staff in Action map. Click card → `#voice-popup`.
+- `functions.php` — CPT `voices-of-impact` + ACF File `video`; CPT `staff-locations`; ACF on `staff-engagement`.
+- Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement`.
 - `code/staff-engagement.js` (+ unminified) — map + Voices popup.
-- Footer `page-staff-engagement-new.php` — local Swiper, not Netlify.
-- `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` — 301 to `/staff-engagement-new/`.
+- Footer `page-staff-engagement.php` — local Swiper, not Netlify.
+- `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` / `page-staff-engagement-new.php` — 301 to `/staff-engagement/`.
 - CSS: `.svg--play`, `.voice--popup*` in `trafigura-staging.css`, then rebuild the bundle.
 
 ```bash
-grep -n 'voices-of-impact\|data-video\|voice-popup' template-parts/query/voices-of-impacts.php functions.php template-parts/content/page-staff-engagement-new.php
+grep -n 'voices-of-impact\|data-video\|voice-popup' template-parts/query/voices-of-impacts.php functions.php template-parts/content/page-staff-engagement.php
 grep -n 'initVoiceVideoPopup\|buildStaffContinents' code/staff-engagement.js
-grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement-new.php || true
-ls page-staff-engagement-new.php template-parts/content/page-staff-engagement-new.php
+grep -n 'netlify\|cdnjs' template-parts/footer/page-staff-engagement.php || true
+ls page-staff-engagement.php page-staff-engagement-new.php
 ```
 
 ---

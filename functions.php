@@ -221,19 +221,33 @@
     /**
      * Second Staff Engagement content block (before Staff in Action).
      * Independent from the main page/Elementor content used in the video section.
+     * Falls back to staff-engagement-new meta during migration.
      */
     function trafigura_staff_lower_content( $post_id = null ) {
         if ( ! $post_id ) {
             $post_id = get_the_ID();
         }
-        if ( function_exists( 'get_field' ) ) {
-            $html = get_field( 'staff_lower_content', $post_id );
+        $ids = [ (int) $post_id ];
+        foreach ( [ 'staff-engagement', 'staff-engagement-new' ] as $slug ) {
+            $page = get_page_by_path( $slug );
+            if ( $page ) {
+                $ids[] = (int) $page->ID;
+            }
+        }
+        $ids = array_unique( array_filter( $ids ) );
+        foreach ( $ids as $id ) {
+            if ( function_exists( 'get_field' ) ) {
+                $html = get_field( 'staff_lower_content', $id );
+                if ( is_string( $html ) && trim( $html ) !== '' ) {
+                    return $html;
+                }
+            }
+            $html = get_post_meta( $id, 'staff_lower_content', true );
             if ( is_string( $html ) && trim( $html ) !== '' ) {
                 return $html;
             }
         }
-        $html = get_post_meta( $post_id, 'staff_lower_content', true );
-        return is_string( $html ) ? $html : '';
+        return '';
     }
 
     /**
@@ -506,7 +520,7 @@
     add_filter( 'wpseo_twitter_title', 'trafigura_yoast_prefer_seo_title', 20 );
 
     /**
-     * Staff Engagement New is a staging/parallel layout — keep it out of search.
+     * /staff-engagement-new/ is retired (301 → /staff-engagement/) — keep noindex if ever hit.
      */
     function trafigura_is_staff_engagement_new_page() {
         return is_page( 'staff-engagement-new' );
@@ -867,21 +881,21 @@ udesly_define_taxonomy("areas", [
         add_action('acf/init', function() {
 
             if ( function_exists( 'acf_add_local_field_group' ) ) {
-                $staff_page = get_page_by_path( 'staff-engagement-new' );
+                $staff_page = get_page_by_path( 'staff-engagement' );
                 if ( ! $staff_page ) {
-                    $staff_page = get_page_by_path( 'staff-engagement' );
+                    $staff_page = get_page_by_path( 'staff-engagement-new' );
                 }
                 if ( $staff_page ) {
                     acf_add_local_field_group( [
                         'key'    => 'group_trafigura_staff_engagement',
-                        'title'  => 'Staff Engagement New — lower content',
+                        'title'  => 'Staff Engagement — lower content',
                         'fields' => [
                             [
                                 'key'           => 'field_staff_lower_content_note',
                                 'label'         => 'Upper content (video)',
                                 'name'          => '',
                                 'type'          => 'message',
-                                'message'       => 'The upper block (map video) is the main page content — edit it with Elementor / the page editor on Staff Engagement New.',
+                                'message'       => 'The upper block (hero / staff video) is the main page content — edit it with Elementor / the page editor on Staff Engagement.',
                             ],
                             [
                                 'key'           => 'field_staff_lower_content',
