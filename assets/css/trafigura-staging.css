@@ -701,7 +701,6 @@ img {
 }
 
 .section.is--staff-slider {
-  padding-bottom: var(--padding--desktop-big);
   position: relative;
 }
 
@@ -4018,6 +4017,15 @@ img {
 .video-element {
   border: 1px #000;
   width: 100%;
+}
+
+/* Staff Engagement map video — HTML widget often ships width="300" height="150" */
+.elementor-widget-html .video-element,
+.w-richtext .video-element {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  display: block;
 }
 
 .theorychange--logo {
