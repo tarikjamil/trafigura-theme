@@ -191,6 +191,7 @@ body {
           <div class="w-embed">
             <style>
 .puma-intro-copy p + p { margin-top: 24rem; }
+.puma-intro-copy + .inline-block { margin-top: 36rem; }
 </style>
           </div>
         </section>
@@ -202,7 +203,11 @@ body {
             <div class="puma-intro-copy">
               <p animation="fade">The Fund's mandate, strategy and partnerships remain unchanged. It continues to support organisations working to advance road safety and access to clean energy across Africa and Latin America.</p>
               <p animation="fade">A Steering Committee, including representatives from Puma Energy, continues to provide input into the Fund's priorities and funding decisions, while the Trafigura Foundation Board provides overall oversight.</p>
-              <p animation="fade"><a href="https://pumaenergyfund.org/" target="_blank" rel="noopener noreferrer">Visit the Puma Energy Fund website</a></p>
+            </div>
+            <div animation="fadefromright" class="inline-block">
+              <a href="https://pumaenergyfund.org/" target="_blank" rel="noopener noreferrer" class="btn--new is--third w-inline-block">
+                <div>VISIT THE PUMA ENERGY<br>FUND WEBSITE</div>
+              </a>
             </div>
           </div>
         </section>
