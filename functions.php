@@ -579,6 +579,21 @@
     add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', 'trafigura_exclude_tales_page_from_sitemap' );
 
     /**
+     * Retired Puma Energy Fund stories CPT — leftover URLs 301 to the hub page.
+     */
+    function trafigura_redirect_retired_puma_fund_story() {
+        if ( is_admin() ) {
+            return;
+        }
+        $path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
+        if ( $path === 'puma-fund-story' || 0 === strpos( $path, 'puma-fund-story/' ) ) {
+            wp_safe_redirect( home_url( '/puma-energy-fund/' ), 301 );
+            exit;
+        }
+    }
+    add_action( 'template_redirect', 'trafigura_redirect_retired_puma_fund_story' );
+
+    /**
      * Last-resort: fill remaining empty alt="" in HTML with the current document title.
      * Listing cards / hero / featured images should already have better alts above.
      */
@@ -817,17 +832,7 @@ udesly_define_post_type("partner-stories", [
             "name" => __("partner-stories"),
         ],
     ]);
-udesly_define_post_type("puma-fund-story", [
-        "labels" => [
-            "name" => __("Puma Energy Fund stories"),
-            "singular_name" => __("Puma Energy Fund story"),
-        ],
-        "rewrite" => [
-            "name" => __("puma-fund-story"),
-        ],
-    ]);
-        
-        udesly_define_taxonomy("related-partners", [
+udesly_define_taxonomy("related-partners", [
         "labels" => [
             "name" => __("Related partners"),
             "singular_name" => __("Related partner"),
@@ -835,7 +840,7 @@ udesly_define_post_type("puma-fund-story", [
         "rewrite" => [
             "name" => __("related-partners"),
         ],
-    ], ["partner-stories", "puma-fund-story"]);
+    ], ["partner-stories"]);
 udesly_define_taxonomy("areas", [
         "labels" => [
             "name" => __("Areas"),
@@ -844,7 +849,7 @@ udesly_define_taxonomy("areas", [
         "rewrite" => [
             "name" => __("areas"),
         ],
-    ], ["partner-stories", "puma-fund-story"]);
+    ], ["partner-stories"]);
     
     }
 
@@ -1237,49 +1242,6 @@ udesly_custom_field_checkbox([
             ])
     ]);        
 udesly_register_custom_fields_for_post_type('partner-stories',[
-         udesly_custom_field_text([
-            "name" => "description", 
-            "label" => "Description", 
-            "instructions" => "", 
-            ]),   
-udesly_custom_field_text([
-            "name" => "place", 
-            "label" => "Country", 
-            "instructions" => "", 
-            ]),   
-udesly_custom_field_select([
-            "name" => "state", 
-            "label" => "State", 
-            "instructions" => "", 
-            "choices" => [
-                "Ongoing" => "Ongoing",
-            "New" => "New",
-            "Ended" => "Ended",
-            
-               ]
-            ]),   
-udesly_custom_field_text([
-            "name" => "area-of-work", 
-            "label" => "Area of Work", 
-            "instructions" => "", 
-            ]),   
-udesly_custom_field_set([
-            "name" => "gallery-2", 
-            "label" => "Gallery", 
-            "instructions" => "",
-            ]),   
-udesly_custom_field_text([
-            "name" => "slider-text-3", 
-            "label" => "Text under slider", 
-            "instructions" => "", 
-            ]),   
-udesly_custom_field_checkbox([
-            "name" => "_noSearch",
-            "label" => "No Search",
-            "instructions" => ""
-            ])
-    ]);
-udesly_register_custom_fields_for_post_type('puma-fund-story',[
          udesly_custom_field_text([
             "name" => "description", 
             "label" => "Description", 

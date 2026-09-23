@@ -227,20 +227,17 @@ Public URL: **`/staff-engagement/`** only. The parallel `/staff-engagement-new/`
 
 Verify: `/staff-engagement/` = voices slider + map; `/staff-engagement-new/` 404s; no `voices-of-impact` / `staff-locations` in `sitemap_index.xml`; no Netlify/cdnjs URLs.
 
-### 3h. Puma Energy Fund (hub + stories CPT)
+### 3h. Puma Energy Fund (intro page only — no CPT)
 
-Mirrors Partners Stories. Do **not** merge with `/partners-stories/`.
+Public URL: **`/puma-energy-fund/`**. Do **not** merge with `/partners-stories/`. Do **not** restore the stories collection.
 
 - Hub page slug `puma-energy-fund` → `page-puma-energy-fund.php` + content/head/footer + `_data/frontend-editor/page-puma-energy-fund.json`
 - H1 hardcoded `Puma Energy Fund`
-- CPT `puma-fund-story` (labels “Puma Energy Fund stories”) — same fields as partner-stories: `description`, `place`, `state`, `area-of-work`, `gallery-2`, `slider-text-3`, `_noSearch`
-- Taxonomies `areas` + `related-partners` also attached to this CPT
-- Hub query: `template-parts/query/puma-fund-story-sorted-by-post_date.php` (`order => DESC`, `trafigura_card_image()`)
-- Singles: `single-puma-fund-story.php` + content/footer; back link → `/puma-energy-fund/`
-- `archive-puma-fund-story.php` + `archive.php` → 301 `/puma-fund-story/` → `/puma-energy-fund/`
-- Reuses `code/partnerstory.js` / `partnerstory.css` for hub filters
+- Copy is hardcoded (Areas of Work subhero pattern): green `heading-28` intro + body paragraphs + link to `https://pumaenergyfund.org/`
+- **No** CPT `puma-fund-story`, filters, `partnerstory.js` / `.css`, or query/single templates
+- Leftover `/puma-fund-story/` URLs: `trafigura_redirect_retired_puma_fund_story()` 301 → `/puma-energy-fund/`
 
-Verify: WP page “Puma Energy Fund” slug `puma-energy-fund` exists; CPT items appear on hub; archive 301s; flush permalinks after deploy.
+Verify: page is intro + link only; no filters; no Puma CPT in WP admin; `/puma-fund-story/` 301s.
 
 ### 4. Internal linking helpers + templates
 
@@ -304,7 +301,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `template-parts/head/partials/bebas-font.php` | No Google Fonts |
 | `template-parts/footer/front-page.php` | Homepage vendor scripts |
 | `page-tales-of-resilience.php` | Slug-bound Tales template after resistence→resilience rename |
-| `page-puma-energy-fund.php` | Slug-bound hub `/puma-energy-fund/` + CPT `puma-fund-story` |
+| `page-puma-energy-fund.php` | Slug-bound intro page `/puma-energy-fund/` (no CPT) |
 | `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
 | `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
 | `header.php` rem-root include | Before head partial; `language_attributes()` only (no duplicate `lang`) |
@@ -327,7 +324,7 @@ Copy these from the customized theme into any new Udesly drop:
 13. Gallery: `.udesly-hidden` in CSS; no visible “No items found” beside slides; `.gallery-slide-caption` + `data-caption` + `script.js` sync  
 14. `/tales/` 301s to `/tales-of-resilience/`; page + tales CPT are **noindex** and sitemap-excluded; `page-tales-of-resilience.php` present; single-tales has H1  
 15. `/staff-engagement/` = redesign (voices + map); `/staff-engagement-new/` 404s (page deleted, no 301); voices + staff-locations noindex / not in sitemap; no Netlify URL in that footer  
-16. `/puma-energy-fund/` hub + CPT `puma-fund-story`; archive 301s to hub; `page-puma-energy-fund.php` present  
+16. `/puma-energy-fund/` = intro + link to pumaenergyfund.org; no filters/CPT; leftover `/puma-fund-story/` 301s; `page-puma-energy-fund.php` present  
 17. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)

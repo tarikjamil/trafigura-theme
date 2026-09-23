@@ -188,19 +188,17 @@ grep -n 'trafigura_noindex_post_types\|wpseo_sitemap_exclude_post_type' function
 
 ---
 
-## 3d. Puma Energy Fund (hub + stories CPT)
+## 3d. Puma Energy Fund (intro page only)
 
-Mirrors Partners Stories. Keep separate from `/partners-stories/`.
+Keep separate from `/partners-stories/`. Do **not** restore the stories CPT or filters.
 
 - Hub: `page-puma-energy-fund.php` (slug `puma-energy-fund`), H1 `Puma Energy Fund`
-- CPT: `puma-fund-story` + same custom fields as partner-stories
-- Query: `puma-fund-story-sorted-by-post_date.php` (`DESC`)
-- Singles + archive 301 → `/puma-energy-fund/`
-- Filters: reuse `code/partnerstory.js` / `.css`
+- Copy: green intro (`heading-28 is--green`) + body paragraphs (same subhero layout as Areas of Work) + link to https://pumaenergyfund.org/
+- Leftover `/puma-fund-story/` URLs 301 via `trafigura_redirect_retired_puma_fund_story()`
 
 ```bash
-grep -n 'puma-energy-fund' functions.php archive.php page-puma-energy-fund.php
-ls template-parts/query/puma-fund-story-sorted-by-post_date.php single-puma-fund-story.php
+grep -n 'puma-energy-fund\|puma-fund-story' functions.php page-puma-energy-fund.php
+test ! -f single-puma-fund-story.php && echo 'CPT templates gone'
 ```
 
 ---

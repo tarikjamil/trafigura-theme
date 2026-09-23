@@ -16,8 +16,6 @@ if ( is_post_type_archive( 'tales' ) ) {
 	$target = home_url( '/content-hub/' );
 } elseif ( is_post_type_archive( 'partner-stories' ) ) {
 	$target = home_url( '/partners-stories/' );
-} elseif ( is_post_type_archive( 'puma-fund-story' ) ) {
-	$target = home_url( '/puma-energy-fund/' );
 } elseif ( is_post_type_archive( 'area-of-work' ) || is_tax( 'areas' ) ) {
 	$target = home_url( '/areas-of-work/' );
 } elseif ( is_post_type_archive( 'team' ) ) {

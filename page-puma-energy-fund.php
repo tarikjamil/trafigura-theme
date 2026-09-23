@@ -1,7 +1,7 @@
 <?php
 /**
  * Page template for /puma-energy-fund/
- * Hub listing for Puma Energy Fund stories (mirrors Partners Stories).
+ * Intro + short copy linking to the Puma Energy Fund website.
  */
 
 $args = [

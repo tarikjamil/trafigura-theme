@@ -57,70 +57,6 @@ body {
 </style>
     </div>
   </div>
-  <div class="w-embed">
-    <style>
-@media only screen and (min-width: 992px) {
-  .partner--item.first-visible .partner--item {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    align-items: end;
-    max-width: auto !important;
-  }
-  .partner--item.first-visible {
-    grid-column: span 3;
-  }
-  .custom-style {
-   grid-column: span 3; 
-	}
-  .custom-style .partner-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr; 
-    align-items: end; 
-    max-width: auto !important; 
-  }
-}
-.radio-btn-lbel {
-  display: none; /* Hide the default radio button */
-}
-.radio-check {
-	vertical-align: middle;
-  cursor: pointer;
-  position: relative;
-}
-/* Style for when the radio button is checked */
-.radio-btn-lbel:checked + .radio-check::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 70%;
-    width: 70%;
-    background-color: var(--color--purple);
-    border-radius: 8rem;
-}
-.filter-select {
-	  -webkit-appearance: none; /* Removes the default arrow for WebKit browsers like Chrome and Safari */
-  -moz-appearance: none;    /* Removes the default arrow for Firefox */
-  appearance: none; 
-}
-.w-embed:before, .w-embed:after {
-	display:none;
-}
-</style>
-  </div>
-  <div class="w-embed">
-    <style>
-.partner-item:hover .case-image-wrapper {
-	transform: translate(0px, -20rem);
-  box-shadow: 0 33rem 36rem 0 hsla(0, 0.00%, 0.00%, 0.28);
-}
-.partner-item:hover .btn-arrow.is--shadow {
-	background-color:var(--color--blue);
-  color:var(--color--white);
-}
-</style>
-  </div>
   <div id="smooth-wrapper" class="content-page-wrapper">
     <nav class="navbar">
       <div class="navbar--menu">
@@ -254,48 +190,20 @@ body {
           </div>
           <div class="w-embed">
             <style>
+.puma-intro-copy p + p { margin-top: 24rem; }
 </style>
           </div>
         </section>
-        <section class="section is--partners-list">
-          <div class="container--1440">
-            <div class="filter-grid">
-              <p class="heading-28" data-text="t73f8d275"><?php echo _u('t73f8d275','text'); ?></p>
-              <div class="filter-list">
-                <div class="filter--select-wrapper is--10">
-                  <div class="filter-select">
-                    <div class="filter--select-text" data-text="tn13161485"><?php echo _u('tn13161485','text'); ?></div>
-                    <div class="btn-arrow is--select is--white"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.589 13.87" class="icon-arrow">
-                        <path id="Tracé_42314" data-name="Tracé 42314" d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(0 0)" fill="currentColor"></path>
-                      </svg></div>
-                    <div class="filter--bg"></div>
-                  </div>
-                  <div id="regionFilter" class="filter--options w-node-_162a7866-456b-0d18-355d-bf60cf454da3-246a6dce">
-                    <div></div>
-                  </div>
-                </div>
-                <div class="filter--select-wrapper">
-                  <div class="filter-select">
-                    <div class="filter--select-text" data-text="t6cdc9b47"><?php echo _u('t6cdc9b47','text'); ?></div>
-                    <div class="btn-arrow is--select is--white"><svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 17.589 13.87" class="icon-arrow">
-                        <path id="Tracé_42314" data-name="Tracé 42314" d="M8.769,0V3.97H0V9.9H8.769v3.97l8.819-6.935Z" transform="translate(0 0)" fill="currentColor"></path>
-                      </svg></div>
-                    <div class="filter--bg"></div>
-                  </div>
-                  <div id="areaFilter" class="filter--options">
-                    <div><input type="radio" id="areaFilter-Sustainable livelihood" name="areaFilter" value="Sustainable livelihood"><label for="areaFilter-Sustainable livelihood" data-text="t41ba7228"><?php echo _u('t41ba7228','text'); ?></label></div>
-                    <div><input type="radio" id="areaFilter-Thriving nature" name="areaFilter" value="Thriving nature"><label for="areaFilter-Thriving nature" data-text="t4ee2eef0"><?php echo _u('t4ee2eef0','text'); ?></label></div>
-                    <div><input type="radio" id="areaFilter-Prepared communities" name="areaFilter" value="Prepared communities"><label for="areaFilter-Prepared communities" data-text="t5568ab04"><?php echo _u('t5568ab04','text'); ?></label></div>
-                  </div>
-                </div>
-                <div id="stateFilter" class="filter-radio_wrapper w-node-a240fc79-42ec-4837-49c0-7c52c8423457-246a6dce">
-                  <div><input type="radio" id="stateFilter-New" name="stateFilter" value="New"><label for="stateFilter-New" data-text="t13180"><?php echo _u('t13180','text'); ?></label></div>
-                  <div><input type="radio" id="stateFilter-Ongoing" name="stateFilter" value="Ongoing"><label for="stateFilter-Ongoing" data-text="t14a0df5b"><?php echo _u('t14a0df5b','text'); ?></label></div>
-                  <div><input type="radio" id="stateFilter-Ended" name="stateFilter" value="Ended"><label for="stateFilter-Ended" data-text="t3ffda9a"><?php echo _u('t3ffda9a','text'); ?></label></div>
-                </div><button id="resetFilters" class="btn--reset" data-text="tn35d3b097"><?php echo _u('tn35d3b097','text'); ?></button>
-              </div>
+        <section class="section is--subhero">
+          <div class="container--974 is--areasofwork">
+            <div class="container--742 is--36margin-bottom">
+              <h2 animation="fade" class="heading-28 is--green">Since September 2026, the Puma Energy Fund has been hosted by the Trafigura Foundation, bringing its administration and governance together under a single structure.</h2>
             </div>
-            <?php get_template_part('template-parts/query/puma-fund-story-sorted-by-post_date') ?>
+            <div class="puma-intro-copy">
+              <p animation="fade">The Fund's mandate, strategy and partnerships remain unchanged. It continues to support organisations working to advance road safety and access to clean energy across Africa and Latin America.</p>
+              <p animation="fade">A Steering Committee, including representatives from Puma Energy, continues to provide input into the Fund's priorities and funding decisions, while the Trafigura Foundation Board provides overall oversight.</p>
+              <p animation="fade"><a href="https://pumaenergyfund.org/" target="_blank" rel="noopener noreferrer">Visit the Puma Energy Fund website</a></p>
+            </div>
           </div>
         </section>
       </main>
