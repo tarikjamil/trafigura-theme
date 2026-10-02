@@ -64,12 +64,54 @@ PageSpeed Insights, mobile, Slow 4G, Moto G Power. The hero request is now `01.W
 
 No desktop re-test in this run. Last desktop figure remains 99 / 0.8 s, then 99 / 0.7 s.
 
-**How to tell it in the report.** LCP is the number that moved for the right reason: 3.8 s → 3.4 s → **2.8 s**, and the phone now loads a 17 KB banner instead of 112 KB. The performance score (76 → 90 → 87) bounced because first paint and Speed Index vary between lab runs (2.3 s and 4.8 s on this one). Do not describe 87 as a step backwards from 90, and do not quote 90 as the final score.
+**15:21 mobile re-run** (do not quote): performance 71, LCP 5.8 s, FCP 2.3 s. The heading had `animation="loading"`, so it stayed invisible until the animation script ran. That attribute was removed.
 
-**15:21 mobile re-run** ([PSI](https://pagespeed.web.dev/analysis/https-trafigurafoundation-org-who-we-are/l1riwa07qm?form_factor=mobile)): performance 71, LCP **5.8 s**, FCP still 2.3 s. The longest network chain is **429 ms** and ends on the Euclid font, not the hero file. The heading had `animation="loading"`, so it stayed invisible until the animation script ran. That attribute is removed (same as the homepage). Do not put 71 or 5.8 s in the client PDF. Re-test after this deploy and, if it holds, replace the 2.8 s figure.
+### Latest lab test — use these numbers (2 Oct 2026, after the heading fix)
+
+| | Mobile | Desktop |
+|---|---:|---:|
+| Performance | **97** | **99** |
+| Accessibility | 96 | 96 |
+| Best practices | 100 | 100 |
+| SEO | 100 | 100 |
+| Largest Contentful Paint | **2.5 s** | **0.8 s** |
+| First Contentful Paint | 1.4 s | 0.4 s |
+| Speed Index | 1.8 s | 0.6 s |
+| Total Blocking Time | 60 ms | 90 ms |
+| Cumulative Layout Shift | 0 | 0 |
+
+**How to tell it in the report.** Phone LCP **3.8 s → 2.5 s**, performance **76 → 97**. Desktop stays at 99, LCP 0.8 s. Do not quote the in-between runs (90, 87, or the 71 / 5.8 s sample).
 
 **Still flagged, leave out of the client PDF unless we do more work.** Render-blocking CSS (~330 ms, estimated 950 ms). Critical path 528 ms, mostly the stylesheet then three Euclid font files. Unused JavaScript is mostly Google Tag Manager (~131 KB). PSI still wants the 43 KB “3.9 billion” WebP smaller for a ~368px-wide slot, and another ~10 KB off the 17 KB hero. Neither is what set LCP.
 
 ### Client wording (draft — October §01 / §06)
 
-Who We Are started the month slow on a phone: performance 76, about 3.8 seconds to the main image, against under a second on desktop. The banner was held back until scripts ran, and the phone then downloaded a large file we already had in a much smaller size. We made the image available immediately, then pointed the page at the smaller file (about 17 KB). On the latest phone test the wait is **2.8 seconds**. The headline score on that run was 87. Desktop stays at 99.
+Who We Are started the month slow on a phone: performance 76, about 3.8 seconds to the main image, against under a second on desktop. The banner was held back until scripts ran, and the phone then downloaded a large file we already had in a much smaller size. We made the image available straight away, pointed the page at the smaller file (about 17 KB), and stopped the title waiting on the animation script. On the latest phone test the score is **97** and the wait is **2.5 seconds**. Desktop stays at **99**, with the main image in **0.8 seconds**.
+
+## Our Approach — mobile speed (2 Oct 2026, 15:49)
+
+Page: `https://trafigurafoundation.org/our-approach/`
+
+### Initial lab test (before the hero fix)
+
+| | Mobile | Desktop |
+|---|---:|---:|
+| Performance | 78 | 99 |
+| Accessibility | 96 | 96 |
+| Best practices | 96 | 96 |
+| SEO | 92 | 92 |
+| Largest Contentful Paint | 5.2 s | 1.0 s |
+| First Contentful Paint | 1.7 s | 0.4 s |
+| Speed Index | 2.4 s | 0.7 s |
+| Total Blocking Time | 150 ms | 20 ms |
+| Cumulative Layout Shift | 0 | 0 |
+
+**Cause.** The hero (`02.OUR-APPROACH`, alt “trees, from the bottom point of view”) was `loading="lazy"`. W3TC replaced it with a 1×1 SVG (`data-src`), so Lighthouse could not see the image in the HTML and there was no `fetchpriority`. Every `srcset` width from 500w to 2000w pointed at the same ~118 KiB file. The H1 also had `animation="loading"`.
+
+**Not the LCP, leave out of the client PDF unless we change them.** Elementor CSS/JS on this page (render-blocking estimate ~1,270 ms). A ClimateWorks link in the page body uses the text “Learn more” (SEO 92). The launch film is a 30 MB MP4 and the lab failed to open it (best practices 96).
+
+**Coded 2 Oct 2026, after score not run yet.** Hero is eager, `no-lazy`, `fetchpriority="high"`, smaller files (800 / 1080 / 1440 WebP), heading no longer waits on the animation script. Re-test before quoting an after number.
+
+### Client wording (draft — add once re-tested)
+
+Our Approach was the slow phone page: performance 78, about 5.2 seconds to the main image, against 1 second on desktop. The banner was held back until scripts ran. We made it available immediately and pointed phones at a smaller file. Re-test after it goes live and put the new time in the table.

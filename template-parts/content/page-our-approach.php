@@ -208,9 +208,24 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t819763c"><?php echo _u('t819763c','text'); ?></h1>
+                <h1 class="heading-160" data-text="t819763c"><?php echo _u('t819763c','text'); ?></h1>
               </div>
-            </div><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('in54fa43', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('in54fa43', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('in54fa43', 'img'))->src ?>" class="img--absolute" data-img="in54fa43">
+            </div><?php
+            // Editor srcset points 500w–2000w at the same ~118 KiB file, and W3TC
+            // lazy-loads loading="lazy" into a 1×1 SVG. Widths are hardcoded here.
+            $approach_uri = get_template_directory_uri() . '/assets/images/';
+            $approach_alt = 'trees, from the bottom point of view';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $approach_editor = udesly_get_image( _u( 'in54fa43', 'img' ) );
+              if ( ! empty( $approach_editor->alt ) ) {
+                $approach_alt = $approach_editor->alt;
+              }
+            }
+            $approach_srcset = $approach_uri . '02.OUR-APPROACH-800.webp 800w, '
+              . $approach_uri . '02.OUR-APPROACH-1080.webp 1080w, '
+              . $approach_uri . '02.OUR-APPROACH-1440.webp 1440w, '
+              . $approach_uri . '02.OUR-APPROACH_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $approach_uri . '02.OUR-APPROACH-1080.webp' ); ?>" srcset="<?php echo esc_attr( $approach_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $approach_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="in54fa43">
           </div>
           <div class="w-embed">
             <style>

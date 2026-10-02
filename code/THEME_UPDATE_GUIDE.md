@@ -220,6 +220,21 @@ test -f assets/images/01.WHO-WE-ARE-800.webp && test -f assets/images/01.WHO-WE-
 
 ---
 
+## 3f. Our Approach hero (mobile LCP)
+
+Same lazy-hero failure. Re-apply after sync:
+
+- `template-parts/content/page-our-approach.php`: hero `in54fa43` is `no-lazy`, `fetchpriority="high"`, `decoding="sync"`, `loading="eager"`. H1 has no `animation="loading"`. `src` / `srcset` are hardcoded: `02.OUR-APPROACH-800.webp` 800w, `-1080.webp` 1080w (also `src`), `-1440.webp` 1440w, `_1.webp` 2260w.
+- `template-parts/head/page-our-approach.php`: preload 800 (`max-width: 991px`) and 1440 (`min-width: 992px`), plus critical hero CSS.
+- Keep those three new WebP files in `assets/images/`.
+
+```bash
+grep -n 'no-lazy\|02.OUR-APPROACH-800.webp' template-parts/content/page-our-approach.php template-parts/head/page-our-approach.php
+test -f assets/images/02.OUR-APPROACH-800.webp && test -f assets/images/02.OUR-APPROACH-1080.webp && test -f assets/images/02.OUR-APPROACH-1440.webp && echo OK
+```
+
+---
+
 ## 4. Quick Update Checklist
 
 When a new theme is uploaded:

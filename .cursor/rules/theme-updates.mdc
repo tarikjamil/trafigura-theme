@@ -270,6 +270,25 @@ Leave jQuery/GSAP/`trafigura-staging.js` in the footer. Do not defer them to cha
 
 Verify after deploy + W3TC purge: view-source hero `src` is a real image URL (not `data:image/svg+xml`), has `no-lazy` and `fetchpriority="high"`, and the 800 preload is in `<head>`.
 
+### 3j. Our Approach hero (mobile LCP)
+
+Same failure as Who We Are. Oct 2026 PSI: mobile **78**, LCP **5.2s** (the banner was `loading="lazy"` so W3TC swapped in a 1×1 SVG). Desktop **99**, LCP **1.0s**. SEO 92 because a ClimateWorks link in the page body says “Learn more” (Elementor content, not the theme). Best practices 96: the 30 MB launch MP4 (`/wp-content/uploads/2024/04/Trafigura-Launch-Video-720p-1.mp4`) failed in the lab.
+
+**`template-parts/content/page-our-approach.php` — hero `in54fa43`:**
+
+- `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`.
+- H1 has **no** `animation="loading"`.
+- `src` / `srcset` hardcoded (editor DB points 500w–2000w at the same ~118 KiB file):
+  - `02.OUR-APPROACH-800.webp` → `800w`
+  - `02.OUR-APPROACH-1080.webp` → `1080w` (also `src`)
+  - `02.OUR-APPROACH-1440.webp` → `1440w`
+  - `02.OUR-APPROACH_1.webp` → `2260w`
+- Alt still comes from the editor.
+
+**`template-parts/head/page-our-approach.php`:** preload the 800 WebP under 991px and the 1440 WebP from 992px, plus the same critical `.section.is--hero` / `.hero-image-wrapper` / `.img--absolute` CSS as Who We Are.
+
+Do not dequeue Elementor CSS on this page — the lower copy is Elementor. Do not defer the bundle to chase the render-blocking estimate.
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
@@ -325,6 +344,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `assets/fonts/bebas-neue-*` | Self-hosted Bebas |
 | `assets/images/home-hero-poster*` | LCP poster |
 | `assets/images/01.WHO-WE-ARE-800.webp` + `01.WHO-WE-ARE-1080.webp` | Who We Are mobile/tablet hero |
+| `assets/images/02.OUR-APPROACH-800.webp` + `-1080.webp` + `-1440.webp` | Our Approach hero |
 | `assets/images/optimized/` | OceanImageBank card overrides |
 | `assets/js/vendor/` | GSAP / Swiper / SplitType |
 | `assets/css/trafigura-bundle.css` | Built ship CSS (rebuild after staging edits) |
