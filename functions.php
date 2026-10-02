@@ -372,6 +372,47 @@
     }
     add_action( 'wp_enqueue_scripts', 'trafigura_dequeue_unused_assets', 9999 );
     add_action( 'elementor/frontend/after_enqueue_styles', 'trafigura_dequeue_unused_assets', 9999 );
+
+    /**
+     * Elementor kit/post CSS is not needed to paint the theme hero.
+     * Keep the files, but do not let them block first paint on the phone.
+     */
+    function trafigura_defer_elementor_styles( $html, $handle, $href, $media ) {
+        if ( is_admin() ) {
+            return $html;
+        }
+        $defer = ( strpos( $handle, 'elementor' ) === 0 || $handle === 'base-desktop' || $handle === 'base-mobile' );
+        if ( ! $defer || strpos( $html, 'onload=' ) !== false ) {
+            return $html;
+        }
+        $restore = ( is_string( $media ) && $media !== '' && $media !== 'all' ) ? $media : 'all';
+        $onload  = "this.media='" . esc_js( $restore ) . "'";
+        $replaced = preg_replace( "/\\smedia=(['\"]).*?\\1/i", " media='print' onload=\"{$onload}\"", $html, 1 );
+        if ( $replaced === null || $replaced === $html ) {
+            $replaced = str_replace( '<link ', "<link media='print' onload=\"{$onload}\" ", $html );
+        }
+        $noscript = '<noscript><link rel="stylesheet" href="' . esc_url( $href ) . '" media="' . esc_attr( $restore ) . '"></noscript>';
+        return $replaced . $noscript;
+    }
+    add_filter( 'style_loader_tag', 'trafigura_defer_elementor_styles', 20, 4 );
+
+    /**
+     * Launch films in page content must not start a multi‑megabyte download
+     * during first paint. Play still works when the visitor hits the control.
+     */
+    function trafigura_video_preload_none( $html ) {
+        if ( ! is_string( $html ) || stripos( $html, '<video' ) === false ) {
+            return $html;
+        }
+        return preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) {
+            $attrs = $m[1];
+            if ( preg_match( '/\bpreload\s*=/i', $attrs ) ) {
+                return preg_replace( '/\bpreload\s*=\s*([\'"]).*?\1/i', 'preload="none"', $m[0], 1 );
+            }
+            return '<video preload="none"' . $attrs . '>';
+        }, $html );
+    }
+    add_filter( 'the_content', 'trafigura_video_preload_none', 20 );
     add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
 
     /**

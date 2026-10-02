@@ -287,7 +287,9 @@ Same failure as Who We Are. Oct 2026 PSI: mobile **78**, LCP **5.2s** (the banne
 
 **`template-parts/head/page-our-approach.php`:** preload the 800 WebP under 991px and the 1440 WebP from 992px, plus the same critical `.section.is--hero` / `.hero-image-wrapper` / `.img--absolute` CSS as Who We Are.
 
-Do not dequeue Elementor CSS on this page — the lower copy is Elementor. Do not defer the bundle to chase the render-blocking estimate.
+Do not dequeue Elementor CSS on this page — the lower copy is Elementor. `trafigura_defer_elementor_styles()` loads that CSS with `media="print"` so it does not block the hero; do not put it back to a blocking `media="all"`. Do not defer `trafigura-bundle.css`.
+
+The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
 
 ### 4. Internal linking helpers + templates
 

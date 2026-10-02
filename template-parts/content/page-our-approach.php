@@ -345,7 +345,10 @@ body {
           <div class="container--1440">
             <div animation="fade" class="approach--impact-content">
               <h2 class="heading-28 is--28margin-bottom" data-text="t712dd1e7"><?php echo _u('t712dd1e7','text'); ?></h2>
-              <p data-text="t407d535e"><?php echo _u('t407d535e','text'); ?></p>
+              <p data-text="t407d535e"><?php
+              $coalition = _u( 't407d535e', 'text' );
+              echo str_replace( 'Learn more', 'Climate adaptation call to action', $coalition );
+              ?></p>
             </div>
           </div>
         </section>

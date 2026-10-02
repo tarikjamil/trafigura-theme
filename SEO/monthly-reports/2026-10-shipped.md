@@ -110,7 +110,9 @@ Page: `https://trafigurafoundation.org/our-approach/`
 
 **Not the LCP, leave out of the client PDF unless we change them.** Elementor CSS/JS on this page (render-blocking estimate ~1,270 ms). A ClimateWorks link in the page body uses the text “Learn more” (SEO 92). The launch film is a 30 MB MP4 and the lab failed to open it (best practices 96).
 
-**Coded 2 Oct 2026, after score not run yet.** Hero is eager, `no-lazy`, `fetchpriority="high"`, smaller files (800 / 1080 / 1440 WebP), heading no longer waits on the animation script. Re-test before quoting an after number.
+**First re-test (2 Oct 2026, 15:59) — do not quote.** Mobile performance **68**, LCP **6.5 s**, FCP 2.4 s, Speed Index 5.1 s. The hero file was correct (`02.OUR-APPROACH-800.webp`, ~50 KB, `fetchpriority`, not lazy) but the score was worse than the 78 / 5.2 s start. Render-blocking Elementor stylesheets and a `<video>` with no `preload` (30 MB MP4, lab connection failed) were still in the way.
+
+**Follow-up coded the same day, after score not run yet.** Elementor CSS no longer blocks first paint. The video waits until play. The 800px banner was recompressed (~37 KB). The ClimateWorks link text is “Climate adaptation call to action” instead of “Learn more”. Re-test before quoting an after number.
 
 ### Client wording (draft — add once re-tested)
 
