@@ -210,7 +210,7 @@ body {
               <div class="max--hero">
                 <h1 animation="loading" class="heading-160" data-text="t420a88a4">Who We Are</h1>
               </div>
-            </div><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('if7d3881', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('if7d3881', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('if7d3881', 'img'))->src ?>" class="img--absolute" data-img="if7d3881">
+            </div><?php $who_hero = udesly_get_image( _u( 'if7d3881', 'img' ) ); ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $who_hero->src ); ?>" srcset="<?php echo esc_attr( $who_hero->srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $who_hero->alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="if7d3881">
           </div>
           <div class="w-embed">
             <style>

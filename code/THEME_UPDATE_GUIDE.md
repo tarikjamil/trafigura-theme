@@ -203,6 +203,22 @@ test ! -f single-puma-fund-story.php && echo 'CPT templates gone'
 
 ---
 
+## 3e. Who We Are hero (mobile LCP)
+
+W3TC turns the banner into `class="lazy"` and a 1×1 `src` unless excluded. Re-apply after sync:
+
+- `template-parts/content/page-who-we-are.php`: hero `if7d3881` is `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`.
+- `template-parts/head/page-who-we-are.php`: preload `01.WHO-WE-ARE-800.webp` (`max-width: 991px`) and `01.WHO-WE-ARE_101.WHO-WE-ARE.webp` (`min-width: 992px`), plus critical `.hero-image-wrapper` / `.img--absolute` CSS.
+- `_data/frontend-editor/page-who-we-are.json`: `if7d3881` srcset uses real files — `01.WHO-WE-ARE-800.webp` 800w, `01.WHO-WE-ARE-1080.webp` 1080w, then the 2000w / 2260w originals. Do not point every width at the 2000px file.
+- Keep those two WebP files in `assets/images/`.
+
+```bash
+grep -n 'no-lazy\|fetchpriority' template-parts/content/page-who-we-are.php template-parts/head/page-who-we-are.php
+test -f assets/images/01.WHO-WE-ARE-800.webp && test -f assets/images/01.WHO-WE-ARE-1080.webp && echo OK
+```
+
+---
+
 ## 4. Quick Update Checklist
 
 When a new theme is uploaded:
@@ -218,6 +234,7 @@ When a new theme is uploaded:
 - [ ] Re-apply Staff Engagement voices slider + `staff-locations` map (§3c)
 - [ ] Re-apply noindex + sitemap exclude for voices, staff-locations, tales (`trafigura_noindex_post_types`)
 - [ ] Do not restore `page-staff-engagement-new.php`
+- [ ] Who We Are hero: `no-lazy` + preload + `01.WHO-WE-ARE-800.webp` / `01.WHO-WE-ARE-1080.webp` (§3e)
 - [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---
