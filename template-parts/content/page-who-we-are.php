@@ -210,7 +210,22 @@ body {
               <div class="max--hero">
                 <h1 animation="loading" class="heading-160" data-text="t420a88a4">Who We Are</h1>
               </div>
-            </div><?php $who_hero = udesly_get_image( _u( 'if7d3881', 'img' ) ); ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $who_hero->src ); ?>" srcset="<?php echo esc_attr( $who_hero->srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $who_hero->alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="if7d3881">
+            </div><?php
+            // Editor JSON/DB still maps 500w–2000w at the same ~112 KiB file, so mobile
+            // Lighthouse downloads that file as LCP. Widths are hardcoded here.
+            $who_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $who_hero_alt = 'woman holding a box smiling';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $who_hero_editor = udesly_get_image( _u( 'if7d3881', 'img' ) );
+              if ( ! empty( $who_hero_editor->alt ) ) {
+                $who_hero_alt = $who_hero_editor->alt;
+              }
+            }
+            $who_hero_srcset = $who_hero_uri . '01.WHO-WE-ARE-800.webp 800w, '
+              . $who_hero_uri . '01.WHO-WE-ARE-1080.webp 1080w, '
+              . $who_hero_uri . '01.WHO-WE-ARE_101.WHO-WE-ARE.webp 2000w, '
+              . $who_hero_uri . '01.WHO-WE-ARE_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $who_hero_uri . '01.WHO-WE-ARE-1080.webp' ); ?>" srcset="<?php echo esc_attr( $who_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $who_hero_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="if7d3881">
           </div>
           <div class="w-embed">
             <style>
@@ -224,7 +239,17 @@ body {
         </section>
         <section class="section is--statics">
           <div class="container--1440">
-            <div animation="fade" class="statics-image-wrapper"><img src="<?php echo udesly_get_image(_u('in11d9eb6c', 'img'))->src ?>" loading="lazy" sizes="(max-width: 1440px) 100vw, 1440px" srcset="<?php echo udesly_get_image(_u('in11d9eb6c', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('in11d9eb6c', 'img'))->alt ?>" class="img--absolute" data-img="in11d9eb6c"></div>
+            <div animation="fade" class="statics-image-wrapper"><?php
+            $statics = udesly_get_image( _u( 'in11d9eb6c', 'img' ) );
+            $statics_src = $statics->src;
+            $statics_srcset = $statics->srcset;
+            $statics_sizes = '(max-width: 767px) 92vw, (max-width: 1440px) 100vw, 1440px';
+            if ( is_string( $statics_src ) && strpos( $statics_src, 'TF-3.9' ) !== false ) {
+              $statics_opt = get_template_directory_uri() . '/assets/images/optimized/';
+              $statics_src = $statics_opt . 'TF-3.9-800.webp';
+              $statics_srcset = $statics_opt . 'TF-3.9-480.webp 480w, ' . $statics_opt . 'TF-3.9-800.webp 800w, ' . $statics_opt . 'TF-3.9-1440.webp 1440w';
+            }
+            ?><img src="<?php echo esc_url( $statics_src ); ?>" loading="lazy" sizes="<?php echo esc_attr( $statics_sizes ); ?>" srcset="<?php echo esc_attr( $statics_srcset ); ?>" alt="<?php echo esc_attr( $statics->alt ); ?>" class="img--absolute" data-img="in11d9eb6c"></div>
             <div class="sub-statics-grid">
               <div class="sub-statics-left">
                 <h2 animation="fadefromleft" class="heading-28 is--caps" data-text="tn10f1c8bd"><?php echo _u('tn10f1c8bd','text'); ?></h2>

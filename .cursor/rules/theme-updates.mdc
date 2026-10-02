@@ -254,12 +254,16 @@ W3TC rewrites hero `<img src>` to a 1×1 SVG plus `class="lazy"` unless the imag
 - Preload `assets/images/01.WHO-WE-ARE_101.WHO-WE-ARE.webp` with `media="(min-width: 992px)"`.
 - Critical inline CSS for `.hero-image-wrapper` (aspect-ratio 1440/634, 390/510 under 991px) and `.img--absolute`, so the banner can paint before `trafigura-bundle.css`.
 
-**Real srcset widths** in `_data/frontend-editor/page-who-we-are.json` (`if7d3881`). The export pointed 500w–2000w at the same ~112 KiB file.
+**Hero `src` / `srcset` are hardcoded in `page-who-we-are.php`.** The frontend-editor DB overrides `_data/frontend-editor/page-who-we-are.json` and was still pointing 500w–2000w at the same ~112 KiB file (`01.WHO-WE-ARE_101…webp`). That is what mobile PSI downloads as LCP (Oct 2026: LCP 3.4s, Perf 90). Do not switch the hero back to `udesly_get_image()->srcset`.
 
 - `01.WHO-WE-ARE-800.webp` (~17 KiB) → `800w`
-- `01.WHO-WE-ARE-1080.webp` (~27 KiB) → `1080w`
+- `01.WHO-WE-ARE-1080.webp` (~27 KiB) → `1080w` (also the `src` fallback)
 - `01.WHO-WE-ARE_101.WHO-WE-ARE.webp` → `2000w`
-- `01.WHO-WE-ARE_1.webp` → `2260w` (also the `src` fallback)
+- `01.WHO-WE-ARE_1.webp` → `2260w`
+
+Keep the same widths in the JSON as a backup. Alt text still comes from the editor.
+
+**Statics image `in11d9eb6c` (`TF-3.9.jpg`):** when the editor src contains `TF-3.9`, serve `assets/images/optimized/TF-3.9-{480,800,1440}.webp` with `sizes="(max-width: 767px) 92vw, …"`. The media-library original is ~842 KiB and the 768w JPEG is what mobile was fetching (~61 KiB) for a ~368px-wide slot.
 
 Leave jQuery/GSAP/`trafigura-staging.js` in the footer. Do not defer them to chase the “render-blocking” estimate.
 
