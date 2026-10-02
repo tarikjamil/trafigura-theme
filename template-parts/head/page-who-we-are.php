@@ -10,6 +10,9 @@
 
 <style>
   /* Critical hero layout — paint LCP image before trafigura-bundle.css */
+  .section.is--hero {
+    position: relative;
+  }
   .hero-image-wrapper {
     aspect-ratio: 1440 / 634;
     width: 100%;

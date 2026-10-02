@@ -247,6 +247,7 @@ W3TC rewrites hero `<img src>` to a 1×1 SVG plus `class="lazy"` unless the imag
 
 - `class="img--absolute no-lazy"`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`, width/height set.
 - Do **not** restore `loading="lazy"` on this hero.
+- Do **not** put `animation="loading"` back on the Who We Are H1. GSAP starts those at opacity 0, so the heading cannot paint until `script.js` runs. A 2 Oct 2026 mobile run scored LCP **5.8s** with a 429ms network chain that ended on the Euclid font — the title was the late paint. Homepage H1 already omits this attribute.
 
 **`template-parts/head/page-who-we-are.php`:**
 

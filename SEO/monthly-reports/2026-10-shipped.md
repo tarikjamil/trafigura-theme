@@ -66,6 +66,8 @@ No desktop re-test in this run. Last desktop figure remains 99 / 0.8 s, then 99 
 
 **How to tell it in the report.** LCP is the number that moved for the right reason: 3.8 s → 3.4 s → **2.8 s**, and the phone now loads a 17 KB banner instead of 112 KB. The performance score (76 → 90 → 87) bounced because first paint and Speed Index vary between lab runs (2.3 s and 4.8 s on this one). Do not describe 87 as a step backwards from 90, and do not quote 90 as the final score.
 
+**15:21 mobile re-run** ([PSI](https://pagespeed.web.dev/analysis/https-trafigurafoundation-org-who-we-are/l1riwa07qm?form_factor=mobile)): performance 71, LCP **5.8 s**, FCP still 2.3 s. The longest network chain is **429 ms** and ends on the Euclid font, not the hero file. The heading had `animation="loading"`, so it stayed invisible until the animation script ran. That attribute is removed (same as the homepage). Do not put 71 or 5.8 s in the client PDF. Re-test after this deploy and, if it holds, replace the 2.8 s figure.
+
 **Still flagged, leave out of the client PDF unless we do more work.** Render-blocking CSS (~330 ms, estimated 950 ms). Critical path 528 ms, mostly the stylesheet then three Euclid font files. Unused JavaScript is mostly Google Tag Manager (~131 KB). PSI still wants the 43 KB “3.9 billion” WebP smaller for a ~368px-wide slot, and another ~10 KB off the 17 KB hero. Neither is what set LCP.
 
 ### Client wording (draft — October §01 / §06)

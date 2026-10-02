@@ -208,7 +208,7 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t420a88a4">Who We Are</h1>
+                <h1 class="heading-160" data-text="t420a88a4">Who We Are</h1>
               </div>
             </div><?php
             // Editor JSON/DB still maps 500w–2000w at the same ~112 KiB file, so mobile

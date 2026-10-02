@@ -207,7 +207,7 @@ test ! -f single-puma-fund-story.php && echo 'CPT templates gone'
 
 W3TC turns the banner into `class="lazy"` and a 1×1 `src` unless excluded. Re-apply after sync:
 
-- `template-parts/content/page-who-we-are.php`: hero `if7d3881` is `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`.
+- `template-parts/content/page-who-we-are.php`: hero `if7d3881` is `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`. The H1 must **not** have `animation="loading"` (GSAP holds it at opacity 0 and that late paint showed up as a 5.8s mobile LCP).
 - Hero `src` / `srcset` are **hardcoded** in that template (`800.webp` / `1080.webp` / `101` 2000w / `_1` 2260w). The editor DB overrides the JSON and was still pointing every width at the ~112 KiB file — that is the mobile LCP download. Do not restore `udesly_get_image()->srcset` on this hero.
 - `template-parts/head/page-who-we-are.php`: preload `01.WHO-WE-ARE-800.webp` (`max-width: 991px`) and `01.WHO-WE-ARE_101.WHO-WE-ARE.webp` (`min-width: 992px`), plus critical `.hero-image-wrapper` / `.img--absolute` CSS.
 - Statics image: if the editor file is `TF-3.9`, the template serves `assets/images/optimized/TF-3.9-{480,800,1440}.webp`.
