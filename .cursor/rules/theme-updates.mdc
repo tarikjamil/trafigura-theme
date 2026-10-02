@@ -288,6 +288,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `.cursor/rules/theme-updates.mdc` | This checklist |
 | `.cursor/rules/monthly-reports.mdc` | Monthly client-report rule |
 | `.cursor/skills/monthly-reports/` | Monthly report agent skill |
+| `.cursor/skills/markdown-for-agents/` | Accept-header Markdown-for-agents probe |
 | `SEO/` | Metas, link trackers, checklists, monthly reports |
 | `assets/fonts/euclid-circular-b-*.woff2` (+ ttf if kept) | Self-hosted Euclid |
 | `assets/fonts/bebas-neue-*` | Self-hosted Bebas |

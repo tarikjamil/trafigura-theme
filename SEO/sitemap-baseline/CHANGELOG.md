@@ -1,5 +1,20 @@
 # Sitemap changelog
 
+## 2026-10-02 — September close (vs 2 Sep baseline)
+
+**Tracked sitemaps:** page **9** · areas 3 · news **66** · partners 41 · **total 119** (was 114).
+
+### Added
+- `/puma-energy-fund/` — custom meta live
+- `/news/against-the-current/` — custom meta live
+- `/news/breaking-the-invisible-barrier/` — generic 2007 description
+- `/news/generating-revenue-from-conservation-to-build-resilience-in-coastal-kenya/` — generic 2007 description
+- `/news/when-the-rain-stopped-coming-bringing-anticipatory-action-to-life-in-zimbabwe/` — generic 2007 description
+
+No removals. Baseline CSVs not updated. Full notes: `diffs/2026-09.md`.
+
+---
+
 ## 2026-09-22 — Mid-month recrawl (vs 2 Sep baseline)
 
 **Tracked sitemaps:** page 8→**9** · areas 3 · news 62→**63** · partners 41 · **total 114→116**
