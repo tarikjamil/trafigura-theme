@@ -86,7 +86,7 @@ bash SEO/sitemap-baseline/compare.sh YYYY-MM
 
 ### 3. Work completed
 
-Pull from: prior month §08, `git log` for the period, `SEO/CHECKLIST-big-wins.md`, `SEO/AEO-recommendations.md`, sitemap additions, user notes.
+Pull from: prior month §08, `git log` for the period, `SEO/monthly-reports/YYYY-MM-shipped.md` if it exists (work logged during the month so it is not missed), `SEO/CHECKLIST-big-wins.md`, `SEO/AEO-recommendations.md`, sitemap additions, user notes.
 
 Group in the client PDF as: technical SEO / site · structure & linking · content · reporting (only if something shipped).
 
