@@ -291,6 +291,16 @@ Do not dequeue Elementor CSS on this page — the lower copy is Elementor. `traf
 
 The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
 
+### 3k. Content Hub category filter — Video option
+
+The Webflow export only has Publication / News / Insight / Field Visit radios in `#areaFilter` (`template-parts/content/page-content-hub.php`). The `news-type` select in `functions.php` also offers `Video`, and the client publishes videos. Re-add as the last option:
+
+```php
+<div><input type="radio" id="categoryFilter-video" name="categoryFilter" value="video"><label for="categoryFilter-video">Video</label></div>
+```
+
+`code/content-hub.js` compares the radio value to each card's `.tag-category` text (case-insensitive), so no JS change is needed.
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
@@ -380,7 +390,8 @@ Copy these from the customized theme into any new Udesly drop:
 14. `/tales/` 301s to `/tales-of-resilience/`; page + tales CPT are **noindex** and sitemap-excluded; `page-tales-of-resilience.php` present; single-tales has H1  
 15. `/staff-engagement/` = redesign (voices + map); `/staff-engagement-new/` 404s (page deleted, no 301); voices + staff-locations noindex / not in sitemap; no Netlify URL in that footer  
 16. `/puma-energy-fund/` = intro + link to pumaenergyfund.org; no filters/CPT; leftover `/puma-fund-story/` 301s; `page-puma-energy-fund.php` present  
-17. Purge W3TC after deploy  
+17. Content Hub filter has the `Video` radio (`categoryFilter-video`) 
+18. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)
 

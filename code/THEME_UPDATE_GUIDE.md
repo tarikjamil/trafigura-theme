@@ -235,6 +235,22 @@ test -f assets/images/02.OUR-APPROACH-800.webp && test -f assets/images/02.OUR-A
 
 ---
 
+## 3g. Content Hub category filter — Video option
+
+The Webflow export only ships Publication / News / Insight / Field Visit radios. The `news-type` select in `functions.php` also has `Video`, and the client publishes video items. Re-add after sync, as the last option in `#areaFilter` in `template-parts/content/page-content-hub.php`:
+
+```php
+<div><input type="radio" id="categoryFilter-video" name="categoryFilter" value="video"><label for="categoryFilter-video">Video</label></div>
+```
+
+`code/content-hub.js` matches the radio value against each card's `.tag-category` text (case-insensitive), so no JS change is needed.
+
+```bash
+grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
+```
+
+---
+
 ## 4. Quick Update Checklist
 
 When a new theme is uploaded:
@@ -251,6 +267,7 @@ When a new theme is uploaded:
 - [ ] Re-apply noindex + sitemap exclude for voices, staff-locations, tales (`trafigura_noindex_post_types`)
 - [ ] Do not restore `page-staff-engagement-new.php`
 - [ ] Who We Are hero: `no-lazy` + preload + `01.WHO-WE-ARE-800.webp` / `01.WHO-WE-ARE-1080.webp` (§3e)
+- [ ] Content Hub filter: `Video` radio in `#areaFilter` (§3g)
 - [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---

@@ -264,6 +264,7 @@ background-color:#212121;
                     <div><input type="radio" id="categoryFilter-news" name="categoryFilter" value="news"><label for="categoryFilter-news" data-text="t24fef3"><?php echo _u('t24fef3','text'); ?></label></div>
                     <div><input type="radio" id="categoryFilter-insight" name="categoryFilter" value="insight"><label for="categoryFilter-insight" data-text="tn281e2c88"><?php echo _u('tn281e2c88','text'); ?></label></div>
                     <div><input type="radio" id="categoryFilter-Field Visit" name="categoryFilter" value="Field Visit"><label for="categoryFilter-Field Visit" data-text="t201e9665"><?php echo _u('t201e9665','text'); ?></label></div>
+                    <div><input type="radio" id="categoryFilter-video" name="categoryFilter" value="video"><label for="categoryFilter-video">Video</label></div>
                   </div>
                 </div><button id="resetFilters" class="btn--reset is--dark" data-text="tn35d3b097"><?php echo _u('tn35d3b097','text'); ?></button>
               </div>
