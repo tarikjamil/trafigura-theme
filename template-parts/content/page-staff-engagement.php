@@ -297,7 +297,7 @@ body {
         </section>
         <section class="section is--padding-bottom">
           <div class="container--1440">
-            <video class="video-play-once" src="https://trafigurafoundation.org/wp-content/uploads/2026/08/Trafigura-Map-v2.mp4" width="3840" height="2160" muted playsinline preload="none" aria-label="Animated map of Trafigura Foundation projects" style="display:block;width:100%;height:auto;aspect-ratio:16/9"></video>
+            <video class="video-play-once" src="https://trafigurafoundation.org/wp-content/uploads/2026/10/Trafigura-map-v3.mp4" width="3840" height="2160" muted playsinline preload="none" aria-label="Animated map of Trafigura Foundation projects" style="display:block;width:100%;height:auto;aspect-ratio:16/9"></video>
           </div>
         </section>
         <?php
