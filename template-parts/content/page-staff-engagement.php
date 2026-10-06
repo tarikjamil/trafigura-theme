@@ -295,6 +295,11 @@ body {
             </div>
           </div>
         </section>
+        <section class="section is--padding-bottom">
+          <div class="container--1440">
+            <video class="video-play-once" src="https://trafigurafoundation.org/wp-content/uploads/2026/08/Trafigura-Map-v2.mp4" width="3840" height="2160" muted playsinline preload="none" aria-label="Animated map of Trafigura Foundation projects" style="display:block;width:100%;height:auto;aspect-ratio:16/9"></video>
+          </div>
+        </section>
         <?php
         $staff_lower = (string) trafigura_staff_lower_content();
         if ( trim( wp_strip_all_tags( $staff_lower ) ) !== '' || preg_match( '/<(video|iframe|img)\b/i', $staff_lower ) ) :

@@ -220,7 +220,8 @@ Public URL: **`/staff-engagement/`** only. The parallel `/staff-engagement-new/`
 - Labels: `trafigura_editor_text()`; footer `aria-label="Trafigura Foundation home"`
 - ACF on page `staff-engagement` (legacy fallback `staff-engagement-new` if the slug ever reappears). Helper `trafigura_staff_lower_content()`. Do **not** call `the_content()` twice.
 - Lower content section renders when the field has text **or** a `<video>` / `<iframe>` / `<img>` (a video-only field must not hide the block).
-- `video.video-play-once` in that field (e.g. `Trafigura-Map-v2.mp4`): `initPlayOnceVideos()` in `staff-engagement.js` plays it once at 50% in view (muted, no loop). The generic play/pause observer must skip `.video-play-once`.
+- Map video `Trafigura-Map-v2.mp4` (3840×2160, ~6 MB) is **hardcoded** in `page-staff-engagement.php` as its own section right before the lower content / Staff in Action (the ACF WYSIWYG would not take focus in admin). Markup: `<video class="video-play-once" … muted playsinline preload="none" width="3840" height="2160">`. Do not also paste it into the ACF field (it would show twice).
+- `initPlayOnceVideos()` in `staff-engagement.js` plays `video.video-play-once` once at 50% in view (muted, no loop). The generic play/pause observer must skip `.video-play-once`.
 - CPT `voices-of-impact` (ACF File `video` + Featured Image cards) + CPT `staff-locations` + continent select
 - Queries `voices-of-impacts.php` / `staff-locations.php`: editor key `page-staff-engagement`; order `DESC`; `trafigura_card_image()`
 - `archive.php` + `single-staff-locations.php` + `single-voices-of-impact.php`: 301 → `/staff-engagement/`
