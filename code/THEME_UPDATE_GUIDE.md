@@ -173,6 +173,7 @@ Public URL is **`/staff-engagement/`**. The parallel `/staff-engagement-new/` pa
 - `functions.php` — CPT `voices-of-impact` + ACF File `video`; CPT `staff-locations`; ACF on `staff-engagement`.
 - Queries `voices-of-impacts.php` / `staff-locations.php` — editor key `page-staff-engagement`.
 - `code/staff-engagement.js` (+ unminified) — map + Voices popup.
+- Lower content: section shows if the ACF field has text or a `<video>` / `<iframe>` / `<img>`. A `<video class="video-play-once">` there plays once when 50% in view (`initPlayOnceVideos()`); the generic play/pause observer skips `.video-play-once`.
 - Footer `page-staff-engagement.php` — local Swiper, not Netlify.
 - `archive.php` / `single-staff-locations.php` / `single-voices-of-impact.php` — 301 to `/staff-engagement/` (no public landing).
 - Yoast: `voices-of-impact`, `staff-locations`, and `tales` + page `/tales-of-resilience/` are **noindex** and **sitemap-excluded**.

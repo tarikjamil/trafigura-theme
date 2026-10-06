@@ -14,14 +14,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   );
 
-  document.querySelectorAll("video:not(.voice--popup-video)").forEach(function (video) {
-    observer.observe(video);
-  });
+  document
+    .querySelectorAll("video:not(.voice--popup-video):not(.video-play-once)")
+    .forEach(function (video) {
+      observer.observe(video);
+    });
 
+  initPlayOnceVideos();
   buildStaffContinents();
   initVoiceVideoPopup();
   initVoiceSliderArrows();
 });
+
+function initPlayOnceVideos() {
+  var videos = document.querySelectorAll("video.video-play-once");
+  if (!videos.length) return;
+
+  function start(video) {
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    videos.forEach(start);
+    return;
+  }
+
+  var onceObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        onceObserver.unobserve(entry.target);
+        start(entry.target);
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  videos.forEach(function (video) {
+    video.loop = false;
+    onceObserver.observe(video);
+  });
+}
 
 var STAFF_SKIP_ATTRS = {
   src: 1,

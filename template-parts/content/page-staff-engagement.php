@@ -296,8 +296,8 @@ body {
           </div>
         </section>
         <?php
-        $staff_lower = trafigura_staff_lower_content();
-        if ( trim( wp_strip_all_tags( (string) $staff_lower ) ) !== '' ) :
+        $staff_lower = (string) trafigura_staff_lower_content();
+        if ( trim( wp_strip_all_tags( $staff_lower ) ) !== '' || preg_match( '/<(video|iframe|img)\b/i', $staff_lower ) ) :
         ?>
         <section class="section is--padding-bottom">
           <div class="w-richtext"><?php echo $staff_lower; ?></div>
