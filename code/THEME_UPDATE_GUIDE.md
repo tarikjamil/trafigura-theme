@@ -230,9 +230,12 @@ Same lazy-hero failure. Re-apply after sync:
 - `template-parts/head/page-our-approach.php`: preload 800 (`max-width: 991px`) and 1440 (`min-width: 992px`), plus critical hero CSS.
 - Keep those three new WebP files in `assets/images/`.
 
+**Launch video (Elementor HTML widget in the page body):** `trafigura_video_preload_none()` in `functions.php` forces `preload="none"` (the MP4 is ~30 MB). Without metadata the browser does not know the size and the bare `<video>` collapses to a 150px black strip (client report, Oct 2026: “l’image est coupée”). The same filter adds `poster="…/assets/images/our-approach-launch-poster.webp"`, `width="1280" height="720"` and `class="video-element"` to any `<video>` whose source contains `Trafigura-Launch-Video`. Staging CSS also gives bare content videos (no width/height) `aspect-ratio: 16 / 9`. Keep `our-approach-launch-poster.webp` (frame at 2s, ~62 KiB).
+
 ```bash
 grep -n 'no-lazy\|02.OUR-APPROACH-800.webp' template-parts/content/page-our-approach.php template-parts/head/page-our-approach.php
-test -f assets/images/02.OUR-APPROACH-800.webp && test -f assets/images/02.OUR-APPROACH-1080.webp && test -f assets/images/02.OUR-APPROACH-1440.webp && echo OK
+test -f assets/images/02.OUR-APPROACH-800.webp && test -f assets/images/02.OUR-APPROACH-1080.webp && test -f assets/images/02.OUR-APPROACH-1440.webp && test -f assets/images/our-approach-launch-poster.webp && echo OK
+curl -s https://trafigurafoundation.org/our-approach/ | grep -o '<video[^>]*>'   # expect poster + width="1280" height="720"
 ```
 
 ---

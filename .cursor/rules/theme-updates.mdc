@@ -292,7 +292,7 @@ Same failure as Who We Are. Oct 2026 PSI: mobile **78**, LCP **5.2s** (the banne
 
 Do not dequeue Elementor CSS on this page — the lower copy is Elementor. `trafigura_defer_elementor_styles()` loads that CSS with `media="print"` so it does not block the hero; do not put it back to a blocking `media="all"`. Do not defer `trafigura-bundle.css`.
 
-The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
+The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. With `preload="none"` the browser never learns the video size, so the bare `<video>` collapsed to a 150px black strip (client complaint Oct 2026). The same filter adds `poster` = `assets/images/our-approach-launch-poster.webp`, `width="1280" height="720"` and `class="video-element"` when the source contains `Trafigura-Launch-Video`. Staging CSS adds `aspect-ratio: 16 / 9` to content videos that have no width/height. Verify: the live `<video>` tag has the poster and 1280×720. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
 
 ### 3k. Content Hub category filter — Video option
 
@@ -360,6 +360,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `assets/images/home-hero-poster*` | LCP poster |
 | `assets/images/01.WHO-WE-ARE-800.webp` + `01.WHO-WE-ARE-1080.webp` | Who We Are mobile/tablet hero |
 | `assets/images/02.OUR-APPROACH-800.webp` + `-1080.webp` + `-1440.webp` | Our Approach hero |
+| `assets/images/our-approach-launch-poster.webp` | Our Approach launch video poster |
 | `assets/images/optimized/` | OceanImageBank card overrides |
 | `assets/js/vendor/` | GSAP / Swiper / SplitType |
 | `assets/css/trafigura-bundle.css` | Built ship CSS (rebuild after staging edits) |

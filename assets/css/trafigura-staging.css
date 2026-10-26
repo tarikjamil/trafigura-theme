@@ -4028,6 +4028,16 @@ img {
   display: block;
 }
 
+/* preload="none" without width/height collapses <video> to 300×150 */
+.elementor-widget-html video:not([width]):not([height]),
+.w-richtext video:not([width]):not([height]) {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
 .theorychange--logo {
   width: 114rem;
   height: 40rem;

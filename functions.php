@@ -399,11 +399,31 @@
     /**
      * Launch films in page content must not start a multi‑megabyte download
      * during first paint. Play still works when the visitor hits the control.
+     *
+     * With preload="none" the browser never reads the video size, so a bare
+     * <video> collapses to the default 300×150 box (a 150px black strip).
+     * The Our Approach launch film gets a poster + its real 1280×720 size.
      */
     function trafigura_video_preload_none( $html ) {
         if ( ! is_string( $html ) || stripos( $html, '<video' ) === false ) {
             return $html;
         }
+        $html = preg_replace_callback( '/<video\b([^>]*)>(.*?)<\/video>/is', static function ( $m ) {
+            if ( stripos( $m[2], 'Trafigura-Launch-Video' ) === false ) {
+                return $m[0];
+            }
+            $attrs = $m[1];
+            if ( ! preg_match( '/\bposter\s*=/i', $attrs ) ) {
+                $attrs .= ' poster="' . esc_url( get_template_directory_uri() . '/assets/images/our-approach-launch-poster.webp' ) . '"';
+            }
+            if ( ! preg_match( '/\bwidth\s*=/i', $attrs ) && ! preg_match( '/\bheight\s*=/i', $attrs ) ) {
+                $attrs .= ' width="1280" height="720"';
+            }
+            if ( ! preg_match( '/\bclass\s*=/i', $attrs ) ) {
+                $attrs .= ' class="video-element"';
+            }
+            return '<video' . $attrs . '>' . $m[2] . '</video>';
+        }, $html );
         return preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) {
             $attrs = $m[1];
             if ( preg_match( '/\bpreload\s*=/i', $attrs ) ) {
