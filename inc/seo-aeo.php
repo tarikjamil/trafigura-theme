@@ -157,13 +157,66 @@ function trafigura_render_faq( $key, $title = 'Frequently asked questions' ) {
           ?>
           <details class="faq-item">
             <summary class="faq-question"><?php echo esc_html( $item['q'] ); ?></summary>
-            <div class="faq-answer"><?php echo wp_kses( $item['a'], $allowed ); ?></div>
+            <div class="faq-answer"><div class="faq-answer-inner"><?php echo wp_kses( $item['a'], $allowed ); ?></div></div>
           </details>
           <?php endforeach; ?>
         </div>
       </div>
       <script type="application/ld+json"><?php echo wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
     </section>
+    <?php
+    trafigura_faq_animation_script();
+}
+
+/**
+ * Eased open/close for FAQ <details> (same curve as the site's GSAP "smooth" ease).
+ * Without JS the native toggle still works.
+ */
+function trafigura_faq_animation_script() {
+    static $printed = false;
+    if ( $printed ) {
+        return;
+    }
+    $printed = true;
+    ?>
+    <script>
+    (function () {
+      var ease = "cubic-bezier(0.38, 0.005, 0.215, 1)";
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.querySelectorAll(".faq-item").forEach(function (item) {
+        var summary = item.querySelector(".faq-question");
+        var panel = item.querySelector(".faq-answer");
+        var anim = null;
+        if (!summary || !panel || !panel.animate || reduce) return;
+        summary.addEventListener("click", function (e) {
+          e.preventDefault();
+          var start = item.open ? panel.getBoundingClientRect().height : 0;
+          if (anim) anim.cancel();
+          if (!item.open || item.classList.contains("is-closing")) {
+            item.classList.remove("is-closing");
+            item.open = true;
+            anim = panel.animate(
+              { height: [start + "px", panel.scrollHeight + "px"], opacity: [start ? 1 : 0, 1] },
+              { duration: 450, easing: ease }
+            );
+          } else {
+            item.classList.add("is-closing");
+            anim = panel.animate(
+              { height: [start + "px", "0px"], opacity: [1, 0] },
+              { duration: 350, easing: ease }
+            );
+          }
+          anim.onfinish = function () {
+            if (item.classList.contains("is-closing")) {
+              item.open = false;
+              item.classList.remove("is-closing");
+            }
+            anim = null;
+          };
+        });
+      });
+    })();
+    </script>
     <?php
 }
 

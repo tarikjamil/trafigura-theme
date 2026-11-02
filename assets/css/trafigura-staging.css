@@ -6733,80 +6733,99 @@ html.voice-popup-open {
   transform: none;
 }
 
-/* FAQ accordions (inc/seo-aeo.php trafigura_render_faq) — collapsed, never display:none */
+/* FAQ accordions (inc/seo-aeo.php trafigura_render_faq) — collapsed, never display:none.
+   Selectors are scoped to .section.is--faq: the page embeds reset [class*="heading-"] margins after the bundle. */
 .section.is--faq {
-  padding-top: 96rem;
-  padding-bottom: 96rem;
+  padding-top: 80rem;
+  padding-bottom: 112rem;
 }
-.faq-title {
-  margin-bottom: 32rem;
+.section.is--faq .faq-title {
+  margin: 0 auto 40rem;
+  text-align: center;
   color: var(--color--orange);
 }
-.faq-list {
-  max-width: 960rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+.section.is--faq .faq-list {
+  max-width: 880rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
-.faq-item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+.section.is--faq .faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
-.faq-question {
+.section.is--faq .faq-question {
   position: relative;
-  padding: 24rem 48rem 24rem 0;
+  display: block;
+  padding: 28rem 56rem 28rem 0;
   font-size: 20rem;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.35;
   list-style: none;
   cursor: pointer;
+  transition: color 0.3s cubic-bezier(0.38, 0.005, 0.215, 1);
 }
-.faq-question::-webkit-details-marker {
+.section.is--faq .faq-question::-webkit-details-marker {
   display: none;
 }
-.faq-question::after {
+.section.is--faq .faq-question::after {
   content: "+";
   position: absolute;
   top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 28rem;
-  font-weight: 400;
+  right: 4rem;
+  font-size: 30rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--color--orange);
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.45s cubic-bezier(0.38, 0.005, 0.215, 1);
+}
+.section.is--faq .faq-item[open]:not(.is-closing) > .faq-question::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+.section.is--faq .faq-question:hover {
   color: var(--color--orange);
 }
-.faq-item[open] > .faq-question::after {
-  content: "\2013";
-}
-.faq-question:focus-visible {
+.section.is--faq .faq-question:focus-visible {
   outline: 2px solid var(--color--orange);
   outline-offset: 4px;
 }
-.faq-answer {
-  max-width: 780rem;
-  padding-bottom: 24rem;
+.section.is--faq .faq-answer {
+  overflow: hidden;
+}
+.section.is--faq .faq-answer-inner {
+  max-width: 760rem;
+  padding-bottom: 28rem;
   font-size: 16rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--color--black2);
 }
-.faq-answer p {
+.section.is--faq .faq-answer p {
   margin-top: 0;
   margin-bottom: 0;
 }
-.faq-answer p + p {
+.section.is--faq .faq-answer p + p {
   margin-top: 12rem;
 }
-.faq-answer a {
+.section.is--faq .faq-answer a {
   color: #7563ad;
   font-weight: 600;
 }
 @media screen and (max-width: 991px) {
   .section.is--faq {
     padding-top: 64rem;
-    padding-bottom: 64rem;
+    padding-bottom: 80rem;
   }
-  .faq-question {
-    padding-top: 20rem;
-    padding-bottom: 20rem;
+  .section.is--faq .faq-title {
+    margin-bottom: 28rem;
+  }
+  .section.is--faq .faq-question {
+    padding-top: 22rem;
+    padding-bottom: 22rem;
+    padding-right: 44rem;
     font-size: 17rem;
   }
-  .faq-answer {
+  .section.is--faq .faq-answer-inner {
+    padding-bottom: 22rem;
     font-size: 15rem;
   }
 }
