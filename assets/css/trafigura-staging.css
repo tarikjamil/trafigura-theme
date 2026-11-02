@@ -6736,7 +6736,7 @@ html.voice-popup-open {
 /* FAQ accordions (inc/seo-aeo.php trafigura_render_faq) — collapsed, never display:none.
    Selectors are scoped to .section.is--faq: the page embeds reset [class*="heading-"] margins after the bundle. */
 .section.is--faq {
-  padding-top: 80rem;
+  padding-top: 0;
   padding-bottom: 112rem;
 }
 .section.is--faq .faq-title {
@@ -6812,7 +6812,7 @@ html.voice-popup-open {
 }
 @media screen and (max-width: 991px) {
   .section.is--faq {
-    padding-top: 64rem;
+    padding-top: 0;
     padding-bottom: 80rem;
   }
   .section.is--faq .faq-title {

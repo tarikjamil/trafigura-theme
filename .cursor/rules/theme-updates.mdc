@@ -332,7 +332,7 @@ Before (local Lighthouse, devtools throttling, 2 Nov 2026 mobile): news / partne
 
 **Partner cards — screen-reader labels.** In the four `template-parts/query/partner-stories-*.php` card templates, the place and state tags read `<span class="sr-only">Country: </span>…<span class="sr-only">.</span>` and `Status:` the same way (`.sr-only` in staging CSS). Without them, crawlers and AI tools read the card as one string (“Africa New Catalyst Fund” — seen in ChatGPT, Gemini and Copilot, Nov 2026).
 
-**Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793720000`.
+**Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793730000`.
 
 ### 4. Internal linking helpers + templates
 

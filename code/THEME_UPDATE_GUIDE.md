@@ -289,7 +289,7 @@ cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-stag
 npx -y csso-cli@4 /tmp/bundle-src.css --no-restructure -o assets/css/trafigura-bundle.css
 ```
 
-Then bump `ver=` in all `template-parts/head/*.php` (currently `1793720000`).
+Then bump `ver=` in all `template-parts/head/*.php` (currently `1793730000`).
 
 ```bash
 grep -n "seo-aeo.php" functions.php
