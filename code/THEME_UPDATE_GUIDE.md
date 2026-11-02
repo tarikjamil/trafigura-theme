@@ -262,7 +262,7 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 
 - `trafigura_fallback_metadesc()` — news / partner stories with no Yoast description (or the 2007 boilerplate) get their own opening paragraph, trimmed to 155 chars. `trafigura_yoast_prefer_metadesc()` in `functions.php` passes OG/Twitter through it too.
 - `trafigura_schema_organization()` — Yoast Organization graph gets `NGO` type, description, `foundingDate` 2007, founder Trafigura Group, Geneva address, phone, `knowsAbout`.
-- `trafigura_render_faq( $key )` — visible `<details>` accordions + matching FAQPage JSON-LD. Called before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = post slug). Copy lives in `inc/faq-data.php`. Never hide FAQ text with `hidden` / `display:none`. Block is centred (880rem); CSS is scoped under `.section.is--faq` so the page’s `[class*="heading-"]` reset can’t remove the title spacing. `trafigura_faq_animation_script()` eases open/close (site “smooth” curve); the “+” rotates to “×”.
+- `trafigura_render_faq( $key )` — visible `<details>` accordions + matching FAQPage JSON-LD. Called before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = post slug). Copy lives in `inc/faq-data.php`. Never hide FAQ text with `hidden` / `display:none`. No top padding unless the FAQ follows a section with its own background (`.section.is--areas-work + .section.is--faq` etc. → 96rem / 64rem mobile). Block is centred (880rem); CSS is scoped under `.section.is--faq` so the page’s `[class*="heading-"]` reset can’t remove the title spacing. `trafigura_faq_animation_script()` eases open/close (exclusive accordion — opening one closes the others) (site “smooth” curve); the “+” rotates to “×”.
 - `trafigura_robots_txt_for_answer_engines()` — strips `Crawl-delay` from the virtual robots.txt (Bing obeys it; ChatGPT search / Copilot use Bing).
 - IndexNow — key `8145752a3c514a4beb817aa3b1f06ee8`, served at `/{key}.txt`; pings `api.indexnow.org` on publish/update of news, partner stories, areas, pages (production host only).
 - `trafigura_rewrite_staging_host()` — rewrites dead `trafigurafoundation.une.ch` links in post content to the live domain (48 links / 18 news posts in Nov 2026, see `SEO/broken-staging-links-une-ch.csv`). Runs at priority 20 (Elementor replaces content at 9). Remove only after Elementor → Tools → Replace URL (links live in `_elementor_data`, not `wp_posts`).
@@ -289,7 +289,7 @@ cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-stag
 npx -y csso-cli@4 /tmp/bundle-src.css --no-restructure -o assets/css/trafigura-bundle.css
 ```
 
-Then bump `ver=` in all `template-parts/head/*.php` (currently `1793730000`).
+Then bump `ver=` in all `template-parts/head/*.php` (currently `1793740000`).
 
 ```bash
 grep -n "seo-aeo.php" functions.php

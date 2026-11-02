@@ -6739,6 +6739,22 @@ html.voice-popup-open {
   padding-top: 0;
   padding-bottom: 112rem;
 }
+/* Keep top padding when the FAQ follows a section with its own background (no visual break otherwise). */
+.section.is--areas-work + .section.is--faq,
+.section.is--related + .section.is--faq,
+.section.is--other-partners + .section.is--faq,
+.section.is--staffengagement-top + .section.is--faq,
+.section.is--home-pub + .section.is--faq,
+.section.is--team + .section.is--faq,
+.section.is--hub-highlight + .section.is--faq,
+.section.is--content + .section.is--faq,
+.section.is--other-news + .section.is--faq,
+.section.is--highlight-news + .section.is--faq,
+.section.is--template-hero + .section.is--faq,
+.section.is--tales-top + .section.is--faq,
+.section.is--histoureresilience + .section.is--faq {
+  padding-top: 96rem;
+}
 .section.is--faq .faq-title {
   margin: 0 auto 40rem;
   text-align: center;
@@ -6814,6 +6830,21 @@ html.voice-popup-open {
   .section.is--faq {
     padding-top: 0;
     padding-bottom: 80rem;
+  }
+  .section.is--areas-work + .section.is--faq,
+  .section.is--related + .section.is--faq,
+  .section.is--other-partners + .section.is--faq,
+  .section.is--staffengagement-top + .section.is--faq,
+  .section.is--home-pub + .section.is--faq,
+  .section.is--team + .section.is--faq,
+  .section.is--hub-highlight + .section.is--faq,
+  .section.is--content + .section.is--faq,
+  .section.is--other-news + .section.is--faq,
+  .section.is--highlight-news + .section.is--faq,
+  .section.is--template-hero + .section.is--faq,
+  .section.is--tales-top + .section.is--faq,
+  .section.is--histoureresilience + .section.is--faq {
+    padding-top: 64rem;
   }
   .section.is--faq .faq-title {
     margin-bottom: 28rem;

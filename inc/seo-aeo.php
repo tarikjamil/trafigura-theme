@@ -183,36 +183,53 @@ function trafigura_faq_animation_script() {
     (function () {
       var ease = "cubic-bezier(0.38, 0.005, 0.215, 1)";
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      document.querySelectorAll(".faq-item").forEach(function (item) {
+      var items = Array.prototype.slice.call(document.querySelectorAll(".faq-item"));
+      function closeItem(item) {
+        var panel = item.querySelector(".faq-answer");
+        if (!item.open || item.classList.contains("is-closing") || !panel) return;
+        if (item._faqAnim) item._faqAnim.cancel();
+        item.classList.add("is-closing");
+        if (reduce || !panel.animate) {
+          item.open = false;
+          item.classList.remove("is-closing");
+          return;
+        }
+        var start = panel.getBoundingClientRect().height;
+        item._faqAnim = panel.animate(
+          { height: [start + "px", "0px"], opacity: [1, 0] },
+          { duration: 350, easing: ease }
+        );
+        item._faqAnim.onfinish = function () {
+          item.open = false;
+          item.classList.remove("is-closing");
+          item._faqAnim = null;
+        };
+      }
+      items.forEach(function (item) {
         var summary = item.querySelector(".faq-question");
         var panel = item.querySelector(".faq-answer");
-        var anim = null;
-        if (!summary || !panel || !panel.animate || reduce) return;
+        if (!summary || !panel) return;
         summary.addEventListener("click", function (e) {
           e.preventDefault();
-          var start = item.open ? panel.getBoundingClientRect().height : 0;
-          if (anim) anim.cancel();
-          if (!item.open || item.classList.contains("is-closing")) {
+          var willOpen = !item.open || item.classList.contains("is-closing");
+          if (willOpen) {
+            items.forEach(function (other) {
+              if (other !== item) closeItem(other);
+            });
+          }
+          if (item._faqAnim) item._faqAnim.cancel();
+          if (willOpen) {
             item.classList.remove("is-closing");
             item.open = true;
-            anim = panel.animate(
-              { height: [start + "px", panel.scrollHeight + "px"], opacity: [start ? 1 : 0, 1] },
+            if (reduce || !panel.animate) return;
+            item._faqAnim = panel.animate(
+              { height: ["0px", panel.scrollHeight + "px"], opacity: [0, 1] },
               { duration: 450, easing: ease }
             );
+            item._faqAnim.onfinish = function () { item._faqAnim = null; };
           } else {
-            item.classList.add("is-closing");
-            anim = panel.animate(
-              { height: [start + "px", "0px"], opacity: [1, 0] },
-              { duration: 350, easing: ease }
-            );
+            closeItem(item);
           }
-          anim.onfinish = function () {
-            if (item.classList.contains("is-closing")) {
-              item.open = false;
-              item.classList.remove("is-closing");
-            }
-            anim = null;
-          };
         });
       });
     })();
