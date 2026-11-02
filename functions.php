@@ -1,5 +1,7 @@
 <?php
 
+    require_once get_template_directory() . '/inc/seo-aeo.php';
+
     function udesly_theme_utils_get_term_id_by_slug( $slug, $type ) {
         $term = get_term_by("slug", $slug, $type);
 
@@ -403,18 +405,22 @@
      * With preload="none" the browser never reads the video size, so a bare
      * <video> collapses to the default 300×150 box (a 150px black strip).
      * The Our Approach launch film gets a poster + its real 1280×720 size.
+     * The poster (~62 KB) is set from data-poster near the viewport so it does
+     * not compete with the hero LCP image on mobile.
      */
     function trafigura_video_preload_none( $html ) {
         if ( ! is_string( $html ) || stripos( $html, '<video' ) === false ) {
             return $html;
         }
-        $html = preg_replace_callback( '/<video\b([^>]*)>(.*?)<\/video>/is', static function ( $m ) {
+        $lazy_poster = false;
+        $html = preg_replace_callback( '/<video\b([^>]*)>(.*?)<\/video>/is', static function ( $m ) use ( &$lazy_poster ) {
             if ( stripos( $m[2], 'Trafigura-Launch-Video' ) === false ) {
                 return $m[0];
             }
             $attrs = $m[1];
-            if ( ! preg_match( '/\bposter\s*=/i', $attrs ) ) {
-                $attrs .= ' poster="' . esc_url( get_template_directory_uri() . '/assets/images/our-approach-launch-poster.webp' ) . '"';
+            if ( ! preg_match( '/\b(data-)?poster\s*=/i', $attrs ) ) {
+                $attrs      .= ' data-poster="' . esc_url( get_template_directory_uri() . '/assets/images/our-approach-launch-poster.webp' ) . '"';
+                $lazy_poster = true;
             }
             if ( ! preg_match( '/\bwidth\s*=/i', $attrs ) && ! preg_match( '/\bheight\s*=/i', $attrs ) ) {
                 $attrs .= ' width="1280" height="720"';
@@ -424,13 +430,17 @@
             }
             return '<video' . $attrs . '>' . $m[2] . '</video>';
         }, $html );
-        return preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) {
+        $html = preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) {
             $attrs = $m[1];
             if ( preg_match( '/\bpreload\s*=/i', $attrs ) ) {
                 return preg_replace( '/\bpreload\s*=\s*([\'"]).*?\1/i', 'preload="none"', $m[0], 1 );
             }
             return '<video preload="none"' . $attrs . '>';
         }, $html );
+        if ( $lazy_poster ) {
+            $html .= '<script>(function(){var v=document.querySelectorAll("video[data-poster]");if(!v.length)return;function s(e){e.poster=e.getAttribute("data-poster");e.removeAttribute("data-poster")}if(!("IntersectionObserver"in window)){v.forEach(s);return}var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){s(e.target);o.unobserve(e.target)}})},{rootMargin:"800px 0px"});v.forEach(function(e){o.observe(e)})})();</script>';
+        }
+        return $html;
     }
     add_filter( 'the_content', 'trafigura_video_preload_none', 20 );
     add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
@@ -550,7 +560,7 @@
         try {
             $meta = YoastSEO()->meta->for_current_page();
             if ( $meta && ! empty( $meta->description ) ) {
-                return $meta->description;
+                return trafigura_fallback_metadesc( $meta->description );
             }
         } catch ( Throwable $e ) {
             // Keep original.

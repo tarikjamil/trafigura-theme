@@ -1,0 +1,83 @@
+# Measurement — monthly routine
+
+Run on the first working day of each month, before drafting the monthly report. Results feed `SEO/monthly-reports/YYYY-MM.md`.
+
+| What | Tool | Where results go | Time |
+|---|---|---|---|
+| Search performance | GSC (Looker export, or the GSC MCP in Cursor once credentials exist) | monthly report | — |
+| AI answer check | ChatGPT, Perplexity, Google AI Overview, Copilot | `aeo-log.csv` | 20 min |
+| AI referral traffic | GA4 “AI assistants” channel (setup below) | monthly report | 5 min |
+| Bing / ChatGPT search visibility | Bing Webmaster Tools (setup below) | monthly report | 5 min |
+| Page speed, one URL per template | `bash SEO/measurement/psi.sh` | `psi-log.csv` | 5 min |
+
+## 1. AEO check — same prompts every month
+
+Use a logged-out / private window. Ask each prompt in **ChatGPT (search on)**, **Perplexity**, **Google** (note whether an AI Overview appears) and **Copilot**. Log one row per prompt × engine in `aeo-log.csv`.
+
+| ID | Prompt | What a good answer contains |
+|---|---|---|
+| P1 | What is the Trafigura Foundation? | Independent foundation, created 2007, climate adaptation, Geneva; cites trafigurafoundation.org |
+| P2 | What does the Trafigura Foundation fund? | Climate adaptation for vulnerable communities and ecosystems; three areas of work |
+| P3 | What are the Trafigura Foundation’s areas of work? | Prepared communities, Sustainable livelihoods, Thriving nature |
+| P4 | Does the Trafigura Foundation accept funding applications? | No unsolicited applications; Management Team sources partners |
+| P5 | Who does the Trafigura Foundation partner with in Africa? | Named partners (e.g. COMACO, SDI, Start Network, Maliasili) |
+| P6 | What is anticipatory action and who funds it? | Non-brand: does the Foundation / Start Ready appear at all? |
+
+Columns in `aeo-log.csv`:
+
+- `cites_site` — yes / no (is trafigurafoundation.org linked or named as a source?)
+- `accurate` — yes / partly / no
+- `confuses_with_group` — yes if the answer mixes up the Foundation with Trafigura Group trading business
+- `notes` — wrong facts, competitor sources cited, etc.
+
+The client PDF reports: how many of P1–P5 cite the site, any factual errors, and whether P6 mentions the Foundation.
+
+## 2. GA4 — “AI assistants” channel (one-off setup, ~5 min)
+
+GA4 lumps ChatGPT and Perplexity visits into “Referral”. A custom channel group splits them out and applies to past data too.
+
+1. GA4 → **Admin** → **Data display** → **Channel groups** → **Create new channel group**.
+2. Name it `Default + AI`. GA4 copies the default channels.
+3. **Add new channel** → name `AI assistants` → condition **Source** → **matches regex**:
+   ```
+   chatgpt\.com|chat\.openai\.com|perplexity\.ai|gemini\.google\.com|copilot\.microsoft\.com|claude\.ai|edgeservices\.bing\.com|you\.com|poe\.com|meta\.ai|deepseek\.com
+   ```
+4. **Reorder** so `AI assistants` sits **above** `Referral` (GA4 uses the first match). Save.
+5. In Reports → Acquisition → Traffic acquisition, switch the primary dimension to **Session — Default + AI**.
+6. In Looker Studio, add a table: dimension = this channel group, metrics = sessions, engaged sessions. This also gives the channel split the October report was missing.
+
+## 3. Bing Webmaster Tools (one-off setup, ~5 min)
+
+ChatGPT search and Microsoft Copilot rely heavily on Bing’s index.
+
+1. Go to <https://www.bing.com/webmasters> and sign in with the Google account that owns Search Console.
+2. Choose **Import from Google Search Console** — it verifies the site and imports the sitemap in one step.
+3. Check **Sitemaps** shows `https://trafigurafoundation.org/sitemap_index.xml`.
+4. Under **IndexNow**, URLs should start appearing after the next publish (the theme pings automatically). Key file: `https://trafigurafoundation.org/8145752a3c514a4beb817aa3b1f06ee8.txt`.
+5. Monthly: note Bing clicks / impressions next to the GSC numbers.
+
+## 4. PageSpeed — one URL per template
+
+Needs a PageSpeed Insights API key (see `SEO/measurement/API-SETUP.md`). Then:
+
+```bash
+export PSI_API_KEY=your-key
+bash SEO/measurement/psi.sh
+```
+
+It tests mobile + desktop for each template and appends to `psi-log.csv`. Quote PSI numbers in client reports. Local Lighthouse with `--throttling-method=devtools` matched PSI on Who We Are (97 / 2.2 s local vs 97 / 2.5 s PSI on 2 Nov 2026), so it is a usable stand-in when the API quota runs out; the older simulated local runs were not.
+
+## Baseline — local Lighthouse, mobile, 2 Nov 2026 (before this month’s fixes)
+
+Devtools throttling (Slow 4G, 4× CPU), Lighthouse 12.
+
+| Template | URL tested | Perf | LCP | Main cause |
+|---|---|---:|---:|---|
+| Our Approach | `/our-approach/` | 86 | 3.2 s | Hero download competes with the 62 KB launch-video poster and Elementor JS |
+| Who We Are (control) | `/who-we-are/` | 97 | 2.2 s | — |
+| News story | `/news/wetlands-a-secret-weapon-against-climate-change/` | 74 | 5.4 s | Hero image lazy-loaded by W3TC (load delay 3.2 s) |
+| Partner story | `/partner-stories/comaco/` | 72 | 5.4 s | Same (load delay 3.1 s) |
+| Area of work | `/area-of-work/thriving-nature/` | 74 | 5.1 s | Same (load delay 2.9 s) |
+| Staff Engagement | `/staff-engagement/` | 61 | 12.8 s | Same (load delay 9.8 s) |
+
+Fixes shipped in the theme on 2 Nov (deploy + W3TC purge needed): heroes eager / `fetchpriority="high"` / `no-lazy` on news, partner, area, Staff Engagement, Contact, Areas of Work, Content Hub and default pages; launch-video poster deferred; CSS bundle minified (−18% gzip). Re-test after deploy and add the after-numbers here.

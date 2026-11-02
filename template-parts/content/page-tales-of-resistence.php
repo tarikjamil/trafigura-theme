@@ -146,7 +146,7 @@ body {
           <div class="hero-image-wrapper is--tales">
             <div class="hero-images is--tales">
               <div class="max--hero">
-                <h1 animation="loading" class="heading--264" data-textarea="tan27e7c061"><?php echo _u('tan27e7c061', 'textarea'); ?></h1>
+                <h1 class="heading--264">Tales of<br>Resilience</h1>
               </div>
             </div>
             <div class="div-block-7"></div>

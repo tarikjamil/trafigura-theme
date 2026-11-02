@@ -292,7 +292,7 @@ Same failure as Who We Are. Oct 2026 PSI: mobile **78**, LCP **5.2s** (the banne
 
 Do not dequeue Elementor CSS on this page — the lower copy is Elementor. `trafigura_defer_elementor_styles()` loads that CSS with `media="print"` so it does not block the hero; do not put it back to a blocking `media="all"`. Do not defer `trafigura-bundle.css`.
 
-The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. With `preload="none"` the browser never learns the video size, so the bare `<video>` collapsed to a 150px black strip (client complaint Oct 2026). The same filter adds `poster` = `assets/images/our-approach-launch-poster.webp`, `width="1280" height="720"` and `class="video-element"` when the source contains `Trafigura-Launch-Video`. Staging CSS adds `aspect-ratio: 16 / 9` to content videos that have no width/height. Verify: the live `<video>` tag has the poster and 1280×720. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
+The launch `<video>` in the page body must keep `preload="none"` (`trafigura_video_preload_none`). The file is ~30 MB and a lab fetch of it fails the connection. With `preload="none"` the browser never learns the video size, so the bare `<video>` collapsed to a 150px black strip (client complaint Oct 2026). The same filter adds `data-poster` = `assets/images/our-approach-launch-poster.webp` (set as `poster` by inline JS near the viewport, §3l), `width="1280" height="720"` and `class="video-element"` when the source contains `Trafigura-Launch-Video`. Staging CSS adds `aspect-ratio: 16 / 9` to content videos that have no width/height. Verify: the live `<video>` tag has `data-poster` and 1280×720. The ClimateWorks link text is rewritten from “Learn more” to “Climate adaptation call to action” on output.
 
 ### 3k. Content Hub category filter — Video option
 
@@ -303,6 +303,30 @@ The Webflow export only has Publication / News / Insight / Field Visit radios in
 ```
 
 `code/content-hub.js` compares the radio value to each card's `.tag-category` text (case-insensitive), so no JS change is needed.
+
+### 3l. SEO / AEO include + eager heroes everywhere (Nov 2026)
+
+**`inc/seo-aeo.php`** (`require_once` at the top of `functions.php`) + **`inc/faq-data.php`**:
+
+- `trafigura_fallback_metadesc()` on `wpseo_metadesc`: news / partner stories with an empty or “Established in 2007…” description get their own intro (excerpt → news `summary` → first paragraph), max 155 chars. `trafigura_yoast_prefer_metadesc()` routes OG/Twitter through it.
+- `trafigura_schema_organization()` on `wpseo_schema_organization`: `@type` Organization + NGO, description, foundingDate 2007, founder Trafigura Group, Geneva address, phone, contactPoint, areaServed, knowsAbout.
+- `trafigura_render_faq( $key )`: visible `<details>` accordions + FAQPage JSON-LD, before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = slug). Do **not** hide FAQ text (`hidden`, `display:none`) — schema must match visible content. Staging CSS `.section.is--faq` / `.faq-*`.
+- `trafigura_robots_txt_for_answer_engines()`: removes `Crawl-delay` (Bing → ChatGPT search / Copilot). Only works on the virtual robots.txt.
+- IndexNow: key `8145752a3c514a4beb817aa3b1f06ee8` at `/{key}.txt`; `trafigura_indexnow_ping()` on publish/update (production host only).
+- `trafigura_link_partners_in_news()` (`the_content`, 99, single news only): first plain-text mention of a partner → its partner story. Map in `trafigura_partner_link_map()`; add new partners there.
+
+**Hero `<img>` eager on every template** — `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`:
+
+- `single-news.php`, `single-partner-stories.php`, `single-area-of-work.php` (featured image, `sizes="(max-width: 1480px) 100vw, 1440px"`)
+- `page-staff-engagement.php` (`i5242135c`), `page-contact.php` (`i43b3d560`), `page-areas-of-work.php` (`i2d1b5cc8`), `page-content-hub.php` (`in6ef5d31b`), `page.php`
+
+Before (local Lighthouse, devtools throttling, 2 Nov 2026 mobile): news / partner LCP 5.4 s, area 5.1 s, Staff Engagement 12.8 s — all lazy-hero load delay.
+
+**No `animation="loading"` on indexed H1s** (Content Hub, Puma, Areas of Work, Contact, Partners Stories, `page.php`, Staff Engagement). Tales H1 hardcoded `Tales of<br>Resilience`.
+
+**Our Approach launch video:** `trafigura_video_preload_none()` now outputs `data-poster` + an inline IntersectionObserver that sets `poster` within 800px of the viewport. Keep width/height 1280×720.
+
+**Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793700000`.
 
 ### 4. Internal linking helpers + templates
 
@@ -373,6 +397,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `page-puma-energy-fund.php` | Slug-bound intro page `/puma-energy-fund/` (no CPT) |
 | `archive.php` / `archive-tales.php` | Redirect leftover CPT archives (never homepage clone) |
 | `functions.php` helpers + dequeue hooks | Cards, links, alts, Yoast OG sync, dequeue, vendor URIs |
+| `inc/seo-aeo.php` + `inc/faq-data.php` | Meta fallback, Organization schema, FAQ blocks, robots, IndexNow, news→partner links |
 | `header.php` rem-root include | Before head partial; `language_attributes()` only (no duplicate `lang`) |
 | `footer.php` `wp_print_scripts('jquery')` | Before GSAP stack |
 
@@ -395,7 +420,9 @@ Copy these from the customized theme into any new Udesly drop:
 15. `/staff-engagement/` = redesign (voices + map); `/staff-engagement-new/` 404s (page deleted, no 301); voices + staff-locations noindex / not in sitemap; no Netlify URL in that footer  
 16. `/puma-energy-fund/` = intro + link to pumaenergyfund.org; no filters/CPT; leftover `/puma-fund-story/` 301s; `page-puma-energy-fund.php` present  
 17. Content Hub filter has the `Video` radio (`categoryFilter-video`) 
-18. Purge W3TC after deploy  
+18. `inc/seo-aeo.php` required; FAQ accordions on Who We Are / Our Approach / Contact / three areas; `/robots.txt` has no `Crawl-delay`; `/8145752a3c514a4beb817aa3b1f06ee8.txt` returns the key 
+19. Hero imgs on news / partner / area / Staff Engagement / Contact / Areas of Work / Content Hub are `no-lazy` + `fetchpriority="high"` (view-source `src` is a real URL, not `data:image/svg+xml`) 
+20. Purge W3TC after deploy  
 
 ## Known anti-patterns (do not reintroduce)
 
@@ -412,4 +439,7 @@ Copy these from the customized theme into any new Udesly drop:
 - Hardcoded `<meta name="twitter:title">` in theme heads (fights Yoast)  
 - `archive.php` rendering `front-page` (duplicate homepage at `/tales/` etc.)  
 - Duplicate `lang="en"` alongside `language_attributes()`  
-- Partner Facebook share URLs with hardcoded `org/%2Fpartner-stories` 
+- Partner Facebook share URLs with hardcoded `org/%2Fpartner-stories`
+- Hidden FAQ / AEO text (`hidden`, `display:none`, off-screen) — use visible collapsed `<details>` instead
+- `loading="lazy"` on any template hero image (W3TC turns it into a 1×1 SVG; LCP waits for JS)
+- Eager `poster=` on below-the-fold videos (downloads during first paint) 

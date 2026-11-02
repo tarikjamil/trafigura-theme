@@ -199,9 +199,9 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160"><?php the_title(); ?></h1>
+                <h1 class="heading-160"><?php the_title(); ?></h1>
               </div>
-            </div><img class="img--absolute" src="<?php echo udesly_get_image()->src ?>" alt="<?php echo udesly_get_image()->alt ?>" sizes="<?php echo udesly_get_image()->sizes ?>" loading="lazy" srcset="<?php echo udesly_get_image()->srcset ?>">
+            </div><img class="img--absolute no-lazy" src="<?php echo udesly_get_image()->src ?>" alt="<?php echo udesly_get_image()->alt ?>" sizes="<?php echo udesly_get_image()->sizes ?>" loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" srcset="<?php echo udesly_get_image()->srcset ?>">
             <div class="hero-overlay"></div>
           </div>
           <div class="w-embed">

@@ -235,7 +235,7 @@ Same lazy-hero failure. Re-apply after sync:
 ```bash
 grep -n 'no-lazy\|02.OUR-APPROACH-800.webp' template-parts/content/page-our-approach.php template-parts/head/page-our-approach.php
 test -f assets/images/02.OUR-APPROACH-800.webp && test -f assets/images/02.OUR-APPROACH-1080.webp && test -f assets/images/02.OUR-APPROACH-1440.webp && test -f assets/images/our-approach-launch-poster.webp && echo OK
-curl -s https://trafigurafoundation.org/our-approach/ | grep -o '<video[^>]*>'   # expect poster + width="1280" height="720"
+curl -s https://trafigurafoundation.org/our-approach/ | grep -o '<video[^>]*>'   # expect data-poster + width="1280" height="720" (poster set by JS near viewport, §3h)
 ```
 
 ---
@@ -252,6 +252,45 @@ The Webflow export only ships Publication / News / Insight / Field Visit radios.
 
 ```bash
 grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
+```
+
+---
+
+## 3h. SEO / AEO include + hero LCP on every template (Nov 2026)
+
+**`inc/seo-aeo.php`** (required at the top of `functions.php`) and **`inc/faq-data.php`** must survive a re-export. They hold:
+
+- `trafigura_fallback_metadesc()` — news / partner stories with no Yoast description (or the 2007 boilerplate) get their own opening paragraph, trimmed to 155 chars. `trafigura_yoast_prefer_metadesc()` in `functions.php` passes OG/Twitter through it too.
+- `trafigura_schema_organization()` — Yoast Organization graph gets `NGO` type, description, `foundingDate` 2007, founder Trafigura Group, Geneva address, phone, `knowsAbout`.
+- `trafigura_render_faq( $key )` — visible `<details>` accordions + matching FAQPage JSON-LD. Called before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = post slug). Copy lives in `inc/faq-data.php`. Never hide FAQ text with `hidden` / `display:none`.
+- `trafigura_robots_txt_for_answer_engines()` — strips `Crawl-delay` from the virtual robots.txt (Bing obeys it; ChatGPT search / Copilot use Bing).
+- IndexNow — key `8145752a3c514a4beb817aa3b1f06ee8`, served at `/{key}.txt`; pings `api.indexnow.org` on publish/update of news, partner stories, areas, pages (production host only).
+- `trafigura_link_partners_in_news()` — first plain-text mention of a portfolio partner in a news story links to its partner story (skips headings, existing links, partners already linked).
+
+**Hero images eager on every template** (W3TC otherwise swaps them for a 1×1 SVG and LCP waits for JS): `single-news.php`, `single-partner-stories.php`, `single-area-of-work.php` (featured image), `page-staff-engagement.php` (`i5242135c`), `page-contact.php` (`i43b3d560`), `page-areas-of-work.php` (`i2d1b5cc8`), `page-content-hub.php` (`in6ef5d31b`), `page.php`. Each hero `<img>` has `class="… no-lazy"`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`. Local Lighthouse before the fix (2 Nov 2026, mobile): news 5.4 s, partner 5.4 s, area 5.1 s, Staff Engagement 12.8 s LCP.
+
+**No `animation="loading"` on H1s** of indexed pages (Content Hub, Puma Energy Fund, Areas of Work, Contact, Partners Stories, default page, Staff Engagement, Tales).
+
+**Tales of Resilience H1** is hardcoded `Tales of<br>Resilience` in `page-tales-of-resistence.php` (editor JSON said `RESISTENCE`).
+
+**Our Approach launch-video poster** is output as `data-poster` and set by a small inline IntersectionObserver script (800px margin) so the 62 KB poster no longer competes with the hero on mobile. Width/height stay, so no black strip.
+
+**CSS bundle is minified** (csso, `--no-restructure`). Rebuild:
+
+```bash
+cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-staging.css > /tmp/bundle-src.css
+npx -y csso-cli@4 /tmp/bundle-src.css --no-restructure -o assets/css/trafigura-bundle.css
+```
+
+Then bump `ver=` in all `template-parts/head/*.php` (currently `1793700000`).
+
+```bash
+grep -n "seo-aeo.php" functions.php
+grep -rn "trafigura_render_faq" template-parts/content/
+grep -n 'fetchpriority="high"' template-parts/content/single-news.php template-parts/content/single-partner-stories.php template-parts/content/single-area-of-work.php template-parts/content/page-staff-engagement.php
+grep -rn '<h1[^>]*animation="loading"' template-parts/content/   # only single-tales / staff-engagement-new may remain
+curl -s https://trafigurafoundation.org/robots.txt | grep -i crawl-delay || echo "no crawl-delay"
+curl -s https://trafigurafoundation.org/8145752a3c514a4beb817aa3b1f06ee8.txt
 ```
 
 ---
@@ -273,6 +312,7 @@ When a new theme is uploaded:
 - [ ] Do not restore `page-staff-engagement-new.php`
 - [ ] Who We Are hero: `no-lazy` + preload + `01.WHO-WE-ARE-800.webp` / `01.WHO-WE-ARE-1080.webp` (§3e)
 - [ ] Content Hub filter: `Video` radio in `#areaFilter` (§3g)
+- [ ] Keep `inc/seo-aeo.php` + `inc/faq-data.php` and the `require_once` in `functions.php`; FAQ calls in four templates; eager heroes on all templates; minified bundle (§3h)
 - [ ] Also follow the fuller checklist in `.cursor/rules/theme-updates.mdc` (fonts, hero, GTM, internal links, etc.)
 
 ---
@@ -345,5 +385,5 @@ See also `.cursor/rules/theme-updates.mdc` §2 / §2b.
 
 ---
 
-**Last Updated:** August 14, 2026  
-**Version:** 1.2
+**Last Updated:** November 2, 2026  
+**Version:** 1.3

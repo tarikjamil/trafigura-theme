@@ -6732,3 +6732,81 @@ html.voice-popup-open {
   color: #d0d0d0 !important;
   transform: none;
 }
+
+/* FAQ accordions (inc/seo-aeo.php trafigura_render_faq) — collapsed, never display:none */
+.section.is--faq {
+  padding-top: 96rem;
+  padding-bottom: 96rem;
+}
+.faq-title {
+  margin-bottom: 32rem;
+  color: var(--color--orange);
+}
+.faq-list {
+  max-width: 960rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.faq-question {
+  position: relative;
+  padding: 24rem 48rem 24rem 0;
+  font-size: 20rem;
+  font-weight: 500;
+  line-height: 1.3;
+  list-style: none;
+  cursor: pointer;
+}
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+.faq-question::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 28rem;
+  font-weight: 400;
+  color: var(--color--orange);
+}
+.faq-item[open] > .faq-question::after {
+  content: "\2013";
+}
+.faq-question:focus-visible {
+  outline: 2px solid var(--color--orange);
+  outline-offset: 4px;
+}
+.faq-answer {
+  max-width: 780rem;
+  padding-bottom: 24rem;
+  font-size: 16rem;
+  line-height: 1.6;
+  color: var(--color--black2);
+}
+.faq-answer p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.faq-answer p + p {
+  margin-top: 12rem;
+}
+.faq-answer a {
+  color: #7563ad;
+  font-weight: 600;
+}
+@media screen and (max-width: 991px) {
+  .section.is--faq {
+    padding-top: 64rem;
+    padding-bottom: 64rem;
+  }
+  .faq-question {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+    font-size: 17rem;
+  }
+  .faq-answer {
+    font-size: 15rem;
+  }
+}

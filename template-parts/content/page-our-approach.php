@@ -380,6 +380,7 @@ body {
             <?php get_template_part('template-parts/query/areas-of-works-sorted-by-post_date') ?>
           </div>
         </section>
+        <?php trafigura_render_faq( 'our-approach' ); ?>
       </main>
       <div class="bg-grey">
         <footer data-wf--footer--variant="base" class="footer">

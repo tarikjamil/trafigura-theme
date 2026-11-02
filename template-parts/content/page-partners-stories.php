@@ -248,7 +248,7 @@ body {
           <div class="hero-image-wrapper"><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->src ?>" class="img--absolute" data-img="i1b9e38d8">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t6c7059be"><?php echo _u('t6c7059be','text'); ?></h1>
+                <h1 class="heading-160" data-text="t6c7059be"><?php echo _u('t6c7059be','text'); ?></h1>
               </div>
             </div>
           </div>

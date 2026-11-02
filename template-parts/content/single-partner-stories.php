@@ -221,7 +221,7 @@ body {
       <main class="main-wrapper">
         <section class="section is--storytemplate-hero is--nopadding">
           <div class="container--1440">
-            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" loading="lazy" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
+            <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute no-lazy" data-no-lazy="1" loading="eager" fetchpriority="high" decoding="sync" sizes="(max-width: 1480px) 100vw, 1440px" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
               <div class="tags-wrapper-absolute">
                 <div class="tag--item">
                   <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>

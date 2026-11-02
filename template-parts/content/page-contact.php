@@ -184,9 +184,9 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t8556e9e">Contact Us</h1>
+                <h1 class="heading-160" data-text="t8556e9e">Contact Us</h1>
               </div>
-            </div><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->src ?>" class="img--absolute" data-img="i43b3d560">
+            </div><img loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->src ?>" class="img--absolute no-lazy" data-img="i43b3d560">
           </div>
           <div class="w-embed">
             <style>
@@ -273,6 +273,7 @@ body {
             </div>
           </div>
         </section>
+        <?php trafigura_render_faq( 'contact' ); ?>
       </main>
       <footer data-wf--footer--variant="base" class="footer">
         <div class="container--footer">

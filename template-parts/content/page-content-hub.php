@@ -225,9 +225,9 @@ background-color:#212121;
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="tn17498f32">Content Hub</h1>
+                <h1 class="heading-160" data-text="tn17498f32">Content Hub</h1>
               </div>
-            </div><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->src ?>" class="img--absolute" data-img="in6ef5d31b">
+            </div><img loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->src ?>" class="img--absolute no-lazy" data-img="in6ef5d31b">
           </div>
           <div class="w-embed">
             <style>

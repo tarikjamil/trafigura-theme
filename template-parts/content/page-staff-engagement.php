@@ -208,9 +208,9 @@ body {
           <div class="hero-image-wrapper">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 animation="loading" class="heading-160" data-text="t3de181bf"><?php echo _u('t3de181bf','text'); ?></h1>
+                <h1 class="heading-160" data-text="t3de181bf"><?php echo _u('t3de181bf','text'); ?></h1>
               </div>
-            </div><img src="<?php echo udesly_get_image(_u('i5242135c', 'img'))->src ?>" loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i5242135c', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i5242135c', 'img'))->alt ?>" class="img--absolute" data-img="i5242135c">
+            </div><img src="<?php echo udesly_get_image(_u('i5242135c', 'img'))->src ?>" loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i5242135c', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i5242135c', 'img'))->alt ?>" class="img--absolute no-lazy" data-img="i5242135c">
           </div>
           <div class="w-embed">
             <style>
