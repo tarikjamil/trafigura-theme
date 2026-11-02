@@ -270,7 +270,7 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 
 **Hero images eager on every template** (W3TC otherwise swaps them for a 1×1 SVG and LCP waits for JS): `single-news.php`, `single-partner-stories.php`, `single-area-of-work.php` (featured image), `page-staff-engagement.php` (`i5242135c`), `page-contact.php` (`i43b3d560`), `page-areas-of-work.php` (`i2d1b5cc8`), `page-content-hub.php` (`in6ef5d31b`), `page.php`. Each hero `<img>` has `class="… no-lazy"`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`. Local Lighthouse before the fix (2 Nov 2026, mobile): news 5.4 s, partner 5.4 s, area 5.1 s, Staff Engagement 12.8 s LCP.
 
-**Staff Engagement film:** `trafigura_video_preload_none()` removes `autoplay` from content videos on the Staff Engagement page (autoplay forces the 8.8 MB MP4 to download during first paint). The IntersectionObserver in `staff-engagement.js` plays it muted once half visible.
+**Staff Engagement film:** `trafigura_video_preload_none()` removes `autoplay` and renames the video `src` to `data-src` on the Staff Engagement page (Chrome still range-requested the 8.8 MB MP4 during first paint with `preload="none"`). `staff-engagement.js` sets `src` and plays it muted once half visible — keep that `data-src` branch in both the minified and `code/unminified/` copies.
 
 **Staff Engagement map data:** `template-parts/query/staff-locations.php` outputs the hidden city photos with `data-src` / `data-srcset` / `data-sizes` only (no `src`, no `loading="eager"`). Otherwise all ~34 photos (1.26 MB) download on page load and mobile LCP is 11 s+.
 

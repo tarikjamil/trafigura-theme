@@ -224,7 +224,7 @@ Public URL: **`/staff-engagement/`** only. The parallel `/staff-engagement-new/`
 - `initPlayOnceVideos()` in `staff-engagement.js` plays `video.video-play-once` once at 50% in view (muted, no loop). The generic play/pause observer must skip `.video-play-once`.
 - CPT `voices-of-impact` (ACF File `video` + Featured Image cards) + CPT `staff-locations` + continent select
 - Queries `voices-of-impacts.php` / `staff-locations.php`: editor key `page-staff-engagement`; order `DESC`; `trafigura_card_image()`
-- `trafigura_video_preload_none()` strips `autoplay` from content videos on `is_page('staff-engagement')` — autoplay overrides `preload="none"` and the 8.8 MB staff film downloaded before the hero painted. `staff-engagement.js` still plays it muted at 50% visibility.
+- `trafigura_video_preload_none()` on `is_page('staff-engagement')`: strips `autoplay` **and moves the content video `src` to `data-src`** — Chrome range-requested the 8.8 MB film during first paint even with `preload="none"`. `staff-engagement.js` (minified + `code/unminified/`) sets `src` from `data-src` and plays muted at 50% visibility (`play()` promise caught). Footer `staff-engagement.js?v=1793720000`.
 - `staff-locations.php` is a hidden (`display:none`) data source: its imgs carry **`data-src` / `data-srcset` / `data-sizes` only, no `src`**. With `src` + `loading="eager"` all 34 photos (~1.26 MB) downloaded on load and pushed mobile LCP to 11.4 s (Nov 2026). `staff-engagement.js` reads `data-*` via `staffImageAttr()` and only loads the selected city’s photo.
 - `archive.php` + `single-staff-locations.php` + `single-voices-of-impact.php`: 301 → `/staff-engagement/`
 - Yoast: both CPTs **noindex** + **sitemap-excluded** (`trafigura_noindex_post_types()`)

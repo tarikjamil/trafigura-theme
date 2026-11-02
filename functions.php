@@ -430,14 +430,17 @@
             }
             return '<video' . $attrs . '>' . $m[2] . '</video>';
         }, $html );
-        // autoplay overrides preload="none". On Staff Engagement the 8.8 MB film
-        // downloaded before the hero painted; staff-engagement.js plays muted
-        // videos once 50% visible, so autoplay is not needed there.
-        $strip_autoplay = is_page( 'staff-engagement' );
-        $html = preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) use ( $strip_autoplay ) {
+        // On Staff Engagement Chrome still range-requested the 8.8 MB film during
+        // first paint (preload="none" is only a hint), so src moves to data-src.
+        // staff-engagement.js sets src and plays (muted) once 50% visible.
+        $defer_src = is_page( 'staff-engagement' );
+        $html = preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) use ( $defer_src ) {
             $attrs = $m[1];
-            if ( $strip_autoplay ) {
+            if ( $defer_src ) {
                 $attrs = preg_replace( '/\sautoplay(\s*=\s*([\'"]).*?\2)?/i', '', $attrs );
+                if ( preg_match( '/\ssrc\s*=\s*([\'"])[^\'"]+\.(mp4|webm)\1/i', $attrs ) ) {
+                    $attrs = preg_replace( '/\ssrc\s*=/i', ' data-src=', $attrs, 1 );
+                }
             }
             if ( preg_match( '/\bpreload\s*=/i', $attrs ) ) {
                 return '<video' . preg_replace( '/\bpreload\s*=\s*([\'"]).*?\1/i', 'preload="none"', $attrs, 1 ) . '>';

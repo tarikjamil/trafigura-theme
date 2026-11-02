@@ -3,7 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.play();
+          var video = entry.target;
+          if (video.hasAttribute("data-src")) {
+            video.src = video.getAttribute("data-src");
+            video.removeAttribute("data-src");
+          }
+          var playing = video.play();
+          if (playing && playing.catch) playing.catch(function () {});
         } else {
           entry.target.pause();
         }
