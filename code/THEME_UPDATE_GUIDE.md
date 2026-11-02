@@ -275,6 +275,8 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 
 **Our Approach launch-video poster** is output as `data-poster` and set by a small inline IntersectionObserver script (800px margin) so the 62 KB poster no longer competes with the hero on mobile. Width/height stay, so no black strip.
 
+**Partner cards** (`template-parts/query/partner-stories-*.php`, four files): the country and status tags carry screen-reader labels — `<span class="sr-only">Country: </span>` / `<span class="sr-only">Status: </span>` plus a trailing `<span class="sr-only">.</span>`. Without them, AI tools read “Africa New Catalyst Fund” as the partner name. `.sr-only` lives in staging CSS.
+
 **CSS bundle is minified** (csso, `--no-restructure`). Rebuild:
 
 ```bash
@@ -282,7 +284,7 @@ cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-stag
 npx -y csso-cli@4 /tmp/bundle-src.css --no-restructure -o assets/css/trafigura-bundle.css
 ```
 
-Then bump `ver=` in all `template-parts/head/*.php` (currently `1793710000`).
+Then bump `ver=` in all `template-parts/head/*.php` (currently `1793720000`).
 
 ```bash
 grep -n "seo-aeo.php" functions.php

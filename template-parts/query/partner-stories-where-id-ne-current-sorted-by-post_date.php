@@ -39,10 +39,10 @@ $args = apply_filters('udesly/posts/partner-stories-where-id-ne-current-sorted-b
                     <div class="case-image-wrapper"><img src="<?php echo esc_url( $card_img->src ); ?>" loading="lazy" alt="<?php echo esc_attr( $card_img->alt ); ?>" class="img--absolute" data-img="i317f733b" srcset="<?php echo esc_attr( $card_img->srcset ); ?>" sizes="<?php echo esc_attr( $card_img->sizes ); ?>">
                       <div class="tags-wrapper">
                         <div class="tag-category-1">
-                          <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
+                          <div class=""><span class="sr-only">Country: </span><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?><span class="sr-only">.</span></div>
                         </div>
                         <div class="ongoing">
-                          <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?></div>
+                          <div class=""><span class="sr-only">Status: </span><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?><span class="sr-only">.</span></div>
                         </div>
                       </div>
                     </div>

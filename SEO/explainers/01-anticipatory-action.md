@@ -39,7 +39,9 @@ Anticipatory action and rapid response work best together: plan for what can be 
 
 ## How does the Trafigura Foundation support anticipatory action?
 
-Anticipatory action is part of the Foundation’s [Prepared communities](/area-of-work/prepared-communities/) area of work, which funds disaster risk reduction (risk assessments, community-based preparedness, early warning systems) and disaster response. The Foundation supports both Start Ready and the Start Fund.
+Anticipatory action is part of the Foundation’s [Prepared communities](/area-of-work/prepared-communities/) area of work, which funds disaster risk reduction (risk assessments, community-based preparedness, early warning systems) and disaster response. The Foundation supports Start Ready, the Start Fund and the International Rescue Committee’s anticipatory action work.
+
+Through its 2023–2026 partnership with the [International Rescue Committee (IRC)](/partner-stories/the-international-rescue-committee-irc/), the Foundation is supporting the creation of the IRC’s Anticipatory Action Fund, which finances risk-reducing activities before crises occur. The partnership also supports contingency planning and analysis for future responses in Central America (Guatemala) and East Africa (Kenya, Somalia, Ethiopia). **[client to confirm whether the fund has already been used, e.g. for the 2024 Guatemala flood / Somalia drought responses that AI tools now attribute to it]**
 
 With support from the Foundation and other donors, Start Ready aims to protect more than 1 million people in 11 countries in Africa, Asia and Latin America against predictable climate disasters. **[client to confirm: the Zimbabwe news story says “more than 800,000 people across 10 countries”; the Start Ready partner page says “more than 1 million people in 11 countries”. Use one figure on both pages.]**
 
@@ -52,7 +54,7 @@ Disaster response starts after a disaster hits. Anticipatory action starts when 
 Recurring, predictable ones: floods, droughts, heatwaves and cyclones.
 
 **Who funds anticipatory action?**
-Humanitarian donors, governments and philanthropic foundations, often through pooled funds such as Start Ready. The Trafigura Foundation is one of Start Ready’s funders.
+Humanitarian donors, governments and philanthropic foundations, often through pooled funds such as Start Ready. The Trafigura Foundation funds Start Ready and the IRC’s Anticipatory Action Fund.
 
 ---
 

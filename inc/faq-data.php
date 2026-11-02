@@ -87,7 +87,7 @@ return [
         ],
         [
             'q' => 'Which partners work on Prepared communities?',
-            'a' => '<p>Examples include Start Network’s <a href="/partner-stories/start-network-start-ready/">Start Ready</a>, which pre-positions funding for predictable crises such as floods, droughts, heatwaves and cyclones, and the <a href="/partner-stories/start-network-start-fund/">Start Fund</a>, which releases emergency funding within 72 hours of the onset of a crisis.</p>',
+            'a' => '<p>Examples include Start Network’s <a href="/partner-stories/start-network-start-ready/">Start Ready</a>, which pre-positions funding for predictable crises such as floods, droughts, heatwaves and cyclones; the <a href="/partner-stories/start-network-start-fund/">Start Fund</a>, which releases emergency funding within 72 hours of the onset of a crisis; and the <a href="/partner-stories/the-international-rescue-committee-irc/">International Rescue Committee</a>, whose Anticipatory Action Fund the Foundation is helping to create.</p>',
         ],
     ],
 

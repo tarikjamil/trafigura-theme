@@ -303,6 +303,7 @@ function trafigura_partner_link_map() {
         'Alliance for Responsible Mining'      => 'alliance-for-responsible-mining-arm',
         'Climate Smart Forest Economy Program' => 'climate-smart-forest-economy-program',
         'Natural Climate Solutions Accelerator' => 'the-nature-conservancy-natural-climate-solutions-accelerator',
+        'International Rescue Committee'       => 'the-international-rescue-committee-irc',
         'Partnership for Central America'      => 'partnership-for-central-america-pca',
         'Wildlife Conservation Society'        => 'wildlife-conservation-society-wcs',
         'Africa Forest Carbon Catalyst'        => 'the-nature-conservancy-2',
