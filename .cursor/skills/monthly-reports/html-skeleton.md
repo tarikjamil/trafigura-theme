@@ -4,7 +4,7 @@ Start from last month’s `YYYY-MM-client.md`. Preserve classes; `pdf-style.css`
 
 Cover + thanks images (relative to `SEO/monthly-reports/`):
 
-- `assets/cover-hero.jpg`
+- Cover photo: `assets/covers/<file>` — **different every month**, see `assets/covers/README.md`
 - `assets/logo-trafigura-foundation-white.png`
 - `assets/logo-une-white.png`
 
@@ -14,7 +14,8 @@ Cover + thanks images (relative to `SEO/monthly-reports/`):
 <span class="positive">+1.2%</span>
 <span class="negative">−5.1%</span>
 <span class="neutral">Stable</span>
-<span class="positive">Improved</span>
+<span class="positive">−4.6% (better)</span>   <!-- average position -->
+<span class="negative">+3.1% (worse)</span>    <!-- average position -->
 ```
 
 ## Blocks

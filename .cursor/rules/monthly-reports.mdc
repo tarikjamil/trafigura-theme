@@ -13,5 +13,6 @@ Follow `.cursor/skills/monthly-reports/SKILL.md`. Primary output is `SEO/monthly
 - Do not invent GSC/GA4/AEO numbers. No Looker URL in client files.
 - Sitemap: `bash SEO/sitemap-baseline/compare.sh YYYY-MM`
 - Internal asks go in `YYYY-MM-todos.md`, not the PDF.
-- Position: lower is better → client label “Improved”.
+- Position: lower is better → show the number, e.g. green `−4.6% (better)`, red `+3.1% (worse)`. Not a bare “Improved”.
+- Cover photo: a different one every month from `SEO/monthly-reports/assets/covers/` (log in its `README.md`).
 - Build PDF with `npx md-to-pdf` + `pdf-style.css` (see skill / `SEO/monthly-reports/README.md`).

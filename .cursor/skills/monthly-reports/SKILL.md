@@ -41,7 +41,7 @@ If GSC/GA4 numbers are missing, still draft Work / Plan / AEO / sitemap; mark Pe
 | `SEO/monthly-reports/YYYY-MM-todos.md` | Internal follow-ups **not** in the PDF |
 | `SEO/sitemap-baseline/diffs/YYYY-MM.md` | Sitemap diff |
 
-Copy last month’s `*-client.md` as the HTML shell, then replace period, numbers, and narrative. Keep cover/thanks assets (`assets/cover-hero.jpg`, logos).
+Copy last month’s `*-client.md` as the HTML shell, then replace period, numbers, and narrative. Keep the logos. **Use a different cover photo every month**: pick an unused one from `assets/covers/` (log in `assets/covers/README.md`), or ask the user for a new one if the pool is used up, and record the month in the log.
 
 **Never** put the Looker dashboard URL in client files.
 
@@ -67,7 +67,7 @@ Copy and track:
 ### 1. Numbers
 
 - Date range = full previous calendar month, compared **MoM** and **YoY (same month last year)**.
-- Position: **lower is better**. In client tables write “Improved” / “Softer”, not a red negative % when the number dropped.
+- Position: **lower is better**. In client tables show the actual change with a direction word, coloured by meaning: `−4.6% (better)` in green when the number dropped, `+3.1% (worse)` in red when it rose. Label the row “Average position (lower is better)”. Never a bare “Improved” / “Softer”.
 - Use unicode minus `−` in deltas.
 - Client labels: see [voice.md](voice.md).
 - Skip country/device/Semrush unless something material moved.

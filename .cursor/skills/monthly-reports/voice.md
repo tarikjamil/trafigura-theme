@@ -17,7 +17,7 @@ Audience: Trafigura Foundation staff forwarding a PDF internally. Not SEO specia
 | Clicks | Clicks from Google |
 | Impressions | Times shown in search |
 | CTR | Click-through rate (then CTR is OK) |
-| Avg. position | Average position (lower = better → “Improved”) |
+| Avg. position | Average position (lower is better) |
 | Sessions | Total visits (sessions) |
 | Organic sessions | Visits from Google search |
 | Engagement rate | Engagement rate |
@@ -41,7 +41,7 @@ Example (bad): “Excellent SEO progress this month” above −40% clicks.
 
 - HTML: `<span class="positive">`, `negative`, `neutral`.
 - Unicode minus: `−5.1%`.
-- Position dropped from 8.9 → 8.3 → **Improved** (green), never “−6.7%” in red.
+- Position dropped from 8.9 → 8.3 → `−6.7% (better)` in green. Rose → `+x% (worse)` in red. Always show the number; never a bare “Improved”, never a red minus for a better position.
 - Flat (~±1%): `Stable` / `neutral`.
 
 ## Recurring facts (don’t contradict)
