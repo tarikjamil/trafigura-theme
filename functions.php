@@ -430,10 +430,17 @@
             }
             return '<video' . $attrs . '>' . $m[2] . '</video>';
         }, $html );
-        $html = preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) {
+        // autoplay overrides preload="none". On Staff Engagement the 8.8 MB film
+        // downloaded before the hero painted; staff-engagement.js plays muted
+        // videos once 50% visible, so autoplay is not needed there.
+        $strip_autoplay = is_page( 'staff-engagement' );
+        $html = preg_replace_callback( '/<video\b([^>]*)>/i', static function ( $m ) use ( $strip_autoplay ) {
             $attrs = $m[1];
+            if ( $strip_autoplay ) {
+                $attrs = preg_replace( '/\sautoplay(\s*=\s*([\'"]).*?\2)?/i', '', $attrs );
+            }
             if ( preg_match( '/\bpreload\s*=/i', $attrs ) ) {
-                return preg_replace( '/\bpreload\s*=\s*([\'"]).*?\1/i', 'preload="none"', $m[0], 1 );
+                return '<video' . preg_replace( '/\bpreload\s*=\s*([\'"]).*?\1/i', 'preload="none"', $attrs, 1 ) . '>';
             }
             return '<video preload="none"' . $attrs . '>';
         }, $html );

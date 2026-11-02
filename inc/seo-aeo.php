@@ -294,7 +294,9 @@ add_action( 'transition_post_status', 'trafigura_indexnow_ping', 20, 3 );
 /* -------------------------------------------------------------------------
  * Old staging host. 48 links in 18 news stories (Nov 2026) still point to
  * trafigurafoundation.une.ch, which no longer resolves. Rewrite on output
- * until the database is search-replaced (Better Search Replace, wp_posts).
+ * until Elementor → Tools → Replace URL has been run (the links live in
+ * _elementor_data, so a wp_posts search-replace does not reach them).
+ * Priority 20: Elementor swaps in its builder HTML at 9.
  * ---------------------------------------------------------------------- */
 
 function trafigura_rewrite_staging_host( $content ) {
@@ -303,7 +305,7 @@ function trafigura_rewrite_staging_host( $content ) {
     }
     return preg_replace( '#https?://trafigurafoundation\.une\.ch/?#i', trailingslashit( home_url() ), $content );
 }
-add_filter( 'the_content', 'trafigura_rewrite_staging_host', 5 );
+add_filter( 'the_content', 'trafigura_rewrite_staging_host', 20 );
 
 /* -------------------------------------------------------------------------
  * News → partner story links. First plain-text mention of a portfolio

@@ -224,6 +224,7 @@ Public URL: **`/staff-engagement/`** only. The parallel `/staff-engagement-new/`
 - `initPlayOnceVideos()` in `staff-engagement.js` plays `video.video-play-once` once at 50% in view (muted, no loop). The generic play/pause observer must skip `.video-play-once`.
 - CPT `voices-of-impact` (ACF File `video` + Featured Image cards) + CPT `staff-locations` + continent select
 - Queries `voices-of-impacts.php` / `staff-locations.php`: editor key `page-staff-engagement`; order `DESC`; `trafigura_card_image()`
+- `trafigura_video_preload_none()` strips `autoplay` from content videos on `is_page('staff-engagement')` — autoplay overrides `preload="none"` and the 8.8 MB staff film downloaded before the hero painted. `staff-engagement.js` still plays it muted at 50% visibility.
 - `staff-locations.php` is a hidden (`display:none`) data source: its imgs carry **`data-src` / `data-srcset` / `data-sizes` only, no `src`**. With `src` + `loading="eager"` all 34 photos (~1.26 MB) downloaded on load and pushed mobile LCP to 11.4 s (Nov 2026). `staff-engagement.js` reads `data-*` via `staffImageAttr()` and only loads the selected city’s photo.
 - `archive.php` + `single-staff-locations.php` + `single-voices-of-impact.php`: 301 → `/staff-engagement/`
 - Yoast: both CPTs **noindex** + **sitemap-excluded** (`trafigura_noindex_post_types()`)
@@ -314,7 +315,7 @@ The Webflow export only has Publication / News / Insight / Field Visit radios in
 - `trafigura_render_faq( $key )`: visible `<details>` accordions + FAQPage JSON-LD, before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = slug). Do **not** hide FAQ text (`hidden`, `display:none`) — schema must match visible content. Staging CSS `.section.is--faq` / `.faq-*` (centred 880rem block; selectors scoped under `.section.is--faq` because the body embed `[class*="heading-"]{margin-bottom:0}` loads after the bundle). Answers are wrapped in `.faq-answer > .faq-answer-inner`; `trafigura_faq_animation_script()` eases open/close with WAAPI (`cubic-bezier(0.38, 0.005, 0.215, 1)`, 450/350 ms) and must start the open animation from 0 (closed `<details>` still reports full height in Chrome).
 - `trafigura_robots_txt_for_answer_engines()`: removes `Crawl-delay` (Bing → ChatGPT search / Copilot). Only works on the virtual robots.txt.
 - IndexNow: key `8145752a3c514a4beb817aa3b1f06ee8` at `/{key}.txt`; `trafigura_indexnow_ping()` on publish/update (production host only).
-- `trafigura_rewrite_staging_host()` (`the_content`, 5): rewrites dead `trafigurafoundation.une.ch` links (48 in 18 news posts, Nov 2026 — list in `SEO/broken-staging-links-une-ch.csv`) to the live host. Keep until the DB is search-replaced.
+- `trafigura_rewrite_staging_host()` (`the_content`, **20** — after Elementor’s builder swap at 9): rewrites dead `trafigurafoundation.une.ch` links (48 in 18 news posts, Nov 2026 — list in `SEO/broken-staging-links-une-ch.csv`) to the live host. Keep until the DB is search-replaced.
 - `trafigura_yoast_prefer_metadesc()` also falls back to the story intro when the OG/Twitter description is the 2007 boilerplate.
 - `trafigura_link_partners_in_news()` (`the_content`, 99, single news only): first plain-text mention of a partner → its partner story. Map in `trafigura_partner_link_map()`; add new partners there.
 
