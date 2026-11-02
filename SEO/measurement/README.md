@@ -80,4 +80,17 @@ Devtools throttling (Slow 4G, 4× CPU), Lighthouse 12.
 | Area of work | `/area-of-work/thriving-nature/` | 74 | 5.1 s | Same (load delay 2.9 s) |
 | Staff Engagement | `/staff-engagement/` | 61 | 12.8 s | Same (load delay 9.8 s) |
 
-Fixes shipped in the theme on 2 Nov (deploy + W3TC purge needed): heroes eager / `fetchpriority="high"` / `no-lazy` on news, partner, area, Staff Engagement, Contact, Areas of Work, Content Hub and default pages; launch-video poster deferred; CSS bundle minified (−18% gzip). Re-test after deploy and add the after-numbers here.
+Fixes shipped in the theme on 2 Nov (deploy + W3TC purge needed): heroes eager / `fetchpriority="high"` / `no-lazy` on news, partner, area, Staff Engagement, Contact, Areas of Work, Content Hub and default pages; launch-video poster deferred; CSS bundle minified (−18% gzip).
+
+## After deploy — local Lighthouse, mobile, 2 Nov 2026 (13:55)
+
+| Template | Perf before → after | LCP before → after | LCP load delay | What still limits LCP |
+|---|---|---|---:|---|
+| Our Approach | 86 → **90** | 3.2 → **3.0 s** | 0.4 s | 36 KB hero download competing with Elementor JS |
+| Who We Are | 97 → **97** | 2.2 → **2.0 s** | 0.4 s | — |
+| News story | 74 → **77** | 5.4 → **4.7 s** | 3.2 → **0.4 s** | 88 KB JPEG hero (768w) — serve WebP |
+| Partner story | 72 → **77** | 5.4 → **4.6 s** | 3.1 → **0.4 s** | 88 KB JPEG hero — serve WebP |
+| Area of work | 74 → **80** | 5.1 → **4.3 s** | 2.9 → **0.4 s** | 85 KB JPEG hero — serve WebP |
+| Staff Engagement | 61 → 58 | 12.8 → 11.4 s | 9.8 → **0.5 s** | 34 hidden map photos (1.26 MB) downloading eagerly — fixed in a second commit (`data-src`), re-test after deploy |
+
+Best practices went to 100 on five of six pages.

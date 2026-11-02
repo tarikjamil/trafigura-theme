@@ -265,9 +265,12 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 - `trafigura_render_faq( $key )` — visible `<details>` accordions + matching FAQPage JSON-LD. Called before `</main>` in `page-who-we-are.php`, `page-our-approach.php`, `page-contact.php`, `single-area-of-work.php` (key = post slug). Copy lives in `inc/faq-data.php`. Never hide FAQ text with `hidden` / `display:none`. Block is centred (880rem); CSS is scoped under `.section.is--faq` so the page’s `[class*="heading-"]` reset can’t remove the title spacing. `trafigura_faq_animation_script()` eases open/close (site “smooth” curve); the “+” rotates to “×”.
 - `trafigura_robots_txt_for_answer_engines()` — strips `Crawl-delay` from the virtual robots.txt (Bing obeys it; ChatGPT search / Copilot use Bing).
 - IndexNow — key `8145752a3c514a4beb817aa3b1f06ee8`, served at `/{key}.txt`; pings `api.indexnow.org` on publish/update of news, partner stories, areas, pages (production host only).
+- `trafigura_rewrite_staging_host()` — rewrites dead `trafigurafoundation.une.ch` links in post content to the live domain (48 links / 18 news posts in Nov 2026, see `SEO/broken-staging-links-une-ch.csv`). Remove only after a database search-replace.
 - `trafigura_link_partners_in_news()` — first plain-text mention of a portfolio partner in a news story links to its partner story (skips headings, existing links, partners already linked).
 
 **Hero images eager on every template** (W3TC otherwise swaps them for a 1×1 SVG and LCP waits for JS): `single-news.php`, `single-partner-stories.php`, `single-area-of-work.php` (featured image), `page-staff-engagement.php` (`i5242135c`), `page-contact.php` (`i43b3d560`), `page-areas-of-work.php` (`i2d1b5cc8`), `page-content-hub.php` (`in6ef5d31b`), `page.php`. Each hero `<img>` has `class="… no-lazy"`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`. Local Lighthouse before the fix (2 Nov 2026, mobile): news 5.4 s, partner 5.4 s, area 5.1 s, Staff Engagement 12.8 s LCP.
+
+**Staff Engagement map data:** `template-parts/query/staff-locations.php` outputs the hidden city photos with `data-src` / `data-srcset` / `data-sizes` only (no `src`, no `loading="eager"`). Otherwise all ~34 photos (1.26 MB) download on page load and mobile LCP is 11 s+.
 
 **No `animation="loading"` on H1s** of indexed pages (Content Hub, Puma Energy Fund, Areas of Work, Contact, Partners Stories, default page, Staff Engagement, Tales).
 

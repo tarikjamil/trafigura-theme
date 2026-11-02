@@ -292,6 +292,20 @@ function trafigura_indexnow_ping( $new_status, $old_status, $post ) {
 add_action( 'transition_post_status', 'trafigura_indexnow_ping', 20, 3 );
 
 /* -------------------------------------------------------------------------
+ * Old staging host. 48 links in 18 news stories (Nov 2026) still point to
+ * trafigurafoundation.une.ch, which no longer resolves. Rewrite on output
+ * until the database is search-replaced (Better Search Replace, wp_posts).
+ * ---------------------------------------------------------------------- */
+
+function trafigura_rewrite_staging_host( $content ) {
+    if ( ! is_string( $content ) || stripos( $content, '.une.ch' ) === false ) {
+        return $content;
+    }
+    return preg_replace( '#https?://trafigurafoundation\.une\.ch/?#i', trailingslashit( home_url() ), $content );
+}
+add_filter( 'the_content', 'trafigura_rewrite_staging_host', 5 );
+
+/* -------------------------------------------------------------------------
  * News → partner story links. First plain-text mention of a portfolio
  * partner in a news story links to its partner story (once per partner,
  * skipped when the story already links there, never inside links/headings).

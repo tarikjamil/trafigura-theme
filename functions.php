@@ -559,13 +559,13 @@
         }
         try {
             $meta = YoastSEO()->meta->for_current_page();
-            if ( $meta && ! empty( $meta->description ) ) {
-                return trafigura_fallback_metadesc( $meta->description );
+            if ( $meta && ! empty( $meta->description ) && ! trafigura_is_boilerplate_metadesc( $meta->description ) ) {
+                return $meta->description;
             }
         } catch ( Throwable $e ) {
             // Keep original.
         }
-        return $desc;
+        return trafigura_fallback_metadesc( $desc );
     }
     add_filter( 'wpseo_opengraph_desc', 'trafigura_yoast_prefer_metadesc', 20 );
     add_filter( 'wpseo_twitter_description', 'trafigura_yoast_prefer_metadesc', 20 );
