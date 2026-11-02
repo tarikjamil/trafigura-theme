@@ -2,18 +2,18 @@
 
 **Purpose:** track client-side content edits (new / removed / slug-changed URLs) by comparing the live Yoast sitemap to the last saved snapshot.
 
-**Baseline date:** 2 Sep 2026  
+**Baseline date:** 2 Nov 2026  
 **Source:** https://trafigurafoundation.org/sitemap_index.xml
 
 ## Current counts (baseline)
 
 | Sitemap | URLs |
 |---|---:|
-| page | 8 |
+| page | 9 |
 | area-of-work | 3 |
-| news | 62 |
-| partner-stories | 41 |
-| **Total** | **114** |
+| news | 68 |
+| partner-stories | 43 |
+| **Total** | **123** |
 
 ## Files
 

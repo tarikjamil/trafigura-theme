@@ -1,5 +1,23 @@
 # Sitemap changelog
 
+## 2026-11-02 — October close (baseline updated)
+
+**Tracked sitemaps:** page 9 · areas 3 · news **68** · partners **43** · **total 123** (was 119 on 2 Oct, 114 in the 2 Sep baseline).
+
+### Added
+- `/news/our-partner-forum-at-new-york-climate-week/` (5 Oct) — generic 2007 description
+- `/news/new-impact-investments-for-climate-resilience-in-africa-and-island-states/` (15 Oct) — generic 2007 description
+- `/partner-stories/outrigger/` (15 Oct) — generic 2007 description
+- `/partner-stories/catalyst-fund/` (19 Oct) — generic 2007 description
+
+### Edited
+- `/our-approach/` — 2 Oct
+- Six partner stories — 15 Oct (Blue Catalyst Fund, Instituto Juruá, Saha Global, Sumatoria, TNC NCS Accelerator, Water For People)
+
+No removals. Only additions vs the 2 Sep baseline, so `all-urls.csv`, the per-type CSVs and `summary.json` were refreshed to the live 123 URLs. Full notes: `diffs/2026-10.md`.
+
+---
+
 ## 2026-10-02 — September close (vs 2 Sep baseline)
 
 **Tracked sitemaps:** page **9** · areas 3 · news **66** · partners 41 · **total 119** (was 114).

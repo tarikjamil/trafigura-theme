@@ -1,11 +1,11 @@
 {
-  "baseline_date": "2026-09-02",
+  "baseline_date": "2026-11-02",
   "source": "https://trafigurafoundation.org/sitemap_index.xml",
   "counts": {
-    "page": 8,
+    "page": 9,
     "area-of-work": 3,
-    "news": 62,
-    "partner-stories": 41
+    "news": 68,
+    "partner-stories": 43
   },
-  "total": 114
+  "total": 123
 }

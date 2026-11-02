@@ -143,7 +143,7 @@ Without GSC/GA4, Work / Plan / Risks / AEO ship-log can still be drafted; Perfor
 
 Each month, ask: *“Recheck the sitemap for [month]”*.
 
-- **Baseline:** `SEO/sitemap-baseline/all-urls.csv` (114 URLs, saved 2 Sep 2026)
+- **Baseline:** `SEO/sitemap-baseline/all-urls.csv` (123 URLs, updated 2 Nov 2026)
 - **Diff output:** `SEO/sitemap-baseline/diffs/YYYY-MM.md`
 - Agent flags **added / removed / edited** URLs and adds a **Sitemap changes** section to the monthly report
 - After confirmed changes, baseline CSVs get updated for the next month
