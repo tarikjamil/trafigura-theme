@@ -85,15 +85,15 @@ This reduces confusion when AI merges duplicate partner URLs.
 
 ## 3. Technical AEO checklist
 
-- [ ] `llms.txt` live + linked from robots.txt or footer (optional)
-- [ ] Organization / NGO schema accurate (logo, description, sameAs, address)
+- [x] `llms.txt` live + linked from robots.txt (theme `trafigura_serve_llms_txt`, Nov 2026)
+- [x] Organization / NGO schema accurate (logo, description, sameAs, address)
 - [ ] Article/NewsArticle on news posts
-- [ ] FAQPage only where FAQs are visible
+- [x] FAQPage only where FAQs are visible (+ Group vs Foundation FAQ; anticipatory action)
 - [ ] Breadcrumbs on all deep URLs
 - [ ] HTML summaries for key PDFs (strategy + annual reports)
-- [ ] Open Graph / social titles fixed (same quality as SEO titles)
-- [ ] No conflicting duplicate partner/news entities without canonical
-- [ ] Fast LCP — answer engines still use crawled HTML; heavy JS hurts extractability
+- [x] Open Graph / social titles fixed (same quality as SEO titles)
+- [x] Partner entity blurb + “New partner” status label (reduces name merges)
+- [x] Fast LCP on hubs — answer engines still use crawled HTML; heavy JS hurts extractability
 
 ---
 

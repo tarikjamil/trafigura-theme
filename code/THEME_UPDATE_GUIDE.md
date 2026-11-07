@@ -292,6 +292,13 @@ ls assets/images/{staff-engagement,puma-energy-fund}-hero-{800,1080,1440}.webp
 grep -n 'CONTACT-US-800\|CONTENT-HUB-800\|no-lazy' template-parts/content/page-contact.php template-parts/content/page-partners-stories.php
 ```
 
+**AEO entity clarity:** `/llms.txt` (served from `inc/seo-aeo.php`, linked in `robots.txt`); Who We Are `trafigura_render_entity_facts()`; partner singles `trafigura_render_partner_entity_summary()` + Country/Status `sr-only` on hero tags; FAQ “same as Trafigura Group?” + anticipatory action. Do not invent budget/partner-count KPIs in these blocks.
+
+```bash
+curl -sI https://trafigurafoundation.org/llms.txt | head -5
+grep -n 'trafigura_render_entity_facts\|trafigura_render_partner_entity_summary\|llms.txt' inc/seo-aeo.php template-parts/content/page-who-we-are.php template-parts/content/single-partner-stories.php
+```
+
 **CSS bundle is minified** (csso, `--no-restructure`). Rebuild:
 
 ```bash
@@ -299,7 +306,7 @@ cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-stag
 npx -y csso-cli@4 /tmp/bundle-src.css --no-restructure -o assets/css/trafigura-bundle.css
 ```
 
-Then bump `ver=` in all `template-parts/head/*.php` (currently `1793740000`).
+Then bump `ver=` in all `template-parts/head/*.php` (currently `1793760000`).
 
 ```bash
 grep -n "seo-aeo.php" functions.php

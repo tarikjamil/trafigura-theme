@@ -50,6 +50,15 @@ All pages **90–100** Perf. LCP ≤ 0.9s. Home 90 (CLS-free). Puma CLS 0.10 on 
 
 Full sitemap (~123 URLs). Remaining news/partner singles share the same templates as the four samples above. Tales CPT / staff-locations are noindex redirects — skipped.
 
-## Fixes shipped in theme (pending deploy + W3TC purge)
+## Post-deploy recheck (7 Nov 2026, same lab settings)
 
-Hardcoded 800/1080/1440 WebP heroes + head preload + critical CSS for Contact, Content Hub, Areas hub, Partners Stories, Staff Engagement, Puma Energy Fund. Partners/Puma also flipped from `loading="lazy"` (W3TC 1×1 SVG) to eager `no-lazy`. Re-run Lighthouse after deploy to confirm.
+| Page | Perf before → after | LCP before → after |
+|---|---|---|
+| Contact | 73 → **93** | 6.5s → **2.6s** |
+| Content Hub | 72 → **94** | 6.3s → **2.5s** |
+| Areas of Work | 76 → **95** | 5.2s → **2.4s** |
+| Partners Stories | 80 → **96** | 4.4s → **2.3s** |
+| Puma Energy Fund | 83 → **94** | 4.0s → **2.5s** |
+| Staff Engagement | 73 → **83** | 4.9s → **3.6s** |
+
+View-source confirmed real WebP `src` + 800 preload on all six (no W3TC SVG). Staff still heavier (voices/map JS + larger hero photo).

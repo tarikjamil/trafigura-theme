@@ -28,6 +28,10 @@ return [
             'q' => 'Where is the Trafigura Foundation based?',
             'a' => '<p>The Foundation is based in Geneva, Switzerland, at 1, rue de Jargonnant, 1207 Geneva. See <a href="/contact/">Contact Us</a> for ways to get in touch.</p>',
         ],
+        [
+            'q' => 'Is the Trafigura Foundation the same as Trafigura Group?',
+            'a' => '<p>No. Trafigura Group funds the Foundation, but the Foundation is an independently managed Swiss charity. Its Board makes funding decisions guided by philanthropic motivations, separate from the Group’s commercial trading business. Read more on <a href="/who-we-are/">Who We Are</a>.</p>',
+        ],
     ],
 
     'our-approach' => [
@@ -54,6 +58,10 @@ return [
         [
             'q' => 'How long do the Foundation’s partnerships last?',
             'a' => '<p>Partnership cycles span several years. The Foundation invests in organisations and coalitions with ambitious goals and supports their initiatives from inception to maturity.</p>',
+        ],
+        [
+            'q' => 'What is anticipatory action, and how does the Foundation support it?',
+            'a' => '<p>Anticipatory action releases funding before a predictable crisis peaks, so communities can protect livelihoods and reduce losses. Through <a href="/area-of-work/prepared-communities/">Prepared communities</a>, the Foundation supports Start Network’s <a href="/partner-stories/start-network-start-ready/">Start Ready</a> (pre-positioned finance for floods, droughts, heatwaves and cyclones) and is helping create the <a href="/partner-stories/the-international-rescue-committee-irc/">International Rescue Committee</a> Anticipatory Action Fund.</p>',
         ],
     ],
 
@@ -88,6 +96,10 @@ return [
         [
             'q' => 'Which partners work on Prepared communities?',
             'a' => '<p>Examples include Start Network’s <a href="/partner-stories/start-network-start-ready/">Start Ready</a>, which pre-positions funding for predictable crises such as floods, droughts, heatwaves and cyclones; the <a href="/partner-stories/start-network-start-fund/">Start Fund</a>, which releases emergency funding within 72 hours of the onset of a crisis; and the <a href="/partner-stories/the-international-rescue-committee-irc/">International Rescue Committee</a>, whose Anticipatory Action Fund the Foundation is helping to create.</p>',
+        ],
+        [
+            'q' => 'What is anticipatory action?',
+            'a' => '<p>Anticipatory action means releasing funding before a predictable climate crisis peaks, so communities can act early and reduce losses. The Foundation funds this through Start Ready and the IRC Anticipatory Action Fund — see the partners above and <a href="/our-approach/">Our Approach</a>.</p>',
         ],
     ],
 

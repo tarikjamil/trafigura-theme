@@ -6873,3 +6873,65 @@ html.voice-popup-open {
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+/* AEO: partner entity blurb (name + country + areas + status) */
+.partner-entity-summary {
+  margin: 0 0 24rem;
+  max-width: 62ch;
+  font-size: 18rem;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+.partner-entity-summary a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* AEO: Who We Are “at a glance” facts (visible; matches FAQ copy) */
+.section.is--entity-facts {
+  padding: 64rem 0 0;
+}
+.section.is--entity-facts + .section.is--faq {
+  padding-top: 64rem;
+}
+.section.is--entity-facts .heading-28 {
+  margin-bottom: 32rem;
+}
+.entity-facts-list {
+  margin: 0;
+  max-width: 880rem;
+}
+.entity-facts-row {
+  display: grid;
+  grid-template-columns: minmax(120rem, 200rem) 1fr;
+  gap: 12rem 24rem;
+  padding: 16rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.entity-facts-row:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.entity-facts-row dt {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+.entity-facts-row dd {
+  margin: 0;
+  font-size: 16rem;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+@media screen and (max-width: 767px) {
+  .entity-facts-row {
+    grid-template-columns: 1fr;
+    gap: 6rem;
+  }
+  .partner-entity-summary {
+    font-size: 16rem;
+  }
+}

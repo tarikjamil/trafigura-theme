@@ -224,7 +224,7 @@ body {
             <div class="template-image-wrapper is--tablet"><img src="<?php echo udesly_get_image()->src ?>" alt="<?php echo esc_attr( trafigura_image_alt( udesly_get_image()->alt ?? '', get_the_title() ) ); ?>" class="img--absolute no-lazy" data-no-lazy="1" loading="eager" fetchpriority="high" decoding="sync" sizes="(max-width: 1480px) 100vw, 1440px" data-img="i317f733b" srcset="<?php echo udesly_get_image()->srcset ?>">
               <div class="tags-wrapper-absolute">
                 <div class="tag--item">
-                  <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
+                  <div class=""><span class="sr-only">Country: </span><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?></div>
                 </div>
                 <?php
                 $partner_areas = udesly_get_custom_post_field( $post->ID, "area-of-work", "PlainText" );
@@ -235,7 +235,7 @@ body {
                 </div>
                 <?php endif; ?>
                 <div class="ongoing">
-                  <div class=""><?php echo esc_html( trafigura_partner_state_label( udesly_get_custom_post_field( $post->ID, "state", "Option" ) ) ); ?></div>
+                  <div class=""><span class="sr-only">Status: </span><?php echo esc_html( trafigura_partner_state_label( udesly_get_custom_post_field( $post->ID, "state", "Option" ) ) ); ?></div>
                 </div>
               </div>
             </div>
@@ -245,6 +245,7 @@ body {
                 </svg></a>
               <div class="flexv is--gap40">
                 <h1 class="heading-60"><?php the_title() ?></h1>
+                <?php if ( function_exists( 'trafigura_render_partner_entity_summary' ) ) { trafigura_render_partner_entity_summary( $post->ID ); } ?>
                 <div class="w-richtext" data-richtext="r3fbe8166"><?php the_content() ?></div>
                 <div class="social-btn is--grey">
                   <div data-text="t6854fdf"><?php echo _u('t6854fdf','text'); ?></div>
