@@ -284,6 +284,14 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 
 **Area-of-work heroes:** `trafigura_area_hero_image()` serves theme WebPs `assets/images/area-{prepared,sustainable,thriving}-{800,1080,1440}.webp` from `single-area-of-work.php`. Head preload + critical CSS in `head/page-areas-of-work.php` when on an area single. Sustainable Livelihoods media-library file was a 5.1 MB PNG (mobile LCP ~12 s, Nov 2026).
 
+**Hub page heroes (Contact, Content Hub, Areas hub, Partners, Staff, Puma):** hardcoded theme WebP srcsets (800 / 1080 / 1440) — do **not** restore `udesly_get_image()->srcset` for these LCP imgs (editor labelled mid files as `500w` while `src` was the full `_1.webp`). Partners + Puma must stay `no-lazy` / `loading="eager"` (W3TC was serving a 1×1 SVG). Shared critical CSS: `template-parts/head/partials/hero-critical-css.php`. Staff uses `staff-engagement-hero-*.webp` (from Compressed-Image-13); Puma uses `puma-energy-fund-hero-*.webp` (from Compressed-Image-14). Before (7 Nov 2026 mobile lab): Contact 6.5 s, Content Hub 6.3 s.
+
+```bash
+ls assets/images/{07.CONTACT-US,06.CONTENT-HUB,04.AREAS-OF-WORK,05.PARTNERS-STORIES}-{800,1080,1440}.webp
+ls assets/images/{staff-engagement,puma-energy-fund}-hero-{800,1080,1440}.webp
+grep -n 'CONTACT-US-800\|CONTENT-HUB-800\|no-lazy' template-parts/content/page-contact.php template-parts/content/page-partners-stories.php
+```
+
 **CSS bundle is minified** (csso, `--no-restructure`). Rebuild:
 
 ```bash

@@ -336,6 +336,27 @@ Before (local Lighthouse, devtools throttling, 2 Nov 2026 mobile): news / partne
 
 **Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793740000`.
 
+### 3m. Hub page heroes (mobile LCP — Nov 2026)
+
+Same failure mode as Who We Are: editor/srcset labelled mid-size files as `500w` while `src` pointed at the full `_1.webp` (~250–450 KiB), so mobile LCP fetched the large file. Partners / Puma still had `loading="lazy"` so W3TC swapped in a 1×1 SVG.
+
+Hardcode theme WebP srcsets + head preload + critical CSS (`template-parts/head/partials/hero-critical-css.php`):
+
+| Page | Content | Head | Assets (800 / 1080 / 1440) |
+|---|---|---|---|
+| Contact | `page-contact.php` (`i43b3d560`) | `head/page-contact.php` | `07.CONTACT-US-{800,1080,1440}.webp` |
+| Content Hub | `page-content-hub.php` (`in6ef5d31b`) | `head/page-content-hub.php` | `06.CONTENT-HUB-{800,1080,1440}.webp` |
+| Areas of Work hub | `page-areas-of-work.php` (`i2d1b5cc8`) | `head/page-areas-of-work.php` (hub branch) | `04.AREAS-OF-WORK-{800,1080,1440}.webp` |
+| Partners Stories | `page-partners-stories.php` (`i1b9e38d8`) | `head/page-partners-stories.php` | `05.PARTNERS-STORIES-{800,1080,1440}.webp` |
+| Staff Engagement | `page-staff-engagement.php` (`i5242135c`) | `head/page-staff-engagement.php` | `staff-engagement-hero-{800,1080,1440}.webp` (from live Compressed-Image-13) |
+| Puma Energy Fund | `page-puma-energy-fund.php` (`i1b9e38d8`) | `head/page-puma-energy-fund.php` | `puma-energy-fund-hero-{800,1080,1440}.webp` (from live Compressed-Image-14) |
+
+Rules for all six: `no-lazy`, `data-no-lazy="1"`, `loading="eager"`, `fetchpriority="high"`, `decoding="sync"`, `src` = 1080 WebP. Alt from editor when present. Partners H1 hardcoded `Partners Stories`.
+
+`head/page-areas-of-work.php` is shared with area CPT singles: preload hub WebPs **or** pillar WebPs (`trafigura_area_hero_image()`), never both.
+
+Before (local Lighthouse 7 Nov 2026 mobile): Contact 73 / 6.5s, Content Hub 72 / 6.3s, Areas hub 76 / 5.2s, Staff 73 / 4.9s, Partners 80 / 4.4s (lazy SVG).
+
 ### 4. Internal linking helpers + templates
 
 **`functions.php` — keep these helpers:**
@@ -393,8 +414,15 @@ Copy these from the customized theme into any new Udesly drop:
 | `assets/images/01.WHO-WE-ARE-800.webp` + `01.WHO-WE-ARE-1080.webp` | Who We Are mobile/tablet hero |
 | `assets/images/02.OUR-APPROACH-800.webp` + `-1080.webp` + `-1440.webp` | Our Approach hero |
 | `assets/images/area-prepared-*.webp` + `area-sustainable-*.webp` + `area-thriving-*.webp` | Area-of-work LCP heroes |
+| `assets/images/07.CONTACT-US-{800,1080,1440}.webp` | Contact hub hero |
+| `assets/images/06.CONTENT-HUB-{800,1080,1440}.webp` | Content Hub hero |
+| `assets/images/04.AREAS-OF-WORK-{800,1080,1440}.webp` | Areas of Work hub hero |
+| `assets/images/05.PARTNERS-STORIES-{800,1080,1440}.webp` | Partners Stories hub hero |
+| `assets/images/staff-engagement-hero-*.webp` | Staff Engagement hero (Compressed-Image-13) |
+| `assets/images/puma-energy-fund-hero-*.webp` | Puma Energy Fund hero (Compressed-Image-14) |
 | `assets/images/our-approach-launch-poster.webp` | Our Approach launch video poster |
 | `assets/images/optimized/` | OceanImageBank card overrides |
+| `template-parts/head/partials/hero-critical-css.php` | Shared hub hero critical CSS |
 | `assets/js/vendor/` | GSAP / Swiper / SplitType |
 | `assets/css/trafigura-bundle.css` | Built ship CSS (rebuild after staging edits) |
 | `code/` | Ex-Netlify JS/CSS (no nested `.git`); keep `THEME_UPDATE_GUIDE.md` |
@@ -430,8 +458,9 @@ Copy these from the customized theme into any new Udesly drop:
 16. `/puma-energy-fund/` = intro + link to pumaenergyfund.org; no filters/CPT; leftover `/puma-fund-story/` 301s; `page-puma-energy-fund.php` present  
 17. Content Hub filter has the `Video` radio (`categoryFilter-video`) 
 18. `inc/seo-aeo.php` required; FAQ accordions on Who We Are / Our Approach / Contact / three areas; `/robots.txt` has no `Crawl-delay`; `/8145752a3c514a4beb817aa3b1f06ee8.txt` returns the key 
-19. Hero imgs on news / partner / area / Staff Engagement / Contact / Areas of Work / Content Hub are `no-lazy` + `fetchpriority="high"` (view-source `src` is a real URL, not `data:image/svg+xml`) 
-20. Purge W3TC after deploy  
+19. Hero imgs on news / partner / area / Staff Engagement / Contact / Areas of Work / Content Hub / Partners / Puma are `no-lazy` + `fetchpriority="high"` (view-source `src` is a real URL, not `data:image/svg+xml`)  
+20. Hub heroes use hardcoded 800/1080/1440 WebP + head preload (`07.CONTACT-US-800.webp`, `06.CONTENT-HUB-800.webp`, etc.) — not editor `_1.webp` as mobile LCP  
+21. Purge W3TC after deploy
 
 ## Known anti-patterns (do not reintroduce)
 
@@ -451,4 +480,5 @@ Copy these from the customized theme into any new Udesly drop:
 - Partner Facebook share URLs with hardcoded `org/%2Fpartner-stories`
 - Hidden FAQ / AEO text (`hidden`, `display:none`, off-screen) — use visible collapsed `<details>` instead
 - `loading="lazy"` on any template hero image (W3TC turns it into a 1×1 SVG; LCP waits for JS)
-- Eager `poster=` on below-the-fold videos (downloads during first paint) 
+- Eager `poster=` on below-the-fold videos (downloads during first paint)
+- Hub heroes still on editor `_1.webp` / mislabelled `500w` srcset (Contact / Content Hub / Areas / Partners) — always hardcode 800/1080/1440 WebP 

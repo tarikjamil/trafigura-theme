@@ -227,7 +227,20 @@ background-color:#212121;
               <div class="max--hero">
                 <h1 class="heading-160" data-text="tn17498f32">Content Hub</h1>
               </div>
-            </div><img loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('in6ef5d31b', 'img'))->src ?>" class="img--absolute no-lazy" data-img="in6ef5d31b">
+            </div><?php
+            $hub_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $hub_hero_alt = 'old man working on a fish nest';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $hub_hero_editor = udesly_get_image( _u( 'in6ef5d31b', 'img' ) );
+              if ( ! empty( $hub_hero_editor->alt ) ) {
+                $hub_hero_alt = $hub_hero_editor->alt;
+              }
+            }
+            $hub_hero_srcset = $hub_hero_uri . '06.CONTENT-HUB-800.webp 800w, '
+              . $hub_hero_uri . '06.CONTENT-HUB-1080.webp 1080w, '
+              . $hub_hero_uri . '06.CONTENT-HUB-1440.webp 1440w, '
+              . $hub_hero_uri . '06.CONTENT-HUB_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $hub_hero_uri . '06.CONTENT-HUB-1080.webp' ); ?>" srcset="<?php echo esc_attr( $hub_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $hub_hero_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="in6ef5d31b">
           </div>
           <div class="w-embed">
             <style>

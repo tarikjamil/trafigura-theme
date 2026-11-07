@@ -245,10 +245,23 @@ body {
     <div id="smooth-content" class="content--page">
       <main class="main-wrapper">
         <section class="section is--hero">
-          <div class="hero-image-wrapper"><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->src ?>" class="img--absolute" data-img="i1b9e38d8">
+          <div class="hero-image-wrapper"><?php
+            $partners_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $partners_hero_alt = '';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $partners_hero_editor = udesly_get_image( _u( 'i1b9e38d8', 'img' ) );
+              if ( ! empty( $partners_hero_editor->alt ) ) {
+                $partners_hero_alt = $partners_hero_editor->alt;
+              }
+            }
+            $partners_hero_srcset = $partners_hero_uri . '05.PARTNERS-STORIES-800.webp 800w, '
+              . $partners_hero_uri . '05.PARTNERS-STORIES-1080.webp 1080w, '
+              . $partners_hero_uri . '05.PARTNERS-STORIES-1440.webp 1440w, '
+              . $partners_hero_uri . '05.PARTNERS-STORIES_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $partners_hero_uri . '05.PARTNERS-STORIES-1080.webp' ); ?>" srcset="<?php echo esc_attr( $partners_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $partners_hero_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="i1b9e38d8">
             <div class="hero-images">
               <div class="max--hero">
-                <h1 class="heading-160" data-text="t6c7059be"><?php echo _u('t6c7059be','text'); ?></h1>
+                <h1 class="heading-160" data-text="t6c7059be">Partners Stories</h1>
               </div>
             </div>
           </div>

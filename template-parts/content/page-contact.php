@@ -186,7 +186,20 @@ body {
               <div class="max--hero">
                 <h1 class="heading-160" data-text="t8556e9e">Contact Us</h1>
               </div>
-            </div><img loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i43b3d560', 'img'))->src ?>" class="img--absolute no-lazy" data-img="i43b3d560">
+            </div><?php
+            $contact_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $contact_hero_alt = 'woman making house elements with liefs';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $contact_hero_editor = udesly_get_image( _u( 'i43b3d560', 'img' ) );
+              if ( ! empty( $contact_hero_editor->alt ) ) {
+                $contact_hero_alt = $contact_hero_editor->alt;
+              }
+            }
+            $contact_hero_srcset = $contact_hero_uri . '07.CONTACT-US-800.webp 800w, '
+              . $contact_hero_uri . '07.CONTACT-US-1080.webp 1080w, '
+              . $contact_hero_uri . '07.CONTACT-US-1440.webp 1440w, '
+              . $contact_hero_uri . '07.CONTACT-US_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $contact_hero_uri . '07.CONTACT-US-1080.webp' ); ?>" srcset="<?php echo esc_attr( $contact_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $contact_hero_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="i43b3d560">
           </div>
           <div class="w-embed">
             <style>

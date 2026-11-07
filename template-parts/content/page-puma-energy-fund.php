@@ -181,7 +181,20 @@ body {
     <div id="smooth-content" class="content--page">
       <main class="main-wrapper">
         <section class="section is--hero">
-          <div class="hero-image-wrapper"><img loading="lazy" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i1b9e38d8', 'img'))->src ?>" class="img--absolute" data-img="i1b9e38d8">
+          <div class="hero-image-wrapper"><?php
+            // Editor overrides i1b9e38d8 with Compressed-Image-14 (~244 KiB). Theme WebP sizes below.
+            $puma_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $puma_hero_alt = 'Puma Energy Fund';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $puma_hero_editor = udesly_get_image( _u( 'i1b9e38d8', 'img' ) );
+              if ( ! empty( $puma_hero_editor->alt ) ) {
+                $puma_hero_alt = $puma_hero_editor->alt;
+              }
+            }
+            $puma_hero_srcset = $puma_hero_uri . 'puma-energy-fund-hero-800.webp 800w, '
+              . $puma_hero_uri . 'puma-energy-fund-hero-1080.webp 1080w, '
+              . $puma_hero_uri . 'puma-energy-fund-hero-1440.webp 1440w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $puma_hero_uri . 'puma-energy-fund-hero-1080.webp' ); ?>" srcset="<?php echo esc_attr( $puma_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $puma_hero_alt ); ?>" width="1920" height="1059" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="i1b9e38d8">
             <div class="hero-images">
               <div class="max--hero is--puma">
                 <h1 class="heading-160" data-text="t6c7059be">Puma Energy Fund</h1>

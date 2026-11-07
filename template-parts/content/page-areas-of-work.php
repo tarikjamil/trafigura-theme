@@ -194,7 +194,20 @@ body {
               <div class="max--hero">
                 <h1 class="heading-160" data-text="tn7dd1a9e">Areas of Work</h1>
               </div>
-            </div><img loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i2d1b5cc8', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i2d1b5cc8', 'img'))->alt ?>" src="<?php echo udesly_get_image(_u('i2d1b5cc8', 'img'))->src ?>" class="img--absolute no-lazy" data-img="i2d1b5cc8">
+            </div><?php
+            $areas_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $areas_hero_alt = '';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $areas_hero_editor = udesly_get_image( _u( 'i2d1b5cc8', 'img' ) );
+              if ( ! empty( $areas_hero_editor->alt ) ) {
+                $areas_hero_alt = $areas_hero_editor->alt;
+              }
+            }
+            $areas_hero_srcset = $areas_hero_uri . '04.AREAS-OF-WORK-800.webp 800w, '
+              . $areas_hero_uri . '04.AREAS-OF-WORK-1080.webp 1080w, '
+              . $areas_hero_uri . '04.AREAS-OF-WORK-1440.webp 1440w, '
+              . $areas_hero_uri . '04.AREAS-OF-WORK_1.webp 2260w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $areas_hero_uri . '04.AREAS-OF-WORK-1080.webp' ); ?>" srcset="<?php echo esc_attr( $areas_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $areas_hero_alt ); ?>" width="2260" height="674" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="i2d1b5cc8">
           </div>
           <div class="w-embed">
             <style>

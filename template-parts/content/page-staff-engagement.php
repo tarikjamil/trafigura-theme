@@ -210,7 +210,21 @@ body {
               <div class="max--hero">
                 <h1 class="heading-160" data-text="t3de181bf"><?php echo _u('t3de181bf','text'); ?></h1>
               </div>
-            </div><img src="<?php echo udesly_get_image(_u('i5242135c', 'img'))->src ?>" loading="eager" fetchpriority="high" decoding="sync" data-no-lazy="1" sizes="(max-width: 2260px) 100vw, 2260px" srcset="<?php echo udesly_get_image(_u('i5242135c', 'img'))->srcset ?>" alt="<?php echo udesly_get_image(_u('i5242135c', 'img'))->alt ?>" class="img--absolute no-lazy" data-img="i5242135c">
+            </div><?php
+            // Live editor points at uploads Compressed-Image-13 (~379 KiB JPEG). Theme WebP
+            // sizes below are cropped from that photo for mobile LCP.
+            $staff_hero_uri = get_template_directory_uri() . '/assets/images/';
+            $staff_hero_alt = 'Staff engagement';
+            if ( function_exists( 'udesly_get_image' ) && function_exists( '_u' ) ) {
+              $staff_hero_editor = udesly_get_image( _u( 'i5242135c', 'img' ) );
+              if ( ! empty( $staff_hero_editor->alt ) ) {
+                $staff_hero_alt = $staff_hero_editor->alt;
+              }
+            }
+            $staff_hero_srcset = $staff_hero_uri . 'staff-engagement-hero-800.webp 800w, '
+              . $staff_hero_uri . 'staff-engagement-hero-1080.webp 1080w, '
+              . $staff_hero_uri . 'staff-engagement-hero-1440.webp 1440w';
+            ?><img class="img--absolute no-lazy" src="<?php echo esc_url( $staff_hero_uri . 'staff-engagement-hero-1080.webp' ); ?>" srcset="<?php echo esc_attr( $staff_hero_srcset ); ?>" sizes="(max-width: 2260px) 100vw, 2260px" alt="<?php echo esc_attr( $staff_hero_alt ); ?>" width="1920" height="1268" fetchpriority="high" loading="eager" decoding="sync" data-no-lazy="1" data-img="i5242135c">
           </div>
           <div class="w-embed">
             <style>
