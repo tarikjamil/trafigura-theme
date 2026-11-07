@@ -85,7 +85,7 @@ This reduces confusion when AI merges duplicate partner URLs.
 
 ## 3. Technical AEO checklist
 
-- [x] `llms.txt` live + linked from robots.txt (theme `trafigura_serve_llms_txt`, Nov 2026)
+- [x] `llms.txt` live (theme curated file; Yoast `enable_llms_txt` off). Physical root `robots.txt` kept as-is — no need to delete it for an llms comment.
 - [x] Organization / NGO schema accurate (logo, description, sameAs, address)
 - [ ] Article/NewsArticle on news posts
 - [x] FAQPage only where FAQs are visible (+ Group vs Foundation FAQ; anticipatory action)
