@@ -519,36 +519,6 @@ function trafigura_render_partner_entity_summary( $post_id = null ) {
     echo '<p class="partner-entity-summary">' . $sentence . '</p>';
 }
 
-/**
- * Quotable “at a glance” facts on Who We Are — only copy already published on-site.
- */
-function trafigura_render_entity_facts() {
-    $facts = [
-        'Founded'           => '2007',
-        'Legal form'        => 'Independent Swiss charity (company-funded by Trafigura Group; funding decisions are independent)',
-        'Based'             => 'Geneva, Switzerland',
-        'Focus'             => 'Climate adaptation for communities and ecosystems in low- and middle-income countries',
-        'Areas of work'     => 'Prepared communities, Sustainable livelihoods, Thriving nature',
-        'Geography'         => '23 countries across Africa, Asia and Latin America',
-        'Funding approach'  => 'No unsolicited applications — the Management Team sources partners; the Board decides',
-    ];
-    ?>
-    <section class="section is--entity-facts" aria-labelledby="entity-facts-title">
-      <div class="container--1440">
-        <h2 id="entity-facts-title" class="heading-28">Trafigura Foundation at a glance</h2>
-        <dl class="entity-facts-list">
-          <?php foreach ( $facts as $term => $def ) : ?>
-          <div class="entity-facts-row">
-            <dt><?php echo esc_html( $term ); ?></dt>
-            <dd><?php echo esc_html( $def ); ?></dd>
-          </div>
-          <?php endforeach; ?>
-        </dl>
-      </div>
-    </section>
-    <?php
-}
-
 function trafigura_link_partners_in_news( $content ) {
     if ( ! is_singular( 'news' ) || ! in_the_loop() || ! is_main_query() || ! is_string( $content ) || $content === '' ) {
         return $content;

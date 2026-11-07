@@ -362,7 +362,6 @@ body {
             <?php get_template_part('template-parts/query/areas-of-works-sorted-by-post_date') ?>
           </div>
         </section>
-        <?php if ( function_exists( 'trafigura_render_entity_facts' ) ) { trafigura_render_entity_facts(); } ?>
         <?php trafigura_render_faq( 'who-we-are' ); ?>
       </main>
       <div class="bg-grey">
