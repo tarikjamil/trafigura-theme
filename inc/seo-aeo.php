@@ -288,11 +288,62 @@ function trafigura_llms_txt_body() {
     return implode( "\n", $lines );
 }
 
+/**
+ * Yoast writes a physical /llms.txt in the web root (served before PHP).
+ * Keep enable_llms_txt off so it does not overwrite our curated file weekly,
+ * write our body when the filesystem allows, and still serve dynamically
+ * if the static file is absent.
+ */
+function trafigura_disable_yoast_llms_txt( $option ) {
+    if ( ! is_array( $option ) ) {
+        return $option;
+    }
+    if ( ! empty( $option['enable_llms_txt'] ) ) {
+        $option['enable_llms_txt'] = false;
+    }
+    return $option;
+}
+add_filter( 'option_wpseo', 'trafigura_disable_yoast_llms_txt' );
+add_filter( 'default_option_wpseo', 'trafigura_disable_yoast_llms_txt' );
+
+function trafigura_llms_txt_filepath() {
+    if ( defined( 'ABSPATH' ) && is_string( ABSPATH ) && ABSPATH !== '' ) {
+        return trailingslashit( ABSPATH ) . 'llms.txt';
+    }
+    return '';
+}
+
+function trafigura_sync_llms_txt_file() {
+    $file = trafigura_llms_txt_filepath();
+    if ( $file === '' ) {
+        return;
+    }
+    $body = trafigura_llms_txt_body();
+    $existing = is_readable( $file ) ? (string) file_get_contents( $file ) : '';
+    // Ignore UTF-8 BOM Yoast may have written.
+    $existing_cmp = preg_replace( '/^\xEF\xBB\xBF/', '', $existing );
+    if ( $existing_cmp === $body ) {
+        return;
+    }
+    if ( ! is_dir( dirname( $file ) ) || ( file_exists( $file ) && ! is_writable( $file ) ) ) {
+        return;
+    }
+    if ( ! file_exists( $file ) && ! is_writable( dirname( $file ) ) ) {
+        return;
+    }
+    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+    @file_put_contents( $file, $body );
+}
+add_action( 'init', 'trafigura_sync_llms_txt_file', 1 );
+
 function trafigura_serve_llms_txt() {
     $path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH ), '/' );
     if ( $path !== 'llms.txt' ) {
         return;
     }
+    // Prefer writing/serving our body even if a stale Yoast file exists and is
+    // somehow routed through PHP (local / some proxies).
+    trafigura_sync_llms_txt_file();
     status_header( 200 );
     header( 'Content-Type: text/plain; charset=utf-8' );
     header( 'Cache-Control: public, max-age=3600' );
@@ -443,30 +494,29 @@ function trafigura_render_partner_entity_summary( $post_id = null ) {
 
     $name  = get_the_title( $post_id );
     $place = trim( wp_strip_all_tags( (string) udesly_get_custom_post_field( $post_id, 'place', 'PlainText' ) ) );
-    $areas = udesly_get_custom_post_field( $post_id, 'area-of-work', 'PlainText' );
+    $areas = trim( wp_strip_all_tags( (string) udesly_get_custom_post_field( $post_id, 'area-of-work', 'PlainText' ) ) );
     $state = function_exists( 'trafigura_partner_state_label' )
-        ? trafigura_partner_state_label( udesly_get_custom_post_field( $post_id, 'state', 'Option' ) )
+        ? trim( (string) trafigura_partner_state_label( udesly_get_custom_post_field( $post_id, 'state', 'Option' ) ) )
         : '';
 
     $areas_html = '';
-    if ( $areas && function_exists( 'trafigura_link_areas_of_work_text' ) ) {
-        $areas_html = trafigura_link_areas_of_work_text( $areas );
+    if ( $areas !== '' && function_exists( 'trafigura_link_areas_of_work_text' ) ) {
+        $areas_html = trim( trafigura_link_areas_of_work_text( $areas ) );
     }
 
-    $parts = [];
-    $parts[] = '<strong>' . esc_html( $name ) . '</strong> is a Trafigura Foundation partner';
+    $sentence = '<strong>' . esc_html( $name ) . '</strong> is a Trafigura Foundation partner';
     if ( $place !== '' ) {
-        $parts[] = ' in <strong>' . esc_html( $place ) . '</strong>';
+        $sentence .= ' in <strong>' . esc_html( $place ) . '</strong>';
     }
     if ( $areas_html !== '' ) {
-        $parts[] = ', working on ' . $areas_html;
+        $sentence .= ', working on ' . $areas_html;
     }
-    $parts[] = '.';
+    $sentence .= '.';
     if ( $state !== '' ) {
-        $parts[] = ' Status: ' . esc_html( $state ) . '.';
+        $sentence .= ' Status: ' . esc_html( $state ) . '.';
     }
 
-    echo '<p class="partner-entity-summary">' . implode( '', $parts ) . '</p>';
+    echo '<p class="partner-entity-summary">' . $sentence . '</p>';
 }
 
 /**
