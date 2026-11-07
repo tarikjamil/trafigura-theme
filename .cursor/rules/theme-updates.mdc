@@ -161,8 +161,10 @@ cat assets/css/normalize.css assets/css/components.css assets/css/trafigura-stag
 
 - `trafigura_card_image( $sizes )` — prefers `medium_large` + `sizes`; used by news/partner listing query templates
 - `trafigura_optimized_image_override( $thumb_id )` — serves theme-compressed copies from `assets/images/optimized/` for known heavy uploads (e.g. `OceanImageBank_AriphRasheed_07`)
+- `trafigura_partner_state_label( $state )` — maps `New` → `New partner` on visible tags (stops AI reading “New Catalyst Fund”). Keep raw `state` in `.partner--state` filter fields.
+- `trafigura_area_hero_image()` — WebP heroes for the three area CPT singles from `assets/images/area-{prepared,sustainable,thriving}-{800,1080,1440}.webp` (Sustainable was a 5.1 MB PNG). Wired in `single-area-of-work.php` + preload in `head/page-areas-of-work.php`.
 
-**Re-wire after sync:** any `news-*.php` / `partner-stories-*.php` card `<img>` that still uses raw `udesly_get_image()->src` should use `trafigura_card_image()` instead.
+**Re-wire after sync:** any `news-*.php` / `partner-stories-*.php` card `<img>` that still uses raw `udesly_get_image()->src` should use `trafigura_card_image()` instead. Partner visible status tags use `trafigura_partner_state_label()`.
 
 ### 3d. Render-blocking cleanup (keep in `functions.php` + `footer.php`)
 
@@ -330,7 +332,7 @@ Before (local Lighthouse, devtools throttling, 2 Nov 2026 mobile): news / partne
 
 **Our Approach launch video:** `trafigura_video_preload_none()` now outputs `data-poster` + an inline IntersectionObserver that sets `poster` within 800px of the viewport. Keep width/height 1280×720.
 
-**Partner cards — screen-reader labels.** In the four `template-parts/query/partner-stories-*.php` card templates, the place and state tags read `<span class="sr-only">Country: </span>…<span class="sr-only">.</span>` and `Status:` the same way (`.sr-only` in staging CSS). Without them, crawlers and AI tools read the card as one string (“Africa New Catalyst Fund” — seen in ChatGPT, Gemini and Copilot, Nov 2026).
+**Partner cards — screen-reader labels + status wording.** In the four `template-parts/query/partner-stories-*.php` card templates (and the single), the place and state tags read `<span class="sr-only">Country: </span>…` / `Status:` (`.sr-only` in staging CSS). Visible status uses `trafigura_partner_state_label()` so `New` renders as **New partner**. Without both, AI tools read “Africa New Catalyst Fund” (ChatGPT / Copilot, Nov 2026).
 
 **Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793740000`.
 
@@ -390,6 +392,7 @@ Copy these from the customized theme into any new Udesly drop:
 | `assets/images/home-hero-poster*` | LCP poster |
 | `assets/images/01.WHO-WE-ARE-800.webp` + `01.WHO-WE-ARE-1080.webp` | Who We Are mobile/tablet hero |
 | `assets/images/02.OUR-APPROACH-800.webp` + `-1080.webp` + `-1440.webp` | Our Approach hero |
+| `assets/images/area-prepared-*.webp` + `area-sustainable-*.webp` + `area-thriving-*.webp` | Area-of-work LCP heroes |
 | `assets/images/our-approach-launch-poster.webp` | Our Approach launch video poster |
 | `assets/images/optimized/` | OceanImageBank card overrides |
 | `assets/js/vendor/` | GSAP / Swiper / SplitType |

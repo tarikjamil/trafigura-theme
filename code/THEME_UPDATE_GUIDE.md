@@ -280,7 +280,9 @@ grep -n 'categoryFilter-video' template-parts/content/page-content-hub.php
 
 **Our Approach launch-video poster** is output as `data-poster` and set by a small inline IntersectionObserver script (800px margin) so the 62 KB poster no longer competes with the hero on mobile. Width/height stay, so no black strip.
 
-**Partner cards** (`template-parts/query/partner-stories-*.php`, four files): the country and status tags carry screen-reader labels — `<span class="sr-only">Country: </span>` / `<span class="sr-only">Status: </span>` plus a trailing `<span class="sr-only">.</span>`. Without them, AI tools read “Africa New Catalyst Fund” as the partner name. `.sr-only` lives in staging CSS.
+**Partner cards** (`template-parts/query/partner-stories-*.php`, four files + single): country/status tags use `<span class="sr-only">Country: </span>` / `Status:` plus a trailing period. Visible status goes through `trafigura_partner_state_label()` (`New` → `New partner`). Keep the raw Option value in `.partner--state` (filters). Without both, AI tools read “Africa New Catalyst Fund”.
+
+**Area-of-work heroes:** `trafigura_area_hero_image()` serves theme WebPs `assets/images/area-{prepared,sustainable,thriving}-{800,1080,1440}.webp` from `single-area-of-work.php`. Head preload + critical CSS in `head/page-areas-of-work.php` when on an area single. Sustainable Livelihoods media-library file was a 5.1 MB PNG (mobile LCP ~12 s, Nov 2026).
 
 **CSS bundle is minified** (csso, `--no-restructure`). Rebuild:
 

@@ -90,6 +90,47 @@
     }
 
     /**
+     * Partner card status label. "New" alone was read by AI tools as part of the
+     * partner name ("New Catalyst Fund"); spell it out.
+     */
+    function trafigura_partner_state_label( $state ) {
+        $state = trim( wp_strip_all_tags( (string) $state ) );
+        if ( strcasecmp( $state, 'New' ) === 0 ) {
+            return 'New partner';
+        }
+        return $state;
+    }
+
+    /**
+     * Area-of-work hero: theme WebP srcset by post slug (media-library originals
+     * are heavy — Sustainable Livelihoods was a 5.1 MB PNG).
+     *
+     * @return object{src:string,srcset:string,sizes:string}|null
+     */
+    function trafigura_area_hero_image( $post = null ) {
+        $post = get_post( $post );
+        if ( ! $post || $post->post_type !== 'area-of-work' ) {
+            return null;
+        }
+
+        $map = [
+            'prepared-communities'   => 'area-prepared',
+            'sustainable-livelihoods' => 'area-sustainable',
+            'thriving-nature'        => 'area-thriving',
+        ];
+        if ( empty( $map[ $post->post_name ] ) ) {
+            return null;
+        }
+
+        $base = get_template_directory_uri() . '/assets/images/' . $map[ $post->post_name ];
+        return (object) [
+            'src'    => $base . '-1080.webp',
+            'srcset' => $base . '-800.webp 800w, ' . $base . '-1080.webp 1080w, ' . $base . '-1440.webp 1440w',
+            'sizes'  => '(max-width: 1480px) 100vw, 1440px',
+        ];
+    }
+
+    /**
      * Theme-local compressed overrides for known heavy media-library files.
      * Keys match a substring of the attachment basename.
      */

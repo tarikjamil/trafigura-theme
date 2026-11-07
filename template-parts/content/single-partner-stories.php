@@ -235,7 +235,7 @@ body {
                 </div>
                 <?php endif; ?>
                 <div class="ongoing">
-                  <div class=""><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?></div>
+                  <div class=""><?php echo esc_html( trafigura_partner_state_label( udesly_get_custom_post_field( $post->ID, "state", "Option" ) ) ); ?></div>
                 </div>
               </div>
             </div>

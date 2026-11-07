@@ -39,7 +39,7 @@ $args = apply_filters('udesly/posts/partner-stories-sorted-by-post_date-v0', $ar
                             <div class=""><span class="sr-only">Country: </span><?php echo udesly_get_custom_post_field( $post->ID, "place", "PlainText" ) ?><span class="sr-only">.</span></div>
                           </div>
                           <div class="ongoing">
-                            <div class=""><span class="sr-only">Status: </span><?php echo udesly_get_custom_post_field( $post->ID, "state", "Option" ) ?><span class="sr-only">.</span></div>
+                            <div class=""><span class="sr-only">Status: </span><?php echo esc_html( trafigura_partner_state_label( udesly_get_custom_post_field( $post->ID, "state", "Option" ) ) ); ?><span class="sr-only">.</span></div>
                           </div>
                         </div>
                       </div>
