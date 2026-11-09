@@ -4,11 +4,14 @@ Run on the first working day of each month, before drafting the monthly report. 
 
 | What | Tool | Where results go | Time |
 |---|---|---|---|
-| Search performance | GSC (Looker export, or the GSC MCP in Cursor once credentials exist) | monthly report | — |
-| AI answer check | ChatGPT, Perplexity, Google AI Overview, Copilot | `aeo-log.csv` | 20 min |
+| Search performance | GSC (Looker export, or GSC MCP: `sc-domain:trafigurafoundation.org`) | monthly report | — |
+| AI answer check | ChatGPT, Perplexity, Google AI Overview, Copilot | `aeo-log.csv` | 20–40 min |
+| Citation gaps (Bing) | Bing Webmaster → AI Performance → Topics Portfolio | `citation-opportunity-brief-YYYY-MM.md` | 15 min |
 | AI referral traffic | GA4 “AI assistants” channel (setup below) | monthly report | 5 min |
 | Bing / ChatGPT search visibility | Bing Webmaster Tools (setup below) | monthly report | 5 min |
 | Page speed, one URL per template | `bash SEO/measurement/psi.sh` | `psi-log.csv` | 5 min |
+
+Playbook for the LinkedIn-style loop (Bing gaps → natural questions → mention vs cite → build only when we can win): `SEO/measurement/bing-topic-portfolio.md`. Current GSC-based brief: `SEO/measurement/citation-opportunity-brief-2026-11.md`.
 
 ## 1. AEO check — same prompts every month
 
@@ -25,12 +28,17 @@ Use a logged-out / private window. Ask each prompt in **ChatGPT (search on)**, *
 
 Columns in `aeo-log.csv`:
 
-- `cites_site` — yes / no (is trafigurafoundation.org linked or named as a source?)
+- `cites_site` — **yes only if** `trafigurafoundation.org` (or the annual-report microsite) appears as a **linked source**. Name-drop in the prose without a link = `no` and note “mentioned, not cited”
 - `accurate` — yes / partly / no
 - `confuses_with_group` — yes if the answer mixes up the Foundation with Trafigura Group trading business
-- `notes` — wrong facts, competitor sources cited, etc.
+- `sources_cited` — domains / URLs shown as sources
+- `notes` — wrong facts, competitor sources, mention-without-link, etc.
 
 The client PDF reports: how many of P1–P5 cite the site, any factual errors, and whether P6 mentions the Foundation.
+
+### 1b. Opportunity prompts (Q7+)
+
+After the core P1–P6 set, run the natural questions from the latest `citation-opportunity-brief-YYYY-MM.md` (Nov 2026: Q7–Q14 — ISWAN, Blue Catalyst / mangroves, Maliasili, IRC funders, Start Ready / anticipatory funders, COMACO, wetlands role, Group vs Foundation). Same engines, same mention≠cite rule. Skip any Q whose page was not strengthened or published yet if time is short; prioritise Q7, Q8, Q11.
 
 ## 2. GA4 — “AI assistants” channel (one-off setup, ~5 min)
 
@@ -55,6 +63,7 @@ ChatGPT search and Microsoft Copilot rely heavily on Bing’s index.
 3. Check **Sitemaps** shows `https://trafigurafoundation.org/sitemap_index.xml`.
 4. Under **IndexNow**, URLs should start appearing after the next publish (the theme pings automatically). Key file: `https://trafigurafoundation.org/8145752a3c514a4beb817aa3b1f06ee8.txt`.
 5. Monthly: note Bing clicks / impressions next to the GSC numbers.
+6. Monthly (once AI data exists): **AI Performance → Topics Portfolio** — follow `bing-topic-portfolio.md`. Paste opportunity queries into a new or updated `citation-opportunity-brief-YYYY-MM.md`. If the Topics Portfolio tab is missing, write “insufficient AI citation data” and keep using the GSC + AEO brief.
 
 ## 4. PageSpeed — one URL per template
 

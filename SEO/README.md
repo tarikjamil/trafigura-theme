@@ -1,6 +1,6 @@
 # SEO / AEO pack — Trafigura Foundation
 
-Last updated: **22 Sep 2026** (Lighthouse retest + SEO/AEO pack).  
+Last updated: **8 Nov 2026** (citation opportunity brief + Bing Topics Portfolio playbook).  
 Scope: full Yoast sitemap — **116 URLs** (was 114 on 14 Aug).
 
 ## Files
@@ -10,6 +10,8 @@ Scope: full Yoast sitemap — **116 URLs** (was 114 on 14 Aug).
 | `yoast-meta-all-pages.csv` | Focus keyphrase + SEO title + meta description for every sitemap URL (content-based), plus current live values and notes |
 | `CHECKLIST-big-wins.md` | Prioritised implementation checklist after technical/content audit |
 | `AEO-recommendations.md` | Answer Engine Optimization roadmap (AI Overviews, ChatGPT, Perplexity, etc.) |
+| `measurement/bing-topic-portfolio.md` | Bing AI Performance → Topics Portfolio → natural Qs → mention≠cite → build only if we can win |
+| `measurement/citation-opportunity-brief-2026-11.md` | Nov 2026 GSC gaps, Q7–Q14 prompts, win/skip matrix |
 | `lighthouse/BEFORE-AFTER.md` | Homepage Lighthouse: Aug + **22 Sep final** (mobile Perf **98** / LCP **2.0s**; desktop **100**) |
 | `lighthouse/after-mobile-2026-09-22.png` | Sep 22 screenshot — mobile |
 | `lighthouse/after-desktop-2026-09-22.png` | Sep 22 screenshot — desktop |

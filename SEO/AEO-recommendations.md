@@ -130,12 +130,12 @@ Build one strong HTML page (or update an existing one) that answers each theme c
 ## 6. Measurement (practical)
 
 - Google Search Console: impressions for brand + “climate adaptation” adjacent queries; track FAQ rich results if eligible  
-- Manual AI checks monthly (same prompt set):
-  - “What does the Trafigura Foundation do?”
-  - “What are Trafigura Foundation’s areas of work?”
-  - “Who are Trafigura Foundation partners in Africa / Latin America?”
-- Note whether answers cite your site vs Wikipedia / Trafigura Group only  
-- Track referral traffic from ChatGPT/Perplexity if visible in analytics
+- Bing Webmaster → **AI Performance → Topics Portfolio** (when the site has enough citation data): opportunity queries → natural questions → re-test. Playbook: `SEO/measurement/bing-topic-portfolio.md`
+- Manual AI checks monthly (`SEO/measurement/aeo-log.csv`):
+  - Core P1–P6 (brand + anticipatory non-brand)
+  - Opportunity Qs from the latest `citation-opportunity-brief-YYYY-MM.md`
+- Score **mentioned** vs **cited** (linked `trafigurafoundation.org`). Mention without a link is not a win  
+- Track referral traffic from ChatGPT/Perplexity if visible in analytics (GA4 AI assistants channel)
 
 ---
 
@@ -144,7 +144,8 @@ Build one strong HTML page (or update an existing one) that answers each theme c
 - Keyword stuffing for AI — hurts trust  
 - Hidden text for models — against guidelines, risky  
 - Dozens of thin “What is X?” posts with no unique Foundation POV  
-- Paying for vanity “AI SEO tools” before fixing duplicates, placeholders, and entity clarity
+- Paying for vanity “AI SEO tools” / citation-checkers before Bing Topics Portfolio + the manual Q loop in `bing-topic-portfolio.md`
+- New “What is X?” posts where we lack unique Foundation proof (see win/skip in `citation-opportunity-brief-2026-11.md`)
 
 ---
 
