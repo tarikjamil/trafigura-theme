@@ -479,46 +479,6 @@ function trafigura_partner_link_map() {
     ];
 }
 
-/**
- * Visible one-line entity blurb on partner singles (name + country + areas + status).
- * Stops answer engines merging “Africa New Catalyst Fund” style strings.
- */
-function trafigura_render_partner_entity_summary( $post_id = null ) {
-    $post_id = $post_id ?: get_the_ID();
-    if ( ! $post_id || get_post_type( $post_id ) !== 'partner-stories' ) {
-        return;
-    }
-    if ( ! function_exists( 'udesly_get_custom_post_field' ) ) {
-        return;
-    }
-
-    $name  = get_the_title( $post_id );
-    $place = trim( wp_strip_all_tags( (string) udesly_get_custom_post_field( $post_id, 'place', 'PlainText' ) ) );
-    $areas = trim( wp_strip_all_tags( (string) udesly_get_custom_post_field( $post_id, 'area-of-work', 'PlainText' ) ) );
-    $state = function_exists( 'trafigura_partner_state_label' )
-        ? trim( (string) trafigura_partner_state_label( udesly_get_custom_post_field( $post_id, 'state', 'Option' ) ) )
-        : '';
-
-    $areas_html = '';
-    if ( $areas !== '' && function_exists( 'trafigura_link_areas_of_work_text' ) ) {
-        $areas_html = trim( trafigura_link_areas_of_work_text( $areas ) );
-    }
-
-    $sentence = '<strong>' . esc_html( $name ) . '</strong> is a Trafigura Foundation partner';
-    if ( $place !== '' ) {
-        $sentence .= ' in <strong>' . esc_html( $place ) . '</strong>';
-    }
-    if ( $areas_html !== '' ) {
-        $sentence .= ', working on ' . $areas_html;
-    }
-    $sentence .= '.';
-    if ( $state !== '' ) {
-        $sentence .= ' Status: ' . esc_html( $state ) . '.';
-    }
-
-    echo '<p class="partner-entity-summary">' . $sentence . '</p>';
-}
-
 function trafigura_link_partners_in_news( $content ) {
     if ( ! is_singular( 'news' ) || ! in_the_loop() || ! is_main_query() || ! is_string( $content ) || $content === '' ) {
         return $content;

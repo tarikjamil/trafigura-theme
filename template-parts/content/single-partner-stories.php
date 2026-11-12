@@ -245,7 +245,6 @@ body {
                 </svg></a>
               <div class="flexv is--gap40">
                 <h1 class="heading-60"><?php the_title() ?></h1>
-                <?php if ( function_exists( 'trafigura_render_partner_entity_summary' ) ) { trafigura_render_partner_entity_summary( $post->ID ); } ?>
                 <div class="w-richtext" data-richtext="r3fbe8166"><?php the_content() ?></div>
                 <div class="social-btn is--grey">
                   <div data-text="t6854fdf"><?php echo _u('t6854fdf','text'); ?></div>

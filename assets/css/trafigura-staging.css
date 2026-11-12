@@ -6873,22 +6873,3 @@ html.voice-popup-open {
   white-space: nowrap !important;
   border: 0 !important;
 }
-
-/* AEO: partner entity blurb (name + country + areas + status) */
-.partner-entity-summary {
-  margin: 0 0 24rem;
-  max-width: 62ch;
-  font-size: 18rem;
-  line-height: 1.45;
-  color: #1a1a1a;
-}
-.partner-entity-summary a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-@media screen and (max-width: 767px) {
-  .partner-entity-summary {
-    font-size: 16rem;
-  }
-}

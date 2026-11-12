@@ -334,7 +334,7 @@ Before (local Lighthouse, devtools throttling, 2 Nov 2026 mobile): news / partne
 
 **Partner cards — screen-reader labels + status wording.** In the four `template-parts/query/partner-stories-*.php` card templates (and the single), the place and state tags read `<span class="sr-only">Country: </span>…` / `Status:` (`.sr-only` in staging CSS). Visible status uses `trafigura_partner_state_label()` so `New` renders as **New partner**. Without both, AI tools read “Africa New Catalyst Fund” (ChatGPT / Copilot, Nov 2026).
 
-**Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793770000`.
+**Bundle is minified** with `npx -y csso-cli@4 … --no-restructure` (see `code/THEME_UPDATE_GUIDE.md` §3h). CSS `ver=` is `1793780000`.
 
 ### 3m. Hub page heroes (mobile LCP — Nov 2026)
 
@@ -362,14 +362,12 @@ Before (local Lighthouse 7 Nov 2026 mobile): Contact 73 / 6.5s, Content Hub 72 /
 Keep in `inc/seo-aeo.php` + `inc/faq-data.php` (already required from `functions.php`):
 
 - **`/llms.txt`** — curated body from `trafigura_llms_txt_body()`; syncs to physical `ABSPATH/llms.txt` when writable; forces Yoast `enable_llms_txt` off so weekly Yoast regen does not overwrite it; PHP fallback via `trafigura_serve_llms_txt()`. No invented KPIs. **Keep the physical root `robots.txt`** (Yoast block + sitemap, no Crawl-delay) — do not delete it just to append an llms comment; crawlers find `/llms.txt` by URL.
-- **`trafigura_render_partner_entity_summary()`** — one-line name + country + linked areas + status on partner singles (after H1). Fixes AI merges like “Africa New Catalyst Fund”.
-- Partner singles: `<span class="sr-only">Country: </span>` / `Status:` on hero tags (same as listing cards).
+- Partner singles: `<span class="sr-only">Country: </span>` / `Status:` on hero tags (same as listing cards). Visible status still uses `trafigura_partner_state_label()` (**New partner**).
+- Do **not** restore a visible auto sentence under the partner H1 (`partner-entity-summary`) — client asked it removed (Nov 2026).
 - FAQ holds entity facts (Who We Are) — do **not** restore a separate “at a glance” `<dl>` block; “Is the Foundation the same as Trafigura Group?” + anticipatory action FAQs stay.
 - Expand `trafigura_partner_link_map()` when new partners publish (Water For People, Saha Global, Instituto Jurua, ISWAN, etc.).
 
-Staging CSS: `.partner-entity-summary`. Rebuild bundle + bump `ver=` after edits.
-
-Verify: `/llms.txt` curated; Who We Are FAQ only (no “at a glance” section); Catalyst Fund single opens with “Catalyst Fund is a Trafigura Foundation partner in Africa… Status: New partner.”
+Verify: `/llms.txt` curated; Who We Are FAQ only (no “at a glance”); partner singles have **no** auto blurb under the H1.
 
 ### 4. Internal linking helpers + templates
 
@@ -474,7 +472,7 @@ Copy these from the customized theme into any new Udesly drop:
 18. `inc/seo-aeo.php` required; FAQ accordions on Who We Are / Our Approach / Contact / three areas; `/robots.txt` has no `Crawl-delay`; `/8145752a3c514a4beb817aa3b1f06ee8.txt` returns the key 
 19. Hero imgs on news / partner / area / Staff Engagement / Contact / Areas of Work / Content Hub / Partners / Puma are `no-lazy` + `fetchpriority="high"` (view-source `src` is a real URL, not `data:image/svg+xml`)  
 20. Hub heroes use hardcoded 800/1080/1440 WebP + head preload (`07.CONTACT-US-800.webp`, `06.CONTENT-HUB-800.webp`, etc.) — not editor `_1.webp` as mobile LCP  
-21. `/llms.txt` curated; Who We Are FAQ present (no “at a glance” block); partner singles have entity summary + Country/Status sr-only  
+21. `/llms.txt` curated; Who We Are FAQ present (no “at a glance” block); partner singles have **no** H1 auto-blurb; Country/Status sr-only on tags OK  
 22. Purge W3TC after deploy
 
 ## Known anti-patterns (do not reintroduce)
